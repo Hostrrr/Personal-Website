@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./loader.css";
+import "./Loader.css";
 import AsciiLogo from "../assets/LogoAscii.txt?raw";
 
 function Loader({ isVisible, onFinish }) {
