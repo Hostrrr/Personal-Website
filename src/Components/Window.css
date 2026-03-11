@@ -1,0 +1,193 @@
+.window {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 5px solid var(--color-accent-border);
+  border-right-color: var(--color-accent-border);
+  border-bottom-color: var(--color-accent-border);
+  box-shadow: 10px 10px 0 var(--color-accent-border);
+  transition: all 0.25s ease;
+  animation: window-appear 0.2s ease;
+  border-radius: 0%;
+}
+
+@keyframes window-appear {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.window-closing {
+  animation: window-close 0.2s ease forwards;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+}
+
+@keyframes window-close {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(10px) scale(0.95);
+    opacity: 0;
+  }
+}
+
+/* Максимизированное окно через CSS */
+.window.maximized {
+  position: fixed;
+  top: 60px; /* 40px таскбар + 10px отступ */
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  width: auto; /* автоматическая ширина */
+  height: auto; /* автоматическая высота */
+  animation: maximize 0.3s ease;
+}
+
+.window.maximized.window-unmaximizing {
+  animation: window-unmaximize 0.30s ease forwards;
+  transform-origin:  center;
+}
+
+@keyframes window-unmaximize {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.2);
+    opacity: 0.8;
+  }
+}
+
+@keyframes maximize {
+  from {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.window.maximized .window-header {
+  cursor: default;
+}
+
+.window-header {
+  background: var(--color-window-bg-light);
+  color: var(--color-window-text-light);
+  padding: 4px 6px;
+  display: flex;
+  border-bottom-color:#000000;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.window-title {
+  flex: 1;
+}
+
+.window-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.window-btn {
+  width: 24px;
+  height: 24px;
+  background: var(--color-window-bg-light);
+  border: 2px solid var(--color-accent-border);
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-right: 5px;
+  transition: all 0.3s ease;
+}
+
+.window-btn.minimize:hover {
+  background: #ffff00;
+  color: black;
+  translate: -1px -1px;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+.window-btn.maximize:hover {
+  background: #00ff00;
+  color: black;
+  translate: -1px -1px;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+
+.window-btn.close:hover {
+  background: #ff0000;
+  color: white;
+  translate: -1px -1px;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+
+.window-btn:active {
+  translate: 1px 1px;
+  box-shadow: none;
+}
+
+.window-content {
+  flex: 1;
+  background: var(--color-window-bg-light);
+  color: var(--color-window-text-light);
+  padding: 0px;
+  overflow: auto;
+  margin: 0px;
+  font-size: 10px;
+}
+.window:hover{
+    translate: 0 0px;
+}
+
+/* Тёмная тема: инверсия светлой — чёрное/белое меняются местами */
+.desktop-dark .window {
+  border-color: var(--color-accent-border-invert);
+  box-shadow: 10px 10px 0 var(--color-accent-border);
+}
+
+.desktop-dark .window-header {
+  background: var(--color-accent-border);
+  color: var(--color-accent-border-invert);
+  border-bottom-color: var(--color-accent-border-invert);
+}
+
+.desktop-dark .window-btn {
+  background: var(--color-accent-border);
+  color: var(--color-accent-border-invert);
+  border-color: var(--color-accent-border-invert);
+}
+
+.desktop-dark .window-content {
+  background: var(--color-window-bg-dark);
+  color: var(--color-window-text-dark);
+}
+
+.desktop-dark .window-btn.minimize:hover{
+  box-shadow: 2px 2px 0px rgb(255, 255, 255);
+}
+.desktop-dark .window-btn.maximize:hover{
+  box-shadow: 2px 2px 0px rgb(255, 255, 255);
+}
+.desktop-dark .window-btn.close:hover{
+  box-shadow: 2px 2px 0px rgb(255, 255, 255);
+}

@@ -1,0 +1,6 @@
+.mobile-os {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  font-family: var(--mobile-font);
+}

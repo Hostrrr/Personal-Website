@@ -1,0 +1,359 @@
+.settings-root {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 10px;
+}
+
+/* ── Section ─────────────────────────────────────────── */
+
+.settings-section {
+  padding: 12px;
+  border-bottom: 2px dashed #ccc;
+}
+
+.settings-section:last-child {
+  border-bottom: none;
+}
+
+.settings-section-label {
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  opacity: 0.5;
+  margin-bottom: 10px;
+}
+
+/* ── Theme toggle ────────────────────────────────────── */
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle__track {
+  position: relative;
+  width: 64px;
+  height: 34px;
+  background: #e0e0e0;
+  border: 3px solid #000;
+  border-radius: 999px;
+  box-shadow: 3px 3px 0px #000;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.theme-toggle--dark .theme-toggle__track {
+  background: #1a1a2e;
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  transform: translateY(-50%);
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 2px 2px 0px #000;
+}
+
+.theme-toggle--dark .theme-toggle__thumb {
+  left: calc(100% - 25px);
+}
+
+.theme-toggle__label {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.theme-toggle:active .theme-toggle__track {
+  box-shadow: 1px 1px 0px #000;
+  transform: translate(2px, 2px);
+}
+
+/* ── Wallpaper grid ──────────────────────────────────── */
+
+.wallpaper-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.wallpaper-swatch {
+  position: relative;
+  aspect-ratio: 1;
+  border: 3px solid #999;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s, border-color 0.1s;
+  box-shadow: 3px 3px 0px #999;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wallpaper-swatch:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px #000;
+  border-color: #000;
+}
+
+.wallpaper-swatch:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #999;
+}
+
+.wallpaper-swatch--active {
+  border: 3px solid #000 !important;
+  box-shadow: 4px 4px 0px #000 !important;
+  transform: translate(-1px, -1px);
+}
+
+.wallpaper-swatch__check {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+}
+
+/* ── Language switcher ───────────────────────────────── */
+
+.lang-switcher {
+  display: flex;
+  gap: 8px;
+}
+
+.lang-btn {
+  padding: 6px 18px;
+  font-size: 12px;
+  font-weight: 800;
+  font-family: inherit;
+  border: 3px solid #999;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px #999;
+  transition: transform 0.1s, box-shadow 0.1s, border-color 0.1s, background 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lang-btn:hover {
+  border-color: #000;
+  box-shadow: 4px 4px 0px #000;
+  transform: translate(-1px, -1px);
+}
+
+.lang-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #999;
+}
+
+.lang-btn--active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+  box-shadow: 3px 3px 0px #555;
+}
+
+.lang-btn--active:hover {
+  box-shadow: 5px 5px 0px #000;
+}
+
+/* ── Info rows ───────────────────────────────────────── */
+
+.settings-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 3px solid #000;
+  border-radius: 10px;
+  box-shadow: 3px 3px 0px #000;
+  overflow: hidden;
+  background: #fff;
+}
+
+.settings-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 12px;
+  border-bottom: 2px solid #eee;
+  font-size: 11px;
+}
+
+.settings-info-row:last-child {
+  border-bottom: none;
+}
+
+.settings-info-key {
+  font-weight: 700;
+  opacity: 0.55;
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+}
+
+.settings-info-val {
+  font-weight: 800;
+  font-size: 11px;
+}
+
+/* ── Desktop ─────────────────────────────────────────── */
+
+@media (min-width: 768px) {
+  .settings-section--info {
+    display: none;
+  }
+
+  .settings-root {
+    padding: 8px;
+  }
+
+  .settings-section {
+    padding: 10px 12px;
+  }
+
+  .settings-section-label {
+    margin-bottom: 8px;
+  }
+
+  .wallpaper-grid {
+    grid-template-columns: repeat(8, 1fr);
+    gap: 7px;
+  }
+
+  .wallpaper-swatch {
+    aspect-ratio: unset;
+    height: 32px;
+    border-radius: 7px;
+    border-width: 2px;
+    box-shadow: 2px 2px 0px #999;
+  }
+
+  .wallpaper-swatch--active {
+    border-width: 2px !important;
+    box-shadow: 3px 3px 0px #000 !important;
+  }
+
+  .wallpaper-swatch__check {
+    font-size: 14px;
+  }
+}
+
+/* ── Mobile ──────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .settings-root {
+    padding: 14px;
+    gap: 0;
+  }
+
+  .settings-section {
+    padding: 18px 4px;
+  }
+
+  .settings-section-label {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+
+  .theme-toggle__track {
+    width: 76px;
+    height: 40px;
+  }
+
+  .theme-toggle__thumb {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    left: 3px;
+  }
+
+  .theme-toggle--dark .theme-toggle__thumb {
+    left: calc(100% - 31px);
+  }
+
+  .theme-toggle__label {
+    font-size: 16px;
+  }
+
+  .wallpaper-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .wallpaper-swatch__check {
+    font-size: 22px;
+  }
+
+  .settings-info-row {
+    padding: 12px 14px;
+  }
+
+  .settings-info-key {
+    font-size: 11px;
+  }
+
+  .settings-info-val {
+    font-size: 14px;
+  }
+}
+
+/* ── Dark theme (mobile) ─────────────────────────────── */
+/* Таблица инфо и свотчи — белый фон, текст чёрный */
+.mobile-os[data-theme="dark"] .settings-info-grid,
+.mobile-os[data-theme="dark"] .settings-info-row,
+.mobile-os[data-theme="dark"] .settings-info-key,
+.mobile-os[data-theme="dark"] .settings-info-val {
+  color: #000;
+}
+
+/* Секция-лейбл и лейбл переключателя — на тёмном фоне, белый */
+.mobile-os[data-theme="dark"] .settings-section-label,
+.mobile-os[data-theme="dark"] .theme-toggle__label {
+  color: #fff;
+}
+
+/* Кнопки языка — браузер не наследует color, задаём явно */
+.mobile-os[data-theme="dark"] .lang-btn {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 3px 3px 0px rgba(255, 255, 255, 0.12);
+}
+
+.mobile-os[data-theme="dark"] .lang-btn:hover {
+  border-color: #fff;
+  box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.3);
+}
+
+/* Активная кнопка: белый фон, чёрный текст — инверсия для тёмной темы */
+.mobile-os[data-theme="dark"] .lang-btn--active {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+  box-shadow: 3px 3px 0px rgba(255, 255, 255, 0.2);
+}
+
+/* Разделители секций чуть светлее */
+.mobile-os[data-theme="dark"] .settings-section {
+  border-bottom-color: rgba(255,255,255,0.12);
+}

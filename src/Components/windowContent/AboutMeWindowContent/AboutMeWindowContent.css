@@ -1,0 +1,144 @@
+.about-window {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    padding: 20px;
+}
+
+/* PHOTO BLOCK */
+
+.about-photo-block {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* PHOTO */
+
+.about-photo {
+    height: 290px;
+    display: block;
+    border: 6px solid #000;
+    background: white;
+    box-shadow: 8px 8px 0px #000;
+    image-rendering: pixelated;
+}
+
+/* PASSPORT STAMP */
+
+.passport-stamp {
+    position: absolute;
+    bottom: -10px;
+    right: -15px;
+    transform: rotate(-12deg);
+    background: #ff3b3b;
+    color: white;
+    font-weight: 900;
+    font-size: 10px;
+    padding: 10px 12px;
+    border: 4px solid black;
+    box-shadow: 4px 4px 0px black;
+    letter-spacing: 2px;
+}
+
+/* TEXT */
+
+.about-text {
+    max-width: 350px;
+}
+
+.about-name {
+    font-size: 14px;
+    font-weight: 900;
+    display: inline-block;
+    padding-bottom: 4px;
+}
+
+.about-text p {
+    margin: 8px 0;
+    font-size: 10px;
+    line-height: 2;
+}
+
+.about-title {
+    padding: 3pt;
+    background-color: #ffffff;
+    border-radius: 9999pt;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border: 4px solid rgb(0, 0, 0);
+    box-shadow: 3px 3px 0px black;
+    margin-bottom: 10pt;
+    font-weight: 600;
+    font-optical-sizing: auto;
+}
+
+.about-description {
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    color: rgb(0, 0, 0);
+    border: 4px solid rgb(0, 0, 0);
+    box-shadow: 3px 3px 0px black;
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 767px) {
+    .about-window {
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+        padding: 24px 16px 32px;
+    }
+
+    .about-photo-block {
+        display: flex;
+        justify-content: center;
+    }
+
+    .about-photo {
+        height: auto;
+        width: 100%;
+        max-width: 280px;
+        border-width: 4px;
+        box-shadow: 6px 6px 0px #000;
+    }
+
+    .passport-stamp {
+        font-size: 9px;
+        padding: 8px 10px;
+        bottom: -8px;
+        right: -8px;
+    }
+
+    .about-text {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .about-name {
+        font-size: 16px;
+    }
+
+    .about-text p {
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .about-title {
+        padding: 8px 16px;
+        margin-bottom: 14px;
+    }
+
+    .about-description {
+        padding: 14px;
+        border-width: 3px;
+    }
+}
+/* ── Dark theme (mobile) ─────────────────────────────── */
+/* Белые карточки (title, description) — текст чёрный */
+.mobile-os[data-theme="dark"] .about-title,
+.mobile-os[data-theme="dark"] .about-description {
+    color: #000;
+}

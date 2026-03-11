@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* Центральная палитра цветов */
+:root {
+  /* Mobile neobrutalism */
+  --mobile-font: 'Nunito', system-ui, sans-serif;
+  --neo-border: 3px solid #000;
+  --neo-shadow: 4px 4px 0px #000;
+  --neo-yellow: #FFE566;
+  --neo-pink: #FF6B9D;
+  --neo-mint: #5AFFA8;
+  --neo-blue: #6BC5FF;
+  --neo-purple: #C084FC;
+  --neo-orange: #FFA94D;
+  --neo-red: #FF6B6B;
+  /* фон страницы и рабочего стола */
+  --color-bg-body: #cdab2f;
+  --color-bg-desktop-dark: #524514;
+
+  /* основные акценты/границы */
+  --color-accent-border: #000000;
+  --color-accent-border-invert: #ffffff;
+
+  /* окно (светлая тема) */
+  --color-window-bg-light: #ffffff;
+  --color-window-text-light: #000000;
+
+  /* окно (тёмная тема) */
+  --color-window-bg-dark: #050509;
+  --color-window-text-dark: #f5f5f5;
+
+  /* панель задач */
+  --color-taskbar-bg-light: rgba(255, 255, 255, 0.92);
+  --color-taskbar-bg-dark: #050509;
+
+  /* док */
+  --color-dock-bg-light: rgba(255, 255, 255, 0.8);
+  --color-dock-bg-dark: rgba(0, 0, 0, 0.85);
+}
+
+body {
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  background: var(--color-bg-body);
+  height: 100vh;
+  width: 100vw;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+}

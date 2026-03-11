@@ -1,0 +1,291 @@
+/* ── Корневой контейнер ── */
+.game-window {
+  display: flex;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* ══════════════════════════════════════════
+   DESKTOP layout
+══════════════════════════════════════════ */
+
+.game-desktop {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  gap: 12px;
+  overflow: hidden;
+  align-items: stretch;
+}
+
+.game-mobile {
+  display: none;
+}
+
+/* ── Доска — строгий квадрат ── */
+.snake-board-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.snake-board {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  gap: 1px;
+  background: #000;
+  border: 4px solid #000;
+  box-shadow: 6px 6px 0px #000;
+  box-sizing: border-box;
+  padding: 2px;
+}
+
+.snake-board-gameover {
+  opacity: 0.65;
+}
+
+/* ── Клетки ── */
+.snake-cell      { background: #f0f0f0; }
+.snake-cell-body { background: #000000; }
+.snake-cell-head { background: #cdab2f; outline: 2px solid #000; outline-offset: -2px; }
+.snake-cell-food { background: #ff3b3b; outline: 2px solid #000; outline-offset: -2px; }
+
+/* ── Оверлей ── */
+.snake-overlay {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 8px 14px;
+  background: #ffffff;
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0px #000;
+  font-size: 9px;
+  font-weight: 800;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── Боковая панель (desktop) ── */
+.game-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: flex-start;
+  min-width: 100px;
+}
+
+.game-title {
+  font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 3px solid #000;
+  background: #000000;
+  padding: 4px 10px;
+  box-shadow: 3px 3px 0px #000;
+  color: #ffffff;
+  border-radius: 999pt;
+  text-align: center;
+}
+
+.game-stat-badge {
+  font-size: 9px;
+  font-weight: 800;
+  border: 3px solid #000;
+  padding: 3px 8px;
+  background: #ffffff;
+  box-shadow: 2px 2px 0px #000;
+  color: #000;
+}
+
+.game-restart-btn {
+  padding: 5px 10px;
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  border: 3px solid #000;
+  background: #ffffff;
+  color: #000;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px #000;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.game-restart-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px #000;
+  background: #000000;
+  color: #ffffff;
+}
+
+.game-restart-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000;
+}
+
+/* ══════════════════════════════════════════
+   MOBILE layout
+══════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  .game-desktop { display: none; }
+
+  .game-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 12px 12px 8px;
+    gap: 10px;
+    box-sizing: border-box;
+  }
+
+  /* Топ-бар: рекорд | заголовок | пауза */
+  .game-mobile-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .game-mobile-topbar .game-title {
+    font-size: 13px;
+    padding: 5px 14px;
+    flex: 1;
+    text-align: center;
+  }
+
+  .game-mobile-topbar .game-stat-badge {
+    font-size: 12px;
+    padding: 5px 10px;
+    white-space: nowrap;
+  }
+
+  .game-restart-btn--mobile {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    flex-shrink: 0;
+    text-transform: none;
+  }
+
+  /* Счёт текущей игры */
+  .game-mobile-score {
+    font-size: 16px;
+    font-weight: 900;
+    width: 100%;
+    text-align: center;
+    background: #FFE566;
+    border: 3px solid #000;
+    border-radius: 12px;
+    box-shadow: 3px 3px 0px #000;
+    padding: 6px;
+    color: #000;
+  }
+
+  /* Поле — квадрат по ширине */
+  .snake-board-wrapper--mobile {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+  }
+
+  .snake-board-wrapper--mobile .snake-board {
+    border-width: 3px;
+    box-shadow: 4px 4px 0px #000;
+  }
+
+  .snake-board-wrapper--mobile .snake-overlay {
+    font-size: 12px;
+    padding: 10px 18px;
+  }
+
+  /* ── D-pad ──────────────────────────────── */
+  .dpad {
+    display: grid;
+    grid-template-columns: repeat(3, 64px);
+    grid-template-rows: repeat(2, 64px);
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .dpad-btn {
+    width: 64px;
+    height: 64px;
+    font-size: 24px;
+    font-weight: 900;
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0px #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none;
+    transition: transform 0.07s ease, box-shadow 0.07s ease;
+  }
+
+  .dpad-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0px #000;
+  }
+
+  /* Позиции кнопок в сетке 3×2 */
+  .dpad-btn--up    { grid-column: 2; grid-row: 1; background: #5AFFA8; }
+  .dpad-btn--left  { grid-column: 1; grid-row: 2; background: #6BC5FF; }
+  .dpad-btn--down  { grid-column: 2; grid-row: 2; background: #FF6B9D; }
+  .dpad-btn--right { grid-column: 3; grid-row: 2; background: #FFE566; }
+}
+
+/* ── Dark theme ──────────────────────────────────────── */
+.mobile-os[data-theme="dark"] .game-mobile-score {
+  background: #1e1e35;
+  color: #fff;
+  border-color: rgba(255,255,255,0.2);
+  box-shadow: 3px 3px 0px rgba(255,255,255,0.1);
+}
+
+.mobile-os[data-theme="dark"] .game-stat-badge {
+  background: #1e1e35;
+  color: #fff;
+  border-color: rgba(255,255,255,0.25);
+}
+
+.mobile-os[data-theme="dark"] .game-restart-btn {
+  background: #1e1e35;
+  color: #fff;
+  border-color: rgba(255,255,255,0.3);
+  box-shadow: 3px 3px 0px rgba(255,255,255,0.1);
+}
+
+.mobile-os[data-theme="dark"] .dpad-btn {
+  border-color: #000;
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.6);
+}
+
+.mobile-os[data-theme="dark"] .snake-overlay {
+  background: #1e1e35;
+  color: #fff;
+  border-color: rgba(255,255,255,0.3);
+  box-shadow: 4px 4px 0px rgba(255,255,255,0.1);
+}
