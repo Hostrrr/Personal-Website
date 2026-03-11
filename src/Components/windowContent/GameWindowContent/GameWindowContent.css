@@ -5,9 +5,7 @@
   box-sizing: border-box;
 }
 
-/* ══════════════════════════════════════════
-   DESKTOP layout
-══════════════════════════════════════════ */
+/* DESKTOP layout */
 
 .game-desktop {
   display: flex;
