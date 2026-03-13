@@ -1,14 +1,15 @@
 <div align="center">
+
 # YegOS — Interactive Portfolio 💻✨
 
 An **interactive developer portfolio** that looks and feels like a real desktop operating system.  
 Built with **React** + **Vite**.
 <div align="center">
 <img src="../public/PortfolioOS.png" width="50%" />
-![YegOS Desktop Screenshot](./public/PortfolioOS.png)
 <!-- Replace the path above with your actual screenshot, e.g. ./screenshots/desktop.png -->
 </div>
 </div>
+
 ---
 
 ## ✨ Features
