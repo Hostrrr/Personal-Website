@@ -5,7 +5,7 @@
 An **interactive developer portfolio** that looks and feels like a real desktop operating system.  
 Built with **React** + **Vite**.
 <div align="center">
-<img src="../public/PortfolioOS.png" width="50%" />
+<img src="./public/PortfolioOS.png" width="50%" />
 <!-- Replace the path above with your actual screenshot, e.g. ./screenshots/desktop.png -->
 </div>
 </div>
