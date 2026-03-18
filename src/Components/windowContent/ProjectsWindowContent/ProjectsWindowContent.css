@@ -65,12 +65,14 @@
   transition: 0.15s;
   background-color: white;
   color: black;
+  border-radius: 15px;
 }
 
 .project-card:hover {
   transform: translate(-3px, -3px);
-  background: #fdfd96;
+  background: #000000;
   box-shadow: 6px 6px 0px #000;
+  color: white;
 }
 
 .project-card-emoji {

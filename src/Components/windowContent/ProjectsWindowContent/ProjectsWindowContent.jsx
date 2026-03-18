@@ -8,24 +8,31 @@ const PROJECTS_BASE = [
   {
     title: "Portfolio OS",
     stack: "React / CSS",
-    github: "#",
-    live: "#",
+    github: "https://github.com/Hostrrr/Personal-Website",
+    live: "https://georgiy-nazarenko.vercel.app",
     imgpath: img1,
     emoji: "🖥️"
   },
   {
     title: "Period Tracker CLI",
     stack: "Python CLI",
-    github: "#",
+    github: "https://github.com/Hostrrr/period-tracker-tui",
     imgpath: "",
     emoji: "🌸"
   },
   {
-    title: "Unity Game",
-    stack: "Unity / C#",
-    github: "#",
+    title: "Study organizer app",
+    stack: "React Native / Expo",
+    github: "https://github.com/Hostrrr/Study-organizer-app",
     imgpath: "",
-    emoji: "🎯"
+    emoji: "📚"
+  },
+  {
+    title: "Focus page",
+    stack: "React Native / Expo",
+    github: "https://github.com/Hostrrr/focus-page",
+    imgpath: "",
+    emoji: "📃"
   },
 ]
 

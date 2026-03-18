@@ -1,146 +1,93 @@
-.skills-container {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-    gap: 18px;
-    padding: 14px;
-}
+/* ── Добавь это в SkillsWindowContent.css ──────────────────── */
+/* Остальные стили (.skill-card, .skill-icon, частицы) оставь как есть */
 
-.skill-card {
+/* Физический контейнер — фиксированная высота, карточки абсолютные */
+.skills-physics-container {
     position: relative;
-    border: 3px solid #000;
-    padding: 16px 10px;
-    font-weight: 800;
-    font-size: 10px;
-    text-align: center;
-    box-shadow: 4px 4px 0px #000;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    cursor: pointer;
-    overflow: hidden;
-    color: black;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-}
-
-.skill-icon {
-    font-size: 26px;
-    margin-bottom: 6px;
-}
-
-/* ── Desktop hover ───────────────────────────────────── */
-
-.skill-card:hover {
-    transform: translate(-6px, -6px) rotate(0deg) scale(1.08) !important;
-    box-shadow: 10px 10px 0px #000;
-}
-
-.skill-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -75%;
-    width: 50%;
+    flex: 1;
+    width: 100%;
     height: 100%;
-    background: linear-gradient(
-        120deg,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,0.6) 50%,
-        rgba(255,255,255,0) 100%
-    );
-    transform: skewX(-20deg);
-    pointer-events: none;
+    min-height: 320px;
+    overflow: hidden;
+    touch-action: none;
+    cursor: grab;
 }
 
-.skill-card:hover::before {
-    animation: shine 0.7s ease forwards;
+.skills-physics-container:active {
+    cursor: grabbing;
 }
 
-@keyframes shine {
-    0%   { left: -75%; }
-    100% { left: 125%; }
+/* Карточки теперь абсолютные — позиция из физики */
+.physics-card {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    z-index: 1;
+    will-change: transform, left, top;
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0px #000;
+    transform: translate3d(0, 0, 0) rotate(var(--physics-rotation, 0rad));
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
-/* ── Emoji particle system ───────────────────────────── */
+/* Hover — лёгкий сдвиг и усиленная тень, сохраняем физический угол */
+.physics-card:hover {
+    transform: translate(-3px, -3px) rotate(var(--physics-rotation, 0rad));
+    box-shadow: 8px 8px 0px #000;
+}
 
+/* Пока перетаскивают — увеличенная тень (необрутализм) */
+.physics-card.is-dragged {
+    box-shadow: 10px 10px 0px #000 !important;
+    transform: translate(0, 0) scale(1.05) rotate(var(--physics-rotation, 0rad));
+}
+
+/* Active / tap — визуальное нажатие вниз */
+.physics-card:active {
+    transform: translate(3px, 3px) rotate(var(--physics-rotation, 0rad));
+    box-shadow: 1px 1px 0px #000;
+}
+
+/* ── Слой частиц — поверх всего (portal в body) ─────────────── */
 .skill-particles-layer {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 99999;
-    overflow: visible;
+    z-index: 9999;
 }
 
 .skill-particle {
-    position: fixed;
-    pointer-events: none;
-    font-size: 22px;
+    position: absolute;
+    font-size: 1.4rem;
     line-height: 1;
+    pointer-events: none;
     transform: translate(-50%, -50%);
-    animation: particle-burst 0.75s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
-    will-change: transform, opacity;
+    animation: skill-particle-burst 0.75s ease-out forwards;
 }
 
-@keyframes particle-burst {
-    0% {
-        opacity: 1;
-        transform: translate(-50%, -50%) translate(0px, 0px) scale(1.2);
-    }
-    60% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0.4);
-    }
+@keyframes skill-particle-burst {
+    0%   { opacity: 1; translate: 0 0; }
+    100% { opacity: 0; translate: var(--dx) var(--dy); }
 }
 
-/* ── Mobile ─────────────────────────────────────────── */
-
+/* На мобильном canvas тоже ловит touch */
 @media (max-width: 767px) {
-    .skills-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        padding: 18px 16px 28px;
-        /* убираем flex: 1 чтобы высота была по контенту */
-        flex: unset;
+    .skills-physics-container {
+        min-height: 420px;
+        /* убираем grid-паддинг, теперь он не нужен */
+        padding: 0;
     }
 
-    .skill-card {
-        padding: 22px 12px 18px;
-        font-size: 13px;
-        font-weight: 900;
-        letter-spacing: 0.2px;
+    .physics-card {
         border-width: 3px;
         box-shadow: 5px 5px 0px #000;
     }
 
-    /* Нейтрализуем hover на тач-устройствах */
-    @media (hover: none) {
-        .skill-card:hover {
-            transform: rotate(0deg) !important;
-            box-shadow: 5px 5px 0px #000 !important;
-        }
+    .physics-card:active {
+        transform: translate(4px, 4px) rotate(var(--physics-rotation, 0rad));
+        box-shadow: 1px 1px 0px #000;
     }
-
-    /* Физическое "вдавливание" при тапе */
-    .skill-card:active {
-        transform: translate(4px, 4px) scale(0.95) !important;
-        box-shadow: 1px 1px 0px #000 !important;
-        transition: transform 0.07s ease, box-shadow 0.07s ease;
-    }
-
-    .skill-icon {
-        font-size: 36px;
-        margin-bottom: 10px;
-    }
-
-    .skill-particle {
-        font-size: 28px;
-    }
-}
-
-/* ── Dark theme (mobile) ─────────────────────────────── */
-/* Карточки скиллов — на цветном фоне, текст явно чёрный */
-.mobile-os[data-theme="dark"] .skill-card {
-    color: #000;
 }

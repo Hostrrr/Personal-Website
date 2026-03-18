@@ -69,7 +69,8 @@ export const translations = {
       projects: [
         { desc: 'Интерактивное портфолио в стиле мультяшной ОС.' },
         { desc: 'Трекер на Python с терминальным интерфейсом.' },
-        { desc: 'Небольшая экспериментальная игра на Unity.' },
+        { desc: 'Приложение распиисание для снудентов на React native.' },
+        { desc: 'Небольшая интерактивная веб страница на Ruby on rails'}
       ],
     },
     game: {
@@ -196,7 +197,8 @@ export const translations = {
       projects: [
         { desc: 'Interactive portfolio styled like a cartoon OS.' },
         { desc: 'Terminal-based tracker written in Python.' },
-        { desc: 'Small experimental game made with Unity.' },
+        { desc: 'An Organizer app for students made with React native' },
+        { desc: 'little interactive web page made with Ruby on rails'},
       ],
     },
     game: {
