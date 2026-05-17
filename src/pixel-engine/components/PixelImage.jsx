@@ -45,8 +45,8 @@ export function PixelImage({
         .join(" ")}
       style={{
         display: "block",
-        width: hasDisplaySize ? `${width}px` : undefined,
-        height: hasDisplaySize ? `${height}px` : undefined,
+        width: hasDisplaySize ? `${width}px` : "100%",
+        height: hasDisplaySize ? `${height}px` : "100%",
         ...style,
       }}
     />

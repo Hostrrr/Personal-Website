@@ -299,19 +299,25 @@
 /* ── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 767px) {
 
-    /* Корень — relative чтобы absolute дочерний не убегал */
     .contact-root {
-        position: relative;
+        height: 100%;
         overflow: hidden;
         flex-direction: column;
-        min-height: 100%;
     }
 
-    /* Список занимает всю ширину */
+    .contact-body {
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+    }
+
     .contact-list {
-        padding: 16px 14px 24px;
-        gap: 12px;
-        overflow-y: visible;
+        flex: 1;
+        min-height: 0;
+        padding: 12px 14px 16px;
+        gap: 10px;
+        overflow-y: auto;
     }
 
     .contact-status {
@@ -321,10 +327,10 @@
 
     /* Карточки крупнее */
     .contact-card {
-        padding: 14px 16px;
-        border-radius: 18px;
-        border-width: 3px;
-        box-shadow: var(--te-shadow-md);
+        padding: 12px 14px;
+        border-radius: var(--te-radius);
+        border-width: var(--te-border-width);
+        box-shadow: var(--te-shadow-sm);
     }
 
     .contact-card:active {
@@ -350,43 +356,40 @@
         font-size: 12px;
     }
 
-    /* ── Панель деталей раскрывается сверху, сдвигая карточки ── */
     .contact-detail {
         order: -1;
-        flex: unset;
+        flex: none;
         width: 100%;
-        position: relative;
-        transform: none;
         border-left: none;
         background: var(--te-surface-raised);
-        border-bottom: 0px solid black;
-        border-radius: 0 0 24px 24px;
+        border-bottom: 0 solid var(--te-border-subtle);
+        border-radius: 0 0 var(--te-radius) var(--te-radius);
         box-shadow: none;
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1),
-                    border-bottom-width 0s 0.38s,
-                    box-shadow 0s 0.38s;
+        transition: max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+                    border-bottom-width 0.12s ease,
+                    box-shadow 0.12s ease;
     }
 
     .contact-detail--open {
-        max-height: 480px;
+        max-height: min(50vh, 420px);
         flex-basis: unset;
-        border-bottom: 3px solid black;
-        box-shadow: 0 6px 0px black;
-        transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow-y: auto;
+        border-bottom: var(--te-border-width) solid var(--te-border-subtle);
+        box-shadow: var(--te-shadow-md);
     }
 
     /* Кнопка закрытия — крупнее */
     .contact-detail-close {
-        top: 12px;
-        right: 14px;
-        width: 34px;
-        height: 34px;
-        border-radius: 12px;
-        border-width: 3px;
-        box-shadow: var(--te-shadow-sm);
-        font-size: 14px;
+        top: 10px;
+        right: 10px;
+        width: 28px;
+        height: 28px;
+        border-radius: var(--te-radius-sm);
+        border-width: var(--te-border-width);
+        box-shadow: none;
+        font-size: 12px;
     }
 
     .detail-header {
@@ -434,12 +437,19 @@
     }
 
     .detail-action {
-        margin: 14px 16px 16px;
-        padding: 12px 0;
-        font-size: 15px;
-        border-width: 3px;
-        border-radius: 14px;
-        box-shadow: var(--te-shadow-md);
+        margin: 12px 14px 14px;
+        padding: 10px 0;
+        font-size: 12px;
+        border-width: var(--te-border-width);
+        border-radius: var(--te-radius);
+        box-shadow: var(--te-shadow-sm);
+    }
+
+    .detail-description,
+    .detail-facts,
+    .detail-hint {
+        border-bottom-color: var(--te-border-subtle);
+        color: var(--te-ink-muted);
     }
 }
 
@@ -447,5 +457,17 @@
 /* Карточки и детальная панель — на белом/светлом фоне, текст чёрный */
 
 .mobile-os[data-theme="dark"] .contact-status {
-    color: #fff;
+    color: var(--te-ink);
+}
+
+.mobile-os[data-theme="dark"] .contact-name,
+.mobile-os[data-theme="dark"] .detail-title,
+.mobile-os[data-theme="dark"] .detail-fact-value {
+    color: var(--te-ink);
+}
+
+.desktop-dark .contact-name,
+.desktop-dark .detail-title,
+.desktop-dark .detail-fact-value {
+    color: var(--te-ink);
 }

@@ -36,6 +36,7 @@ export function usePixelReveal(src, options = {}) {
   const observerRef = useRef(null);
   const pxRef            = useRef(fromPixels);
   const doneRef          = useRef(false);
+  const animatingRef     = useRef(false);
   const readyRef         = useRef(false);
   const pendingRevealRef = useRef(false);
   const startRevealRef   = useRef(null);
@@ -71,6 +72,7 @@ export function usePixelReveal(src, options = {}) {
     if (!canvas || !ctx || !src) return;
 
     doneRef.current = false;
+    animatingRef.current = false;
     readyRef.current = false;
     pendingRevealRef.current = false;
     pxRef.current = fromPixels;
@@ -86,8 +88,8 @@ export function usePixelReveal(src, options = {}) {
       glRender(ctx.gl, ctx.prog, canvas, fromPixels, mode, border);
       readyRef.current = true;
       setIsReady(true);
-      if (!observe || pendingRevealRef.current) {
-        pendingRevealRef.current = false;
+      pendingRevealRef.current = false;
+      if (!observe) {
         startRevealRef.current?.();
       }
     });
@@ -106,6 +108,8 @@ export function usePixelReveal(src, options = {}) {
     }
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     pxRef.current = fromPixels;
+    doneRef.current = false;
+    animatingRef.current = true;
     let last = null;
     const ctx = glRef.current;
     if (!ctx) return;
@@ -121,6 +125,7 @@ export function usePixelReveal(src, options = {}) {
       if (pxRef.current > 1) {
         rafRef.current = requestAnimationFrame(step);
       } else {
+        animatingRef.current = false;
         doneRef.current = true;
       }
     }
@@ -155,14 +160,16 @@ export function usePixelReveal(src, options = {}) {
     return () => observer.disconnect();
   }, [observe, startReveal, threshold, replay, stopObserving]);
 
-  // Hover-пауза: зависаем на 1px пока курсор на канвасе
+  // Hover-пауза: только устройства с мышью; не прерывать идущую анимацию
   useEffect(() => {
     if (!hoverPause) return;
+    if (typeof window !== "undefined" && !window.matchMedia("(hover: hover)").matches) {
+      return;
+    }
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const onEnter = () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    const snapSharp = () => {
       const ctx = glRef.current;
       if (!ctx) return;
       const { mode, border } = PRESETS[preset] ?? PRESETS.default;
@@ -170,14 +177,18 @@ export function usePixelReveal(src, options = {}) {
       glRender(ctx.gl, ctx.prog, canvas, 1, mode, border);
     };
 
-    const onLeave = () => {
+    const onEnter = () => {
+      if (animatingRef.current) return;
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      const ctx = glRef.current;
-      if (!ctx) return;
-      const { mode, border } = PRESETS[preset] ?? PRESETS.default;
-      pxRef.current = 1;
+      snapSharp();
+    };
+
+    const onLeave = () => {
+      if (animatingRef.current) return;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      animatingRef.current = false;
       doneRef.current = true;
-      glRender(ctx.gl, ctx.prog, canvas, 1, mode, border);
+      snapSharp();
     };
 
     canvas.addEventListener("mouseenter", onEnter);
@@ -186,7 +197,7 @@ export function usePixelReveal(src, options = {}) {
       canvas.removeEventListener("mouseenter", onEnter);
       canvas.removeEventListener("mouseleave", onLeave);
     };
-  }, [hoverPause, preset, startReveal]);
+  }, [hoverPause, preset]);
 
   // Публичный метод для ручного триггера
   const trigger = useCallback(() => {

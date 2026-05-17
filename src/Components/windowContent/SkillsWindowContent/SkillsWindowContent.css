@@ -54,6 +54,12 @@
     box-shadow: none;
 }
 
+/* Карточки всегда со светлым фоном — текст тёмный в любой теме */
+.physics-card .skill-name,
+.physics-card .skill-icon {
+    color: #1a1a18;
+}
+
 /* ── Слой частиц — поверх всего (portal в body) ─────────────── */
 .skill-particles-layer {
     position: fixed;

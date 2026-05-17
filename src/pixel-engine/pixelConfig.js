@@ -4,7 +4,7 @@ export const ABOUT_PHOTO_PIXEL = {
   speed: 70,
   threshold: 0.2,
   replay: false,
-  hoverPause: true,
+  hoverPause: false,
   observe: false,
 }
 

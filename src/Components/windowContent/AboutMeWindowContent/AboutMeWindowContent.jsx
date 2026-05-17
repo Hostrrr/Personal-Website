@@ -20,14 +20,15 @@ export default function AboutMeWindowContent() {
     setCurrentImageIndex((prev) => (prev + 1) % images.length)
   }
 
+  const currentSrc = images[currentImageIndex]
+
   return (
     <div className="about-window">
       <div className="about-window-body">
         <div className="about-photo-block" onClick={handleImageClick}>
           <div className="about-photo-frame">
             <PixelImage
-              src={images[currentImageIndex]}
-              observe={false}
+              src={currentSrc}
               className="about-photo"
               alt="profile"
               {...ABOUT_PHOTO_PIXEL}
