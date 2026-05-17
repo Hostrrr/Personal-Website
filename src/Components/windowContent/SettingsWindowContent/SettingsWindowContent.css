@@ -9,7 +9,7 @@
 
 .settings-section {
   padding: 12px;
-  border-bottom: 2px dashed #ccc;
+  border-bottom: var(--te-border-width) solid var(--te-border-subtle);
 }
 
 .settings-section:last-child {
@@ -17,11 +17,11 @@
 }
 
 .settings-section-label {
-  font-size: 10px;
-  font-weight: 900;
+  font-size: 9px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  opacity: 0.5;
+  letter-spacing: 0.14em;
+  color: var(--te-ink-faint);
   margin-bottom: 10px;
 }
 
@@ -41,36 +41,35 @@
 
 .theme-toggle__track {
   position: relative;
-  width: 64px;
-  height: 34px;
-  background: #e0e0e0;
-  border: 3px solid #000;
-  border-radius: 999px;
-  box-shadow: 3px 3px 0px #000;
+  width: 56px;
+  height: 28px;
+  background: var(--te-paper);
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius-sm);
   flex-shrink: 0;
   transition: background 0.2s;
 }
 
 .theme-toggle--dark .theme-toggle__track {
-  background: #1a1a2e;
+  background: #323230;
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .theme-toggle__thumb {
   position: absolute;
   top: 50%;
-  left: 3px;
+  left: 2px;
   width: 22px;
   height: 22px;
   transform: translateY(-50%);
-  background: #fff;
-  border: 2px solid #000;
-  border-radius: 50%;
+  background: var(--te-surface);
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
-  transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 2px 2px 0px #000;
+  font-size: 11px;
+  transition: left 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .theme-toggle--dark .theme-toggle__thumb {
@@ -78,13 +77,13 @@
 }
 
 .theme-toggle__label {
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 .theme-toggle:active .theme-toggle__track {
-  box-shadow: 1px 1px 0px #000;
-  transform: translate(2px, 2px);
+  opacity: 0.9;
 }
 
 /* ── Wallpaper grid ──────────────────────────────────── */
@@ -98,29 +97,20 @@
 .wallpaper-swatch {
   position: relative;
   aspect-ratio: 1;
-  border: 3px solid #999;
-  border-radius: 10px;
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius);
   cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s, border-color 0.1s;
-  box-shadow: 3px 3px 0px #999;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
 .wallpaper-swatch:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0px #000;
-  border-color: #000;
-}
-
-.wallpaper-swatch:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #999;
+  border-color: var(--te-ink-muted);
 }
 
 .wallpaper-swatch--active {
-  border: 3px solid #000 !important;
-  box-shadow: 4px 4px 0px #000 !important;
-  transform: translate(-1px, -1px);
+  border: 2px solid var(--te-orange) !important;
+  box-shadow: 0 0 0 1px var(--te-orange);
 }
 
 .wallpaper-swatch__check {
@@ -143,39 +133,28 @@
 }
 
 .lang-btn {
-  padding: 6px 18px;
-  font-size: 12px;
-  font-weight: 800;
+  padding: 6px 16px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   font-family: inherit;
-  border: 3px solid #999;
-  border-radius: 999px;
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius-sm);
   background: transparent;
   cursor: pointer;
-  box-shadow: 3px 3px 0px #999;
-  transition: transform 0.1s, box-shadow 0.1s, border-color 0.1s, background 0.1s;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
 .lang-btn:hover {
-  border-color: #000;
-  box-shadow: 4px 4px 0px #000;
-  transform: translate(-1px, -1px);
-}
-
-.lang-btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #999;
+  border-color: var(--te-ink);
 }
 
 .lang-btn--active {
-  background: #000;
-  color: #fff;
-  border-color: #000;
-  box-shadow: 3px 3px 0px #555;
-}
-
-.lang-btn--active:hover {
-  box-shadow: 5px 5px 0px #000;
+  background: var(--te-ink);
+  color: var(--te-paper);
+  border-color: var(--te-ink);
 }
 
 /* ── Info rows ───────────────────────────────────────── */
@@ -184,11 +163,10 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  border: 3px solid #000;
-  border-radius: 10px;
-  box-shadow: 3px 3px 0px #000;
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius);
   overflow: hidden;
-  background: #fff;
+  background: var(--te-surface-raised);
 }
 
 .settings-info-row {
@@ -244,14 +222,12 @@
   .wallpaper-swatch {
     aspect-ratio: unset;
     height: 32px;
-    border-radius: 7px;
-    border-width: 2px;
-    box-shadow: 2px 2px 0px #999;
+    border-radius: var(--te-radius-sm);
   }
 
   .wallpaper-swatch--active {
-    border-width: 2px !important;
-    box-shadow: 3px 3px 0px #000 !important;
+    border: 2px solid var(--te-orange) !important;
+    box-shadow: 0 0 0 1px var(--te-orange) !important;
   }
 
   .wallpaper-swatch__check {
@@ -320,12 +296,6 @@
 
 /* ── Dark theme (mobile) ─────────────────────────────── */
 /* Таблица инфо и свотчи — белый фон, текст чёрный */
-.mobile-os[data-theme="dark"] .settings-info-grid,
-.mobile-os[data-theme="dark"] .settings-info-row,
-.mobile-os[data-theme="dark"] .settings-info-key,
-.mobile-os[data-theme="dark"] .settings-info-val {
-  color: #000;
-}
 
 /* Секция-лейбл и лейбл переключателя — на тёмном фоне, белый */
 .mobile-os[data-theme="dark"] .settings-section-label,
@@ -347,10 +317,9 @@
 
 /* Активная кнопка: белый фон, чёрный текст — инверсия для тёмной темы */
 .mobile-os[data-theme="dark"] .lang-btn--active {
-  background: #fff;
-  color: #000;
-  border-color: #fff;
-  box-shadow: 3px 3px 0px rgba(255, 255, 255, 0.2);
+  background: var(--te-orange);
+  color: #fff;
+  border-color: var(--te-orange);
 }
 
 /* Разделители секций чуть светлее */

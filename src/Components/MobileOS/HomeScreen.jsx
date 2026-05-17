@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './HomeScreen.css'
 import { useLanguage } from '../../contexts/LanguageContext'
+import DockIcon from '../icons/DockIcon'
 
 const DOCK_APP_IDS = ['about', 'projects', 'skills', 'contact']
 
@@ -28,51 +29,45 @@ export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme }) {
       className="home-screen"
       style={wallpaperColor && theme !== 'dark' ? { backgroundColor: wallpaperColor } : undefined}
     >
-      {/* Status bar */}
       <div className="home-screen__status-bar">
         <span className="home-screen__status-time">{hours}:{minutes}</span>
-        <div className="home-screen__status-icons">
-          <span>📶</span>
-          <span>🔋</span>
-        </div>
       </div>
 
-      {/* Date / greeting widget */}
       <div className="home-screen__widget">
         <div className="home-screen__widget-time">{hours}:{minutes}</div>
         <div className="home-screen__widget-date">{dateStr}</div>
         <div className="home-screen__widget-greeting">{t.mobile.greeting}</div>
       </div>
 
-      {/* App icon grid */}
       <div className="home-screen__grid">
         {apps.map(app => (
           <button
             key={app.id}
+            type="button"
             className="app-icon"
             onClick={() => onOpenApp(app.id)}
-            style={{ '--app-color': app.color }}
+            style={{ '--app-accent': app.accent }}
           >
             <div className="app-icon__face">
-              <span className="app-icon__emoji">{app.icon}</span>
+              <DockIcon name={app.id} size={28} />
             </div>
             <span className="app-icon__label">{app.title}</span>
           </button>
         ))}
       </div>
 
-      {/* Dock */}
       <div className="home-screen__dock-wrap">
         <div className="home-screen__dock">
           {dockApps.map(app => (
             <button
               key={app.id}
+              type="button"
               className="mobile-dock-icon"
               onClick={() => onOpenApp(app.id)}
-              style={{ '--app-color': app.color }}
+              style={{ '--app-accent': app.accent }}
             >
               <div className="mobile-dock-icon__face">
-                <span>{app.icon}</span>
+                <DockIcon name={app.id} size={24} />
               </div>
             </button>
           ))}

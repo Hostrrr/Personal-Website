@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -6,51 +6,85 @@
   box-sizing: border-box;
 }
 
-
-/* Центральная палитра цветов */
+/* ── Teenage Engineering–inspired design system ─────────── */
 :root {
-  /* Mobile neobrutalism */
-  --mobile-font: 'Nunito', system-ui, sans-serif;
-  --neo-border: 3px solid #000;
-  --neo-shadow: 4px 4px 0px #000;
-  --neo-yellow: #FFE566;
-  --neo-pink: #FF6B9D;
-  --neo-mint: #5AFFA8;
-  --neo-blue: #6BC5FF;
-  --neo-purple: #C084FC;
-  --neo-orange: #FFA94D;
-  --neo-red: #FF6B6B;
-  /* фон страницы и рабочего стола */
-  --color-bg-body: #cdab2f;
-  --color-bg-desktop-dark: #524514;
+  /* Surfaces */
+  --te-paper: #f4f3ef;
+  --te-cream: #e8e6e1;
+  --te-surface: #ffffff;
+  --te-surface-raised: #faf9f6;
 
-  /* основные акценты/границы */
-  --color-accent-border: #000000;
-  --color-accent-border-invert: #ffffff;
+  /* Ink */
+  --te-ink: #1a1a18;
+  --te-ink-muted: #6b6b66;
+  --te-ink-faint: #9e9c96;
 
-  /* окно (светлая тема) */
-  --color-window-bg-light: #ffffff;
-  --color-window-text-light: #000000;
+  /* Accents (OP-1 encoder palette) */
+  --te-orange: #ff5500;
+  --te-orange-dim: #e64d00;
+  --te-blue: #4a8fd4;
+  --te-mint: #5cb88a;
+  --te-yellow: #e8c547;
+  --te-red: #e04545;
 
-  /* окно (тёмная тема) */
-  --color-window-bg-dark: #050509;
-  --color-window-text-dark: #f5f5f5;
+  /* Lines & depth */
+  --te-border: #1a1a18;
+  --te-border-subtle: #d4d2cc;
+  --te-border-width: 1px;
+  --te-radius-sm: 2px;
+  --te-radius: 4px;
+  --te-radius-lg: 8px;
+  --te-shadow-sm: 0 1px 2px rgba(26, 26, 24, 0.06);
+  --te-shadow-md: 0 4px 16px rgba(26, 26, 24, 0.08);
 
-  /* панель задач */
-  --color-taskbar-bg-light: rgba(255, 255, 255, 0.92);
-  --color-taskbar-bg-dark: #050509;
+  /* Legacy aliases → TE (used across components) */
+  --color-bg-body: var(--te-cream);
+  --color-bg-desktop-dark: #2a2a28;
+  --color-accent-border: var(--te-border);
+  --color-accent-border-invert: #f4f3ef;
+  --color-window-bg-light: var(--te-surface);
+  --color-window-text-light: var(--te-ink);
+  --color-window-bg-dark: #363634;
+  --color-window-text-dark: var(--te-paper);
+  --color-taskbar-bg-light: rgba(244, 243, 239, 0.92);
+  --color-taskbar-bg-dark: #2a2a28;
+  --color-dock-bg-light: rgba(255, 255, 255, 0.72);
+  --color-dock-bg-dark: rgba(42, 42, 40, 0.88);
 
-  /* док */
-  --color-dock-bg-light: rgba(255, 255, 255, 0.8);
-  --color-dock-bg-dark: rgba(0, 0, 0, 0.85);
+  /* Mobile (same language, slightly softer) */
+  --mobile-font: 'JetBrains Mono', ui-monospace, monospace;
+  --neo-border: var(--te-border-width) solid var(--te-border);
+  --neo-shadow: var(--te-shadow-sm);
+  --neo-yellow: var(--te-yellow);
+  --neo-pink: #e88fa8;
+  --neo-mint: var(--te-mint);
+  --neo-blue: var(--te-blue);
+  --neo-purple: #9b8ec4;
+  --neo-orange: var(--te-orange);
+  --neo-red: var(--te-red);
+}
+
+/* Utility: TE section label (01 / ABOUT) */
+.te-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--te-ink-faint);
+}
+
+.te-label--accent {
+  color: var(--te-orange);
 }
 
 body {
-  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
-  font-size: 13px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
-  background: var(--color-bg-body);
+  background: var(--te-cream);
+  color: var(--te-ink);
   height: 100vh;
   width: 100vw;
 }
@@ -58,4 +92,68 @@ body {
 #root {
   height: 100vh;
   width: 100vw;
+}
+
+/* Desktop grid texture (subtle, like TE product renders) */
+.desktop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--te-border-subtle) 1px, transparent 1px),
+    linear-gradient(90deg, var(--te-border-subtle) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.desktop-dark::before {
+  opacity: 0.12;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+}
+
+.desktop > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Dark theme: переопределение токенов ───────────────── */
+.desktop-dark,
+.desktop-dark .window-content {
+  --te-paper: #323230;
+  --te-cream: #2a2a28;
+  --te-surface: #3a3a38;
+  --te-surface-raised: #424240;
+  --te-ink: #f4f3ef;
+  --te-ink-muted: #b0b0aa;
+  --te-ink-faint: #7a7a74;
+  --te-border-subtle: rgba(255, 255, 255, 0.12);
+  --te-border: rgba(255, 255, 255, 0.22);
+  --te-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --te-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.45);
+  color: var(--te-ink);
+}
+
+.mobile-os[data-theme="dark"],
+.mobile-os[data-theme="dark"] .app-screen__content {
+  --te-paper: #323230;
+  --te-cream: #2a2a28;
+  --te-surface: #3a3a38;
+  --te-surface-raised: #424240;
+  --te-ink: #f4f3ef;
+  --te-ink-muted: #b0b0aa;
+  --te-ink-faint: #7a7a74;
+  --te-border-subtle: rgba(255, 255, 255, 0.12);
+  --te-border: rgba(255, 255, 255, 0.22);
+  color: var(--te-ink);
+}
+
+.project-view .projectImage {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+  display: block;
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './LockScreen.css'
 import { useLanguage } from '../../contexts/LanguageContext'
+import { playUiOpen } from '../../utils/uiSound'
 
 export default function LockScreen({ isLocked, onUnlock }) {
   const { t } = useLanguage()
@@ -29,6 +30,7 @@ export default function LockScreen({ isLocked, onUnlock }) {
     if (touchStartY.current === null) return
     const delta = touchStartY.current - e.clientY
     if (delta > 60) {
+      playUiOpen()
       onUnlock()
     }
     touchStartY.current = null
@@ -45,15 +47,8 @@ export default function LockScreen({ isLocked, onUnlock }) {
       <div className="lock-screen__blob lock-screen__blob--3" />
       <div className="lock-screen__blob lock-screen__blob--4" />
 
-      <div className="lock-screen__status-bar">
-        <span className="lock-screen__status-time">{hours}:{minutes}</span>
-        <div className="lock-screen__status-icons">
-          <span>📶</span>
-          <span>🔋</span>
-        </div>
-      </div>
-
       <div className="lock-screen__content">
+        <div className="lock-screen__brand">yegos</div>
         <div className="lock-screen__time">
           {hours}:{minutes}
         </div>
@@ -62,7 +57,7 @@ export default function LockScreen({ isLocked, onUnlock }) {
 
       <div className="lock-screen__swipe-hint">
         <div className="lock-screen__arrow">↑</div>
-        <span>{t.mobile.swipeHint}</span>
+        <span className="lock-screen__hint">{t.mobile.swipeHint}</span>
       </div>
     </div>
   )

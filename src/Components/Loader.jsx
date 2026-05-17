@@ -26,6 +26,7 @@ function Loader({ isVisible, onFinish }) {
 
   return (
     <div className={`loader-wrapper ${!isVisible ? "fade-out" : ""}`}>
+      <span className="loader-boot-label te-label te-label--accent">boot sequence</span>
       <pre className="ascii-logo">{AsciiLogo}</pre>
       <pre className="ascii-progress">{dashes}</pre>
     </div>

@@ -2,82 +2,163 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 10px;
+  padding: 12px;
+  background: var(--te-surface);
 }
-
-/* ── Desktop browser bar ─────────────────────────────── */
 
 .desktop-browser-bar {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding-bottom: 6px;
-  border-bottom: 3px solid black;
-  margin-bottom: 4px;
-  color: black;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: var(--te-border-width) solid var(--te-border-subtle);
+  margin-bottom: 8px;
+  color: var(--te-ink-muted);
 }
 
 .browser-nav button {
-  border: 2px solid black;
-  background: white;
-  padding: 4px 4px;
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  background: var(--te-paper);
+  padding: 4px 8px;
   cursor: pointer;
-  transition: 0.15s;
-  border-radius: 50%;
-  margin-right: 2px;
+  transition: background 0.12s ease, border-color 0.12s ease;
+  border-radius: var(--te-radius-sm);
+  font-size: 10px;
+  color: var(--te-ink);
 }
 
-.browser-nav button:hover {
-  background: yellow;
+.browser-nav button:hover:not(:disabled) {
+  background: var(--te-orange);
+  border-color: var(--te-orange);
+  color: #fff;
+}
+
+.browser-nav button:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
 .browser-address {
   flex: 1;
-  border: 3px solid black;
-  padding: 2px 6px;
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  padding: 4px 10px;
   font-family: inherit;
-  font-size: 9px;
-  background: white;
-  margin-left: 6px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  background: var(--te-paper);
+  border-radius: var(--te-radius-sm);
+  margin-left: 4px;
+  color: var(--te-ink-muted);
 }
-
-/* ── Mobile URL bar (hidden on desktop) ──────────────── */
 
 .mobile-browser-bar {
   display: none;
 }
 
-/* главная сетка проектов */
+.searchbar-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: 50%;
+  gap: 12px;
+  padding: 24px 20px;
+}
+
+.projects-index-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--te-orange);
+}
+
+.projects-index-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+  color: var(--te-ink);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius);
+  padding: 4px 6px;
+  width: 100%;
+  max-width: 420px;
+  background: var(--te-paper);
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-family: inherit;
+  font-size: 12px;
+  padding: 8px 10px;
+  background: transparent;
+  color: var(--te-ink);
+}
+
+.search-box input::placeholder {
+  color: var(--te-ink-faint);
+  letter-spacing: 0.06em;
+}
+
+.search-box button {
+  border: none;
+  background: var(--te-ink);
+  color: var(--te-paper);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: var(--te-radius-sm);
+  transition: background 0.12s ease;
+}
+
+.search-box button:hover {
+  background: var(--te-orange);
+}
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 8px;
 }
 
 .project-card {
   display: flex;
   align-items: center;
-  gap: 6px;
-  border: 3px solid black;
-  padding: 6px;
+  gap: 10px;
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  padding: 10px;
   cursor: pointer;
-  transition: 0.15s;
-  background-color: white;
-  color: black;
-  border-radius: 15px;
+  transition: border-color 0.12s ease, background 0.12s ease;
+  background: var(--te-surface-raised);
+  color: var(--te-ink);
+  border-radius: var(--te-radius);
 }
 
 .project-card:hover {
-  transform: translate(-3px, -3px);
-  background: #000000;
-  box-shadow: 6px 6px 0px #000;
-  color: white;
+  border-color: var(--te-orange);
+  background: var(--te-paper);
 }
 
 .project-card-emoji {
-  font-size: 16px;
+  font-size: 18px;
   flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--te-paper);
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius-sm);
 }
 
 .project-card-info {
@@ -86,151 +167,124 @@
 }
 
 .project-card-arrow {
-  font-size: 18px;
-  font-weight: 900;
+  font-size: 14px;
+  font-weight: 600;
   flex-shrink: 0;
   display: none;
+  color: var(--te-orange);
 }
 
 .project-title {
-  font-weight: bold;
-  font-size: 10px;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.02em;
 }
 
 .project-stack {
   font-size: 9px;
-  margin-top: 2px;
+  margin-top: 3px;
+  color: var(--te-ink-faint);
+  letter-spacing: 0.04em;
 }
 
-/* просмотр конкретного проекта */
-
 .project-view {
-  padding: 8px;
-  border: 3px solid black;
-  margin-top: 10px;
-  background: white;
-  color: black;
+  padding: 12px;
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  margin-top: 8px;
+  background: var(--te-surface-raised);
+  color: var(--te-ink);
+  border-radius: var(--te-radius);
+}
+
+.project-view h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.project-view p {
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--te-ink-muted);
 }
 
 .project-links {
-  margin-top: 6px;
+  margin-top: 12px;
   display: flex;
-  gap: 6px;
+  gap: 8px;
 }
 
 .project-links a {
   display: flex;
   align-items: center;
-  gap: 4px;
-  border: 2px solid black;
-  padding: 2px 6px;
-  font-size: 9px;
+  gap: 6px;
+  border: var(--te-border-width) solid var(--te-border);
+  padding: 6px 12px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   text-decoration: none;
-  color: black;
+  color: var(--te-ink);
+  border-radius: var(--te-radius-sm);
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
 }
 
 .project-links a:hover {
-  background: yellow;
+  background: var(--te-orange);
+  border-color: var(--te-orange);
+  color: #fff;
 }
 
-.project-view img {
-  max-width: 50%;
+.project-view .projectImage {
+  max-width: 100%;
   height: auto;
   display: block;
-  margin-bottom: 10px;
-  gap: 4px;
-  border: 2px solid black;
+  margin-bottom: 12px;
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius);
 }
 
-.searchbar-section{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  height: 50%;
-  gap: 10px;
-  padding: 20px;
-}
 
-.search-box {
-  display: flex;
-  align-items: center;
-  border: 2px solid #000000;
-  border-radius: 24px;      /* скругление */
-  padding: 4px 8px;
-  width: 100%;
-  max-width: 500px;          /* желаемая ширина */
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
-  background: white;
-}
-
-.search-box input {
-  border: none;
-  outline: none;
-  flex: 1;                   /* занимает всё пространство кроме кнопки */
-  font-size: 16px;
-  padding: 6px 8px;
-  border-radius: 24px 0 0 24px; /* скругление левой стороны */
-}
-
-.search-box button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 18px;
-  padding: 6px 8px;
-  border-radius: 24px ; /* скругление правой стороны */
-  transition: background 0.15s;
-}
-
-.search-box button:hover {
-  background: #030303;
-}
-
-/* ── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 767px) {
-
   .projects-browser-content {
     padding: 0;
     height: auto;
   }
 
-  /* Прячем десктопную адрес-бар */
   .desktop-browser-bar {
     display: none;
   }
 
-  /* Показываем мобильный URL-бар */
   .mobile-browser-bar {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 12px 14px;
-    border-bottom: 3px solid #000;
-    background: #fff;
+    border-bottom: var(--te-border-width) solid var(--te-border-subtle);
+    background: var(--te-surface);
     flex-shrink: 0;
   }
 
   .mobile-back-btn {
-    width: 38px;
-    height: 38px;
-    background: #FFE566;
-    border: 3px solid #000;
-    border-radius: 12px;
-    box-shadow: 3px 3px 0px #000;
+    width: 36px;
+    height: 36px;
+    background: var(--te-paper);
+    border: var(--te-border-width) solid var(--te-border-subtle);
+    border-radius: var(--te-radius);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
     flex-shrink: 0;
-    transition: transform 0.1s, box-shadow 0.1s;
+    transition: background 0.12s ease;
   }
 
   .mobile-back-btn:active {
-    transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0px #000;
+    background: var(--te-orange);
+    color: #fff;
   }
 
   .mobile-url-pill {
@@ -238,166 +292,104 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background: #f4f4f4;
-    border: 3px solid #000;
-    border-radius: 20px;
-    box-shadow: 3px 3px 0px #000;
-    padding: 7px 14px;
+    background: var(--te-paper);
+    border: var(--te-border-width) solid var(--te-border-subtle);
+    border-radius: var(--te-radius);
+    padding: 8px 12px;
     overflow: hidden;
   }
 
   .mobile-url-icon {
-    font-size: 16px;
+    font-size: 14px;
     flex-shrink: 0;
   }
 
   .mobile-url-text {
-    font-size: 13px;
-    font-weight: 700;
-    color: #444;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--te-ink-muted);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-family: monospace;
   }
 
-  /* Поисковая секция */
   .searchbar-section {
     height: auto;
     padding: 28px 16px 20px;
-    gap: 16px;
+    gap: 14px;
   }
 
-  .searchbar-section h1 {
-    font-size: 36px;
+  .projects-index-title {
+    font-size: 28px;
   }
 
   .search-box {
-    border-width: 3px;
-    box-shadow: 4px 4px 0px #000;
-    padding: 6px 12px;
+    padding: 6px 8px;
   }
 
-  .search-box input {
-    font-size: 16px;
-  }
-
-  /* Сетка проектов → одна колонка */
   .browser-page {
     padding: 14px;
   }
 
   .projects-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
   }
 
   .project-card {
-    padding: 14px 16px;
-    border-width: 3px;
-    box-shadow: 4px 4px 0px #000;
-    gap: 14px;
-    border-radius: 4px;
-  }
-
-  .project-card:active {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px #000;
+    padding: 14px;
   }
 
   .project-card-emoji {
-    font-size: 34px;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #EDE7FF;
-    border: 2px solid #000;
-    border-radius: 14px;
-    box-shadow: 3px 3px 0px #000;
-    flex-shrink: 0;
+    font-size: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--te-radius);
   }
 
   .project-card-arrow {
     display: block;
-    color: #888;
   }
 
   .project-title {
-    font-size: 15px;
+    font-size: 13px;
   }
 
   .project-stack {
-    font-size: 12px;
-    margin-top: 4px;
+    font-size: 11px;
   }
 
-  /* Детальный вид проекта */
   .project-view {
     margin-top: 0;
     border: none;
-    border-radius: 0;
     padding: 16px;
   }
 
   .project-view h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 18px;
   }
 
   .project-view p {
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
-  .project-view img {
-    max-width: 100%;
-    border-width: 3px;
-    box-shadow: 4px 4px 0px #000;
-    margin-bottom: 16px;
-  }
-
-  .project-links {
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 14px;
+    font-size: 12px;
   }
 
   .project-links a {
-    font-size: 14px;
-    padding: 8px 16px;
-    border-width: 3px;
-    box-shadow: 3px 3px 0px #000;
-    border-radius: 4px;
+    font-size: 11px;
+    padding: 10px 14px;
   }
 }
-/* ── Dark theme (mobile) ─────────────────────────────── */
-/* Карточки и детали проекта — белый фон, текст чёрный */
-.mobile-os[data-theme="dark"] .project-card,
-.mobile-os[data-theme="dark"] .project-view,
-.mobile-os[data-theme="dark"] .search-box,
-.mobile-os[data-theme="dark"] .search-box input {
-  color: #000;
-}
 
-/* Мобильный URL-пилл — тёмный вариант */
+
 .mobile-os[data-theme="dark"] .mobile-browser-bar {
-  background: #1e1e35;
-  border-color: rgba(255,255,255,0.15);
+  background: #323230;
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .mobile-os[data-theme="dark"] .mobile-url-pill {
-  background: #0f0f1a;
-  border-color: rgba(255,255,255,0.2);
+  background: #2a2a28;
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .mobile-os[data-theme="dark"] .mobile-url-text {
-  color: rgba(255,255,255,0.75);
+  color: var(--te-ink-faint);
 }
-
-.mobile-os[data-theme="dark"] .mobile-url-icon {
-  filter: none;
-}
-
-/* Текст "No projects found" и заголовок Joooooogle — на тёмном фоне, уже наследует #fff */

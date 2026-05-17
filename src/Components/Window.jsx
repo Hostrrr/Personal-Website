@@ -3,7 +3,13 @@ import { Rnd } from 'react-rnd'
 import WindowContent from './WindowContent'
 import './Window.css'
 
-export default function Window({ id, title, content, bgColor, isMaximized, isResizable = true, initialWidth, initialHeight, initialZIndex = 10, theme, onThemeToggle, wallpaperColor, onWallpaperChange, onClose, onMinimize, onMaximize, onFocus }) {
+export default function Window({ id, title, moduleCode, content, bgColor, isMaximized, isResizable = true, initialWidth, initialHeight, initialZIndex = 10, theme, onThemeToggle, wallpaperColor, onWallpaperChange, onClose, onMinimize, onMaximize, onFocus }) {
+  const titleBar = (
+    <div className="window-title">
+      {moduleCode && <span className="window-title__code">{moduleCode}</span>}
+      <span className="window-title__text">{title}</span>
+    </div>
+  )
   const [zIndex, setZIndex] = useState(initialZIndex)
   const [savedPosition, setSavedPosition] = useState({ x: 100 + (id * 30), y: 60 + (id * 30) })
   const [savedSize, setSavedSize] = useState({ width: initialWidth || 500, height: initialHeight || 400 })
@@ -62,7 +68,7 @@ export default function Window({ id, title, content, bgColor, isMaximized, isRes
         onMouseDown={handleMouseDown}
       >
         <div className="window-header">
-          <div className="window-title">{title}</div>
+          {titleBar}
           <div className="window-controls">
             <button className="window-btn minimize" onClick={handleMinimize}>_</button>
             {isResizable && <button className="window-btn maximize" onClick={handleMaximize}>❐</button>}
@@ -111,7 +117,7 @@ export default function Window({ id, title, content, bgColor, isMaximized, isRes
     >
       <div className={`window ${animation === 'closing' ? 'window-closing' : ''}`}>
         <div className="window-header">
-          <div className="window-title">{title}</div>
+          {titleBar}
           <div className="window-controls">
             <button className="window-btn minimize" onClick={handleMinimize}>_</button>
             {isResizable && <button className="window-btn maximize" onClick={handleMaximize}>□</button>}

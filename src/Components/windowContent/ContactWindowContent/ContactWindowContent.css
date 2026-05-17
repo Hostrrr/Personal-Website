@@ -1,7 +1,14 @@
 /* ===== ROOT ===== */
 .contact-root {
     display: flex;
+    flex-direction: column;
     min-height: 100%;
+}
+
+.contact-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
 }
 
 /* ===== LIST ===== */
@@ -21,11 +28,11 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    border: 3px solid black;
+    border: var(--te-border-width) solid var(--te-border-subtle);
     padding: 10px 12px;
     border-radius: 14px;
-    background: #fff;
-    box-shadow: 4px 4px 0px black;
+    background: var(--te-surface-raised);
+    box-shadow: var(--te-shadow-sm);
     cursor: pointer;
     transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
     position: relative;
@@ -33,15 +40,14 @@
 }
 
 .contact-card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px black;
+    border-color: var(--te-orange);
+    box-shadow: var(--te-shadow-sm);
 }
 
 .contact-card--active {
-    background: #fff9e6;
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px black;
-    border-color: var(--accent, black);
+    background: var(--te-paper);
+    border-color: var(--accent, var(--te-orange));
+    box-shadow: var(--te-shadow-md);
 }
 
 .contact-icon {
@@ -77,23 +83,23 @@
 .quick-btn {
     width: 26px;
     height: 26px;
-    border: 2px solid black;
-    border-radius: 7px;
-    background: #f5f5f5;
+    border: var(--te-border-width) solid var(--te-border-subtle);
+    border-radius: var(--te-radius-sm);
+    background: var(--te-paper);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 11px;
-    color: black;
+    color: var(--te-ink);
     text-decoration: none;
     transition: transform 0.12s, box-shadow 0.12s, background 0.12s, color 0.12s;
     flex-shrink: 0;
 }
 
 .quick-btn:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 2px 2px 0 black;
+    border-color: var(--te-orange);
+    background: var(--te-surface);
 }
 
 .quick-btn--copied {
@@ -135,14 +141,14 @@
     flex: 0 0 0%;
     overflow: hidden;
     transition: flex-basis 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    border-left: 0px solid black;
+    border-left: 0 solid transparent;
     position: relative;
-    background: #fffdf5;
+    background: var(--te-surface-raised);
 }
 
 .contact-detail--open {
     flex-basis: 50%;
-    border-left: 3px solid black;
+    border-left: var(--te-border-width) solid var(--te-border-subtle);
 }
 
 .contact-detail-close {
@@ -150,9 +156,9 @@
     top: 8px;
     right: 8px;
     left: auto;
-    background: none;
-    border: 2px solid black;
-    border-radius: 8px;
+    background: var(--te-surface);
+    border: var(--te-border-width) solid var(--te-border-subtle);
+    border-radius: var(--te-radius-sm);
     width: 26px;
     height: 26px;
     display: flex;
@@ -166,8 +172,9 @@
 }
 
 .contact-detail-close:hover {
-    background: black;
-    color: white;
+    background: var(--te-orange);
+    border-color: var(--te-orange);
+    color: #fff;
 }
 
 /* ===== DETAIL CONTENT ===== */
@@ -177,9 +184,9 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    padding: 5px 12px;
-    background: #f0f0f0;
-    border-bottom: 2px dashed #ddd;
+    padding: 8px 12px;
+    background: var(--te-paper);
+    border-bottom: var(--te-border-width) solid var(--te-border-subtle);
 }
 
 .detail-link-label {
@@ -194,7 +201,7 @@
     font-size: 10px;
     font-weight: 700;
     word-break: break-all;
-    color: #222;
+    color: var(--te-ink);
     font-family: monospace;
 }
 
@@ -203,7 +210,7 @@
     align-items: center;
     gap: 10px;
     padding: 8px 12px 6px;
-    border-bottom: 2px solid black;
+    border-bottom: var(--te-border-width) solid var(--te-border-subtle);
 }
 
 .detail-icon {
@@ -263,7 +270,7 @@
     font-size: 10px;
     line-height: 1.5;
     padding: 8px 12px;
-    color: #555;
+    color: var(--te-ink-muted);
     border-bottom: 2px dashed #ddd;
 }
 
@@ -273,21 +280,20 @@
     justify-content: center;
     gap: 6px;
     margin: 8px 12px;
-    padding: 8px 0;
-    border: 2px solid black;
-    border-radius: 10px;
-    background: #ffde59;
-    font-weight: 800;
-    font-size: 13px;
+    padding: 10px 0;
+    border: var(--te-border-width) solid transparent;
+    border-radius: var(--te-radius);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     text-decoration: none;
-    color: white;
-    box-shadow: 3px 3px 0 black;
-    transition: 0.12s;
+    color: #fff;
+    transition: opacity 0.12s ease, filter 0.12s ease;
 }
 
 .detail-action:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0 black;
+    filter: brightness(1.05);
 }
 
 /* ── Mobile ─────────────────────────────────────────────── */
@@ -318,19 +324,17 @@
         padding: 14px 16px;
         border-radius: 18px;
         border-width: 3px;
-        box-shadow: 5px 5px 0px black;
+        box-shadow: var(--te-shadow-md);
     }
 
     .contact-card:active {
-        transform: translate(3px, 3px) !important;
-        box-shadow: 2px 2px 0px black !important;
-        transition: transform 0.08s, box-shadow 0.08s;
+        border-color: var(--te-orange);
     }
 
     @media (hover: none) {
         .contact-card:hover {
             transform: none;
-            box-shadow: 5px 5px 0px black;
+            box-shadow: var(--te-shadow-md);
         }
     }
 
@@ -354,7 +358,7 @@
         position: relative;
         transform: none;
         border-left: none;
-        background: #fffdf5;
+        background: var(--te-surface-raised);
         border-bottom: 0px solid black;
         border-radius: 0 0 24px 24px;
         box-shadow: none;
@@ -381,7 +385,7 @@
         height: 34px;
         border-radius: 12px;
         border-width: 3px;
-        box-shadow: 3px 3px 0px black;
+        box-shadow: var(--te-shadow-sm);
         font-size: 14px;
     }
 
@@ -435,16 +439,12 @@
         font-size: 15px;
         border-width: 3px;
         border-radius: 14px;
-        box-shadow: 4px 4px 0 black;
+        box-shadow: var(--te-shadow-md);
     }
 }
 
 /* ── Dark theme (mobile) ─────────────────────────────── */
 /* Карточки и детальная панель — на белом/светлом фоне, текст чёрный */
-.mobile-os[data-theme="dark"] .contact-card,
-.mobile-os[data-theme="dark"] .contact-detail {
-    color: #000;
-}
 
 .mobile-os[data-theme="dark"] .contact-status {
     color: #fff;

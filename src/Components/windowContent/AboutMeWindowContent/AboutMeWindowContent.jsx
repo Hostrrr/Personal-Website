@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import './AboutMeWindowContent.css'
 import { useLanguage } from '../../../contexts/LanguageContext'
-
+import { PixelImage } from '../../../pixel-engine'
+import { ABOUT_PHOTO_PIXEL } from '../../../pixel-engine/pixelConfig'
 import image1 from '../../../assets/MyPhotos/image12.png'
 import image2 from '../../../assets/MyPhotos/image11.png'
 import image3 from '../../../assets/MyPhotos/image13.png'
@@ -21,28 +22,28 @@ export default function AboutMeWindowContent() {
 
   return (
     <div className="about-window">
-      <div className="about-photo-block" onClick={handleImageClick}>
-        <img
-          src={images[currentImageIndex]}
-          className="about-photo"
-          alt="profile"
-        />
-
-        <div className="passport-stamp">
-          {t.about.clickPhoto}
-        </div>
-      </div>
-
-      <div className="about-text">
-        <div className="about-title">
-          <h2 className="about-name">
-            {t.about.name}
-          </h2>
+      <div className="about-window-body">
+        <div className="about-photo-block" onClick={handleImageClick}>
+          <div className="about-photo-frame">
+            <PixelImage
+              src={images[currentImageIndex]}
+              observe={false}
+              className="about-photo"
+              alt="profile"
+              {...ABOUT_PHOTO_PIXEL}
+            />
+          </div>
+          <div className="passport-stamp">{t.about.clickPhoto}</div>
         </div>
 
-        <div className="about-description">
-          <p dangerouslySetInnerHTML={{ __html: t.about.desc1 }} />
-          <p dangerouslySetInnerHTML={{ __html: t.about.desc2 }} />
+        <div className="about-text">
+          <div className="about-title">
+            <h2 className="about-name">{t.about.name}</h2>
+          </div>
+          <div className="about-description">
+            <p dangerouslySetInnerHTML={{ __html: t.about.desc1 }} />
+            <p dangerouslySetInnerHTML={{ __html: t.about.desc2 }} />
+          </div>
         </div>
       </div>
     </div>

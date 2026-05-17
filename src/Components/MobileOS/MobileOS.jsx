@@ -4,34 +4,29 @@ import HomeScreen from './HomeScreen'
 import AppScreen from './AppScreen'
 import './MobileOS.css'
 import { useLanguage } from '../../contexts/LanguageContext'
+import { OS_MODULES } from '../../config/osModules'
+import { playUiOpen } from '../../utils/uiSound'
 
 const APP_IDS = ['about', 'projects', 'skills', 'contact', 'settings', 'game']
-const APP_META = {
-  about:    { icon: '👤', color: '#FFE566' },
-  projects: { icon: '💼', color: '#6BC5FF' },
-  skills:   { icon: '⚡', color: '#5AFFA8' },
-  contact:  { icon: '📩', color: '#FF6B9D' },
-  settings: { icon: '⚙️', color: '#FFA94D' },
-  game:     { icon: '🎮', color: '#FF6B6B' },
-}
 
 export default function MobileOS() {
   const { t } = useLanguage()
   const [screen, setScreen] = useState('locked')
   const [openAppId, setOpenAppId] = useState(null)
   const [theme, setTheme] = useState('light')
-  const [wallpaperColor, setWallpaperColor] = useState('#cdab2f')
+  const [wallpaperColor, setWallpaperColor] = useState('#e8e6e1')
 
   const apps = APP_IDS.map(id => ({
     id,
     title: t.mobile.appTitles[id],
-    icon: APP_META[id].icon,
-    color: APP_META[id].color,
+    moduleId: OS_MODULES[id]?.id,
+    accent: OS_MODULES[id]?.accent ?? '#9e9c96',
   }))
 
   const unlock = () => setScreen('home')
 
   const openApp = (appId) => {
+    playUiOpen()
     setOpenAppId(appId)
     setScreen('app')
   }

@@ -1,0 +1,17 @@
+.module-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: var(--te-border-width) solid var(--te-border-subtle);
+  flex-shrink: 0;
+}
+
+.module-header--flush {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.desktop-dark .module-header {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}

@@ -2,7 +2,7 @@
   position: absolute;
   inset: 0;
   z-index: 50;
-  background: #fafafa;
+  background: var(--te-surface);
   display: flex;
   flex-direction: column;
   transform: translateY(100%);
@@ -14,121 +14,144 @@
   transform: translateY(0);
 }
 
-/* Header */
 .app-screen__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
-  border-bottom: 3px solid #000;
+  padding: 10px 14px;
+  border-bottom: var(--te-border-width) solid var(--te-border-subtle);
   flex-shrink: 0;
   gap: 10px;
+  background: var(--te-surface-raised);
 }
 
 .app-screen__back-btn {
-  width: 42px;
-  height: 42px;
-  background: #fff;
-  border: 3px solid #000;
-  border-radius: 14px;
-  box-shadow: 3px 3px 0px #000;
-  font-size: 20px;
-  font-weight: 900;
+  width: 38px;
+  height: 38px;
+  background: var(--te-surface);
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius);
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-  font-family: var(--mobile-font);
+  transition: border-color 0.12s ease, background 0.12s ease;
+  font-family: inherit;
+  color: var(--te-ink);
   -webkit-tap-highlight-color: transparent;
 }
 
 .app-screen__back-btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #000;
+  border-color: var(--te-orange);
+  background: var(--te-paper);
 }
 
 .app-screen__header-title {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 20px;
-  font-weight: 900;
-  color: #000;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--te-ink);
   flex: 1;
   justify-content: center;
+  min-width: 0;
+}
+
+.app-screen__header-code {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--te-orange);
+  letter-spacing: 0.12em;
+}
+
+.app-screen__header-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .app-screen__header-icon {
-  font-size: 24px;
+  display: flex;
+  color: var(--te-ink);
 }
 
 .app-screen__header-spacer {
-  width: 42px;
+  width: 38px;
   flex-shrink: 0;
 }
 
-/* Scrollable content */
 .app-screen__content {
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  background: var(--te-surface);
 }
 
-/* Home indicator */
 .app-screen__home-indicator {
   padding: 10px 0 14px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  background: #fafafa;
+  background: var(--te-surface);
   border: none;
+  border-top: var(--te-border-width) solid var(--te-border-subtle);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   width: 100%;
 }
 
 .app-screen__home-bar {
-  width: 130px;
-  height: 5px;
-  background: #000;
-  border-radius: 3px;
-  transition: opacity 0.15s ease;
+  width: 100px;
+  height: 4px;
+  background: var(--te-ink-muted);
+  border-radius: 2px;
+  transition: opacity 0.15s ease, background 0.15s ease;
 }
 
 .app-screen__home-indicator:active .app-screen__home-bar {
-  opacity: 0.4;
+  background: var(--te-orange);
+  opacity: 1;
 }
 
-/* ── Dark theme ──────────────────────────────────────── */
-
 .mobile-os[data-theme="dark"] .app-screen {
-  background: #0f0f1a;
+  background: #2a2a28;
+}
+
+.mobile-os[data-theme="dark"] .app-screen__header {
+  background: #323230;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 .mobile-os[data-theme="dark"] .app-screen__back-btn {
-  background: #1e1e35;
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 3px 3px 0px rgba(255, 255, 255, 0.1);
+  background: #3e3e3c;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--te-paper);
 }
 
 .mobile-os[data-theme="dark"] .app-screen__header-title {
-  color: #fff;
+  color: var(--te-paper);
+}
+
+.mobile-os[data-theme="dark"] .app-screen__header-icon {
+  color: var(--te-paper);
 }
 
 .mobile-os[data-theme="dark"] .app-screen__content {
-  background: #0f0f1a;
-  /* Весь текст на тёмном фоне — белый по умолчанию */
-  color: #fff;
+  background: #2a2a28;
+  color: var(--te-paper);
 }
 
 .mobile-os[data-theme="dark"] .app-screen__home-indicator {
-  background: #0f0f1a;
+  background: #2a2a28;
+  border-top-color: rgba(255, 255, 255, 0.08);
 }
 
 .mobile-os[data-theme="dark"] .app-screen__home-bar {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.35);
 }

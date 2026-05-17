@@ -10,9 +10,9 @@ export const translations = {
       game: 'Игры',
     },
     taskbar: {
-      aboutYegos: '💻 Об YegOS',
-      settings: '⚙️ Настройки',
-      shutdown: '❌ Выключить',
+      aboutYegos: 'Об YegOS',
+      settings: 'Настройки',
+      shutdown: 'Выключить',
       shutdownAlert: 'Выключение YegOS...',
     },
     windowContent: {
@@ -67,10 +67,30 @@ export const translations = {
       searchPlaceholder: 'Поиск...',
       notFound: 'Проекты не найдены 😕',
       projects: [
-        { desc: 'Интерактивное портфолио в стиле мультяшной ОС.' },
-        { desc: 'Трекер на Python с терминальным интерфейсом.' },
-        { desc: 'Приложение распиисание для снудентов на React native.' },
-        { desc: 'Небольшая интерактивная веб страница на Ruby on rails'}
+        {
+          desc:
+            'Интерактивное портфолио-разработчика в виде настоящей ОС: перетаскиваемые окна, док, мобильный режим, тёмная/светлая тема и RU/EN.',
+        },
+        {
+          desc:
+            'Трекер цикла в терминале на Textual. Без облака и сторонних сервисов — только ваши данные локально.',
+        },
+        {
+          desc:
+            'Кроссплатформенный органайзер для студентов: расписание, календарь и база знаний с локальным хранением в SQLite.',
+        },
+        {
+          desc:
+            'Минималистичный дашборд продуктивности: фокус дня, привычки и Pomodoro. Собран на Rails 8 + Hotwire.',
+        },
+        {
+          desc:
+            'SPA для просмотра фильмов на React + TypeScript с API PoiskKino: бесконечный скролл, фильтры по жанрам и рейтингу, избранное в localStorage.',
+        },
+        {
+          desc:
+            'Пасьянс «Косынка» в терминале на Python и curses. Без зависимостей — только стандартная библиотека.',
+        },
       ],
     },
     game: {
@@ -138,9 +158,9 @@ export const translations = {
       game: 'Games',
     },
     taskbar: {
-      aboutYegos: '💻 About YegOS',
-      settings: '⚙️ Settings',
-      shutdown: '❌ Shutdown',
+      aboutYegos: 'About YegOS',
+      settings: 'Settings',
+      shutdown: 'Shutdown',
       shutdownAlert: 'Shutting down YegOS...',
     },
     windowContent: {
@@ -195,10 +215,30 @@ export const translations = {
       searchPlaceholder: 'Search...',
       notFound: 'No projects found 😕',
       projects: [
-        { desc: 'Interactive portfolio styled like a cartoon OS.' },
-        { desc: 'Terminal-based tracker written in Python.' },
-        { desc: 'An Organizer app for students made with React native' },
-        { desc: 'little interactive web page made with Ruby on rails'},
+        {
+          desc:
+            'Interactive developer portfolio that looks and feels like a real desktop OS — draggable windows, dock, mobile mode, themes, RU/EN.',
+        },
+        {
+          desc:
+            'Terminal UI period tracker built with Textual. No apps, no cloud — just you and your data.',
+        },
+        {
+          desc:
+            'Cross-platform student organizer — schedule, calendar, and knowledge base with local SQLite storage.',
+        },
+        {
+          desc:
+            "Minimal productivity dashboard. Today's focus, habits, and Pomodoro. Built with Rails 8 + Hotwire.",
+        },
+        {
+          desc:
+            'React + TypeScript SPA for browsing movies via PoiskKino API — infinite scroll, genre/rating filters, favorites in localStorage.',
+        },
+        {
+          desc:
+            'Klondike Solitaire in your terminal with Python and curses. No dependencies — standard library only.',
+        },
       ],
     },
     game: {

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import './App.css'
 import Loader from "./Components/Loader";
 import Desktop from "./Components/Desktop";
 import MobileOS from "./Components/MobileOS/MobileOS";

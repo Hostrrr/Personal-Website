@@ -4,18 +4,21 @@ import TaskBar from './TaskBar'
 import './Desktop.css'
 import { useLanguage } from '../contexts/LanguageContext'
 import { darkenAndSaturate } from '../utils/colorUtils'
+import { getModule } from '../config/osModules'
+import DockIcon from './icons/DockIcon'
+import { playUiOpen } from '../utils/uiSound'
 
 export default function Desktop() {
   const { t } = useLanguage()
 
   const [windows, setWindows] = useState([
-    { id: 1, isOpen: true, isMinimized: false, isMaximized: false, content: 'about', bgColor: '#e8f4f8', zIndex: 10 },
-    { id: 2, isOpen: false, isMinimized: false, isMaximized: false, content: 'projects', bgColor: '#f8e8e8', zIndex: 10 },
-    { id: 3, isOpen: false, isMinimized: false, isMaximized: false, content: 'skills', bgColor: '#f8f8e8', zIndex: 10 },
-    { id: 4, isOpen: false, isMinimized: false, isMaximized: false, content: 'contact', bgColor: '#e8f8e8', zIndex: 10 },
-    { id: 5, isOpen: false, isMinimized: false, isMaximized: false, content: 'yegos', bgColor: '#f0f0f0', isResizable: false, width: 350, height: 300, skipDock: true, defaultDarkColor: '#3a3a3a', zIndex: 10 },
-    { id: 6, isOpen: false, isMinimized: false, isMaximized: false, content: 'settings', bgColor: '#f0f0f0', isResizable: false, width: 400, height: 350, defaultDarkColor: '#3a3a3a', zIndex: 10 },
-    { id: 7, isOpen: false, isMinimized: false, isMaximized: false, content: 'game', bgColor: '#f8e8f8', zIndex: 10 },
+    { id: 1, isOpen: true, isMinimized: false, isMaximized: false, content: 'about', bgColor: '#f4f3ef', zIndex: 10 },
+    { id: 2, isOpen: false, isMinimized: false, isMaximized: false, content: 'projects', bgColor: '#e8e6e1', zIndex: 10 },
+    { id: 3, isOpen: false, isMinimized: false, isMaximized: false, content: 'skills', bgColor: '#dde8de', zIndex: 10 },
+    { id: 4, isOpen: false, isMinimized: false, isMaximized: false, content: 'contact', bgColor: '#d4e4ed', zIndex: 10 },
+    { id: 5, isOpen: false, isMinimized: false, isMaximized: false, content: 'yegos', bgColor: '#e5ddd8', isResizable: false, width: 350, height: 300, skipDock: true, defaultDarkColor: '#3e3e3c', zIndex: 10 },
+    { id: 6, isOpen: false, isMinimized: false, isMaximized: false, content: 'settings', bgColor: '#e8e4dc', isResizable: false, width: 400, height: 350, defaultDarkColor: '#3e3e3c', zIndex: 10 },
+    { id: 7, isOpen: false, isMinimized: false, isMaximized: false, content: 'game', bgColor: '#e5ddd8', zIndex: 10 },
   ])
 
   // активное окно и счётчик z-index для красивого наложения
@@ -24,7 +27,7 @@ export default function Desktop() {
 
   // тема оформления: light / dark
   const [theme, setTheme] = useState('light')
-  const [wallpaperColor, setWallpaperColor] = useState('#cdab2f')
+  const [wallpaperColor, setWallpaperColor] = useState('#e8e6e1')
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'))
@@ -39,6 +42,7 @@ export default function Desktop() {
 
   // Открыть окно
   const openWindow = (id) => {
+    playUiOpen()
     const newZ = zIndexCounter + 1
     setZIndexCounter(newZ)
     setWindows(prev => prev.map(win => 
@@ -91,16 +95,7 @@ export default function Desktop() {
       <div className="dock">
         {windows.filter(w => !w.skipDock).map(win => {
           const isActive = activeWindowId === win.id && win.isOpen && !win.isMinimized
-          const iconMap = {
-            about: '👤',
-            projects: '💾',
-            skills: '🛠️',
-            contact: '✉️',
-            yeogos: '🖥️',
-            settings: '⚙️',
-            game: '🎮',
-          }
-          const icon = iconMap[win.content] || '🗂️'
+          const mod = getModule(win.content)
 
           return (
             <div
@@ -118,9 +113,12 @@ export default function Desktop() {
                   background: isActive ? getThemedBgColor(win.bgColor, win.defaultDarkColor) : undefined,
                 }}
               >
-                {icon}
+                <DockIcon name={win.content} />
               </div>
-              <div className="dock-label">{t.windows[win.content] || win.content}</div>
+              <div className="dock-label">
+                {mod && <span className="dock-label__code">{mod.id}</span>}
+                <span className="dock-label__text">{t.windows[win.content] || win.content}</span>
+              </div>
             </div>
           )
         })}
@@ -133,6 +131,7 @@ export default function Desktop() {
             key={win.id}
             id={win.id}
             title={t.windows[win.content] || win.content}
+            moduleCode={getModule(win.content)?.id}
             content={win.content}
             bgColor={getThemedBgColor(win.bgColor, win.defaultDarkColor)}
             isMaximized={win.isMaximized}

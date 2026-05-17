@@ -2,10 +2,9 @@ import { useEffect, useState, useRef, useCallback } from "react"
 import { useWebHaptics } from "web-haptics/react"
 import "./GameWindowContent.css"
 import { useLanguage } from "../../../contexts/LanguageContext"
-
 const ROWS = 20
 const COLS = 20
-const INITIAL_SPEED = 120
+const INITIAL_SPEED = 110
 
 const DIRECTIONS = {
   ArrowUp:    { x: 0, y: -1 },
@@ -171,7 +170,6 @@ export default function GameWindowContent() {
 
   return (
     <div className="game-window">
-
       {/* ── Desktop layout ─────────────────────────────── */}
       <div className="game-desktop">
         <div className="snake-board-wrapper">

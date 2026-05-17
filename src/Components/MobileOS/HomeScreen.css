@@ -2,9 +2,11 @@
   position: absolute;
   inset: 0;
   z-index: 10;
-  background-color: #EDE7FF;
-  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.07) 1.5px, transparent 1.5px);
-  background-size: 26px 26px;
+  background-color: var(--te-cream);
+  background-image:
+    linear-gradient(var(--te-border-subtle) 1px, transparent 1px),
+    linear-gradient(90deg, var(--te-border-subtle) 1px, transparent 1px);
+  background-size: 24px 24px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -23,39 +25,37 @@
 }
 
 .home-screen__status-time {
-  font-size: 14px;
-  color: #000;
-}
-
-.home-screen__status-icons {
-  display: flex;
-  gap: 4px;
-  font-size: 15px;
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--te-ink-muted);
+  letter-spacing: 0.06em;
 }
 
 /* Date / greeting widget */
 .home-screen__widget {
   margin: 8px 16px 16px;
-  background: #fff;
-  border: 3px solid #000;
-  border-radius: 20px;
-  box-shadow: 5px 5px 0px #000;
+  background: var(--te-surface);
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius-lg);
+  box-shadow: var(--te-shadow-md);
   padding: 16px 20px;
   flex-shrink: 0;
 }
 
 .home-screen__widget-time {
   font-size: 48px;
-  font-weight: 900;
+  font-weight: 600;
   line-height: 1;
-  color: #000;
-  letter-spacing: -2px;
+  color: var(--te-ink);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
 }
 
 .home-screen__widget-date {
   font-size: 14px;
-  font-weight: 700;
-  color: #555;
+  font-weight: 500;
+  color: var(--te-ink-muted);
   text-transform: capitalize;
   margin-top: 4px;
 }
@@ -65,11 +65,14 @@
   margin-top: 10px;
   font-size: 13px;
   font-weight: 800;
-  background: #FFE566;
+  background: var(--te-orange);
+  color: #fff;
   padding: 5px 14px;
-  border: 2px solid #000;
-  border-radius: 14px;
-  box-shadow: 3px 3px 0px #000;
+  border: none;
+  border-radius: var(--te-radius-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 10px;
 }
 
 /* App grid */
@@ -100,36 +103,48 @@
 .app-icon__face {
   width: 72px;
   height: 72px;
-  background: var(--app-color, #FFE566);
-  border: 3px solid #000;
-  border-radius: 22px;
-  box-shadow: 4px 4px 0px #000;
+  background: var(--te-surface);
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius-lg);
+  box-shadow: var(--te-shadow-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  color: var(--te-ink);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.app-icon__face::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--app-accent, var(--te-orange));
+}
+
+.app-icon__face {
+  position: relative;
 }
 
 .app-icon:active .app-icon__face {
-  transform: translate(3px, 3px);
-  box-shadow: 1px 1px 0px #000;
-}
-
-.app-icon__emoji {
-  font-size: 34px;
-  line-height: 1;
+  border-color: var(--app-accent, var(--te-orange));
 }
 
 .app-icon__label {
-  font-size: 12px;
-  font-weight: 800;
-  color: #000;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--te-ink-muted);
   text-align: center;
   max-width: 80px;
-  background: rgba(255, 255, 255, 0.75);
-  padding: 2px 8px;
-  border-radius: 10px;
-  letter-spacing: 0.1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  letter-spacing: 0.04em;
 }
 
 /* Dock */
@@ -139,10 +154,11 @@
 }
 
 .home-screen__dock {
-  background: rgba(255, 255, 255, 0.9);
-  border: 3px solid #000;
-  border-radius: 28px;
-  box-shadow: 5px 5px 0px #000;
+  background: rgba(255, 255, 255, 0.88);
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius-lg);
+  box-shadow: var(--te-shadow-md);
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -158,29 +174,30 @@
 }
 
 .mobile-dock-icon__face {
-  width: 58px;
-  height: 58px;
-  background: var(--app-color, #FFE566);
-  border: 3px solid #000;
-  border-radius: 18px;
-  box-shadow: 3px 3px 0px #000;
+  width: 52px;
+  height: 52px;
+  background: var(--te-surface);
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  color: var(--te-ink);
+  transition: border-color 0.12s ease;
 }
 
 .mobile-dock-icon:active .mobile-dock-icon__face {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #000;
+  border-color: var(--app-accent, var(--te-orange));
 }
 
 /* ── Dark theme ──────────────────────────────────────── */
 
 .mobile-os[data-theme="dark"] .home-screen {
-  background-color: #0f0f1a;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1.5px, transparent 1.5px);
+  background-color: #2a2a28;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 .mobile-os[data-theme="dark"] .home-screen__status-bar {
@@ -188,31 +205,26 @@
 }
 
 .mobile-os[data-theme="dark"] .home-screen__widget {
-  background: #1e1e35;
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 5px 5px 0px rgba(255, 255, 255, 0.1);
-}
-
-.mobile-os[data-theme="dark"] .home-screen__widget-time {
-  color: #fff;
+  background: #363634;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: var(--te-shadow-md);
 }
 
 .mobile-os[data-theme="dark"] .home-screen__widget-date {
   color: rgba(255, 255, 255, 0.6);
 }
 
-.mobile-os[data-theme="dark"] .home-screen__widget-greeting {
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 3px 3px 0px rgba(255, 255, 255, 0.1);
+.mobile-os[data-theme="dark"] .app-icon__label {
+  color: var(--te-ink-faint);
 }
 
-.mobile-os[data-theme="dark"] .app-icon__label {
-  background: rgba(0, 0, 0, 0.55);
-  color: #fff;
+.mobile-os[data-theme="dark"] .app-icon__face {
+  background: #3e3e3c;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--te-paper);
 }
 
 .mobile-os[data-theme="dark"] .home-screen__dock {
-  background: rgba(20, 20, 40, 0.92);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 5px 5px 0px rgba(255, 255, 255, 0.08);
+  background: rgba(42, 42, 40, 0.92);
+  border-color: rgba(255, 255, 255, 0.1);
 }

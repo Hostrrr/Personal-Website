@@ -1,13 +1,15 @@
-/* ── Добавь это в SkillsWindowContent.css ──────────────────── */
-/* Остальные стили (.skill-card, .skill-icon, частицы) оставь как есть */
+.skills-window {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 320px;
+}
 
-/* Физический контейнер — фиксированная высота, карточки абсолютные */
 .skills-physics-container {
     position: relative;
     flex: 1;
     width: 100%;
-    height: 100%;
-    min-height: 320px;
+    min-height: 0;
     overflow: hidden;
     touch-action: none;
     cursor: grab;
@@ -27,28 +29,29 @@
     pointer-events: auto;
     z-index: 1;
     will-change: transform, left, top;
-    border: 3px solid #000;
-    box-shadow: 4px 4px 0px #000;
+    border: var(--te-border-width) solid var(--te-border-subtle);
+    box-shadow: var(--te-shadow-sm);
+    background: var(--te-surface-raised);
+    border-radius: var(--te-radius);
     transform: translate3d(0, 0, 0) rotate(var(--physics-rotation, 0rad));
-    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
 }
 
-/* Hover — лёгкий сдвиг и усиленная тень, сохраняем физический угол */
 .physics-card:hover {
-    transform: translate(-3px, -3px) rotate(var(--physics-rotation, 0rad));
-    box-shadow: 8px 8px 0px #000;
+    transform: translate(-2px, -2px) rotate(var(--physics-rotation, 0rad));
+    border-color: var(--te-orange);
+    box-shadow: var(--te-shadow-md);
 }
 
-/* Пока перетаскивают — увеличенная тень (необрутализм) */
 .physics-card.is-dragged {
-    box-shadow: 10px 10px 0px #000 !important;
-    transform: translate(0, 0) scale(1.05) rotate(var(--physics-rotation, 0rad));
+    box-shadow: var(--te-shadow-md) !important;
+    border-color: var(--te-orange) !important;
+    transform: translate(0, 0) scale(1.04) rotate(var(--physics-rotation, 0rad));
 }
 
-/* Active / tap — визуальное нажатие вниз */
 .physics-card:active {
-    transform: translate(3px, 3px) rotate(var(--physics-rotation, 0rad));
-    box-shadow: 1px 1px 0px #000;
+    transform: translate(1px, 1px) rotate(var(--physics-rotation, 0rad));
+    box-shadow: none;
 }
 
 /* ── Слой частиц — поверх всего (portal в body) ─────────────── */
@@ -81,13 +84,7 @@
         padding: 0;
     }
 
-    .physics-card {
-        border-width: 3px;
-        box-shadow: 5px 5px 0px #000;
-    }
-
     .physics-card:active {
-        transform: translate(4px, 4px) rotate(var(--physics-rotation, 0rad));
-        box-shadow: 1px 1px 0px #000;
+        transform: translate(2px, 2px) rotate(var(--physics-rotation, 0rad));
     }
 }

@@ -3,11 +3,12 @@ import img1 from '../../../assets/ProjectScreenshots/PortfolioOS.png'
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft } from 'react-icons/fa'
 import { useState } from 'react'
 import { useLanguage } from '../../../contexts/LanguageContext'
-
+import { PixelImage } from '../../../pixel-engine'
+import { PROJECT_SCREENSHOT_PIXEL } from '../../../pixel-engine/pixelConfig'
 const PROJECTS_BASE = [
   {
     title: "Portfolio OS",
-    stack: "React / CSS",
+    stack: "React / Vite",
     github: "https://github.com/Hostrrr/Personal-Website",
     live: "https://georgiy-nazarenko.vercel.app",
     imgpath: img1,
@@ -15,24 +16,39 @@ const PROJECTS_BASE = [
   },
   {
     title: "Period Tracker CLI",
-    stack: "Python CLI",
+    stack: "Python / Textual",
     github: "https://github.com/Hostrrr/period-tracker-tui",
     imgpath: "",
     emoji: "🌸"
   },
   {
     title: "Study organizer app",
-    stack: "React Native / Expo",
+    stack: "React Native / Expo / SQLite",
     github: "https://github.com/Hostrrr/Study-organizer-app",
     imgpath: "",
     emoji: "📚"
   },
   {
     title: "Focus page",
-    stack: "React Native / Expo",
+    stack: "Ruby on Rails / Hotwire",
     github: "https://github.com/Hostrrr/focus-page",
     imgpath: "",
-    emoji: "📃"
+    emoji: "🎯"
+  },
+  {
+    title: "Kinopoisk App",
+    stack: "React / TypeScript",
+    github: "https://github.com/Hostrrr/Kinopoisk-App-For-Vk",
+    live: "https://kinopoisk-app-for-vk.vercel.app",
+    imgpath: "",
+    emoji: "🎬"
+  },
+  {
+    title: "Solitaire TUI",
+    stack: "Python / curses",
+    github: "https://github.com/Hostrrr/klondike-tui",
+    imgpath: "",
+    emoji: "🃏"
   },
 ]
 
@@ -82,7 +98,7 @@ export default function ProjectsWindowContent() {
 
       {!currentProject && (
         <div className="searchbar-section">
-          <h1>Joooooogle</h1>
+          <h1 className="projects-index-title">search</h1>
           <div className="search-box">
             <input
               type="text"
@@ -122,10 +138,12 @@ export default function ProjectsWindowContent() {
         {currentProject && (
           <div className="project-view">
             {currentProject.imgpath && (
-              <img
+              <PixelImage
+                key={currentProject.title}
                 src={currentProject.imgpath}
-                alt={currentProject.emoji}
+                alt={currentProject.title}
                 className="projectImage"
+                {...PROJECT_SCREENSHOT_PIXEL}
               />
             )}
             <h3>{currentProject.title}</h3>

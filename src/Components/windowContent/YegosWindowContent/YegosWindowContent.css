@@ -1,18 +1,69 @@
-.yegos-section{
-    padding: 20px 30px;
-    font-family: "Courier New", monospace;
-        display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-
-     text-align: center;
-    width: fit-content;
-    margin: 0px auto; 
+.yegos-section {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  font-family: inherit;
 }
 
-.ascii-logo-os{
-    border-radius: 999pt;
-    font-size: 5pt;
+.yegos-section .module-header {
+  flex-shrink: 0;
+}
+
+.yegos-section__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px 24px;
+  text-align: center;
+}
+
+.ascii-logo-os {
+  font-size: 6px;
+  line-height: 1.15;
+  color: var(--te-ink-muted);
+  padding: 12px;
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius);
+  background: var(--te-paper);
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.yegos-section__body p {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--te-ink-muted);
+  width: 100%;
+  max-width: 280px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: var(--te-border-width) solid var(--te-border-subtle);
+}
+
+.yegos-section__body p:last-child {
+  border-bottom: none;
+}
+
+.yegos-section__body strong {
+  font-weight: 600;
+  color: var(--te-ink-faint);
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+.desktop-dark .ascii-logo-os {
+  background: #3e3e3c;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--te-ink-faint);
+}
+
+.desktop-dark .yegos-section__body p {
+  color: var(--te-ink-faint);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }

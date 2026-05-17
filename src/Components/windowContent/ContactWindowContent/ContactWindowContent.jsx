@@ -6,7 +6,6 @@ import {
   FaCode, FaCopy, FaCheck
 } from 'react-icons/fa'
 import { useLanguage } from '../../../contexts/LanguageContext'
-
 const CONTACT_BASE = [
   {
     name: 'Email',
@@ -87,6 +86,7 @@ export default function ContactWindowContent() {
 
   return (
     <div className="contact-root">
+      <div className="contact-body">
       <div className="contact-list">
         {contacts.map((contact) => (
           <div
@@ -169,6 +169,7 @@ export default function ContactWindowContent() {
             </a>
           </>
         )}
+      </div>
       </div>
     </div>
   )

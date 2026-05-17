@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom'
 import { useWebHaptics } from 'web-haptics/react'
 import Matter from 'matter-js'
 import './SkillsWindowContent.css'
-
 const { Engine, Runner, Bodies, Body, World, Mouse, MouseConstraint, Events } = Matter
 
 const skills = [
@@ -20,7 +19,7 @@ const skills = [
   { name: 'SQLite',     icon: <SiSqlite />,      emojis: ['🪨','💾','📦','🔒','✨'] },
 ]
 
-const colors = ['#FFDE59', '#59C3FF', '#FF8FAB', '#8AFF80', '#FFA94D']
+const colors = ['#f4f3ef', '#e8e6e1', '#dde8de', '#d4e4ed', '#e8e4dc', '#e5ddd8']
 
 // Размер карточки — синхронизирован с CSS
 const CARD_W = 110
@@ -280,8 +279,7 @@ export default function SkillsWindowContent() {
   }, [trigger])
 
   return (
-    <>
-      {/* Контейнер — relative, чтобы карточки позиционировались внутри */}
+    <div className="skills-window">
       <div className="skills-physics-container" ref={containerRef}>
 
         {/* DOM-карточки позиционируем по данным из физики */}
@@ -340,6 +338,6 @@ export default function SkillsWindowContent() {
         </div>,
         document.body
       )}
-    </>
+    </div>
   )
 }

@@ -2,18 +2,17 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  border: 5px solid var(--color-accent-border);
-  border-right-color: var(--color-accent-border);
-  border-bottom-color: var(--color-accent-border);
-  box-shadow: 10px 10px 0 var(--color-accent-border);
-  transition: all 0.25s ease;
-  animation: window-appear 0.2s ease;
-  border-radius: 0%;
+  border: var(--te-border-width) solid var(--te-border);
+  border-radius: var(--te-radius-lg);
+  box-shadow: var(--te-shadow-md);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  animation: window-appear 0.25s ease;
+  overflow: hidden;
 }
 
 @keyframes window-appear {
   from {
-    transform: translateY(-8px);
+    transform: translateY(-4px);
     opacity: 0;
   }
   to {
@@ -24,7 +23,7 @@
 
 .window-closing {
   animation: window-close 0.2s ease forwards;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+  box-shadow: none;
 }
 
 @keyframes window-close {
@@ -33,26 +32,26 @@
     opacity: 1;
   }
   to {
-    transform: translateY(10px) scale(0.95);
+    transform: translateY(6px) scale(0.98);
     opacity: 0;
   }
 }
 
-/* Максимизированное окно через CSS */
 .window.maximized {
   position: fixed;
-  top: 60px; /* 40px таскбар + 10px отступ */
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
-  width: auto; /* автоматическая ширина */
-  height: auto; /* автоматическая высота */
-  animation: maximize 0.3s ease;
+  top: 56px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  width: auto;
+  height: auto;
+  border-radius: var(--te-radius);
+  animation: maximize 0.28s ease;
 }
 
 .window.maximized.window-unmaximizing {
-  animation: window-unmaximize 0.30s ease forwards;
-  transform-origin:  center;
+  animation: window-unmaximize 0.28s ease forwards;
+  transform-origin: center;
 }
 
 @keyframes window-unmaximize {
@@ -61,15 +60,15 @@
     opacity: 1;
   }
   to {
-    transform: scale(0.2);
-    opacity: 0.8;
+    transform: scale(0.96);
+    opacity: 0.85;
   }
 }
 
 @keyframes maximize {
   from {
-    transform: scale(0.8);
-    opacity: 0.8;
+    transform: scale(0.98);
+    opacity: 0.9;
   }
   to {
     transform: scale(1);
@@ -81,100 +80,125 @@
   cursor: default;
 }
 
+/* Title bar — OP-1 strip */
 .window-header {
-  background: var(--color-window-bg-light);
-  color: var(--color-window-text-light);
-  padding: 4px 6px;
+  background: var(--te-surface-raised);
+  color: var(--te-ink);
+  padding: 6px 10px;
   display: flex;
-  border-bottom-color:#000000;
-    border-bottom-style: solid;
-    border-bottom-width: 5px;
+  border-bottom: var(--te-border-width) solid var(--te-border-subtle);
   justify-content: space-between;
   align-items: center;
   cursor: move;
-  font-weight: bold;
-  font-size: 12px;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
 }
 
 .window-title {
   flex: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.window-title__code {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--te-orange);
+  flex-shrink: 0;
+}
+
+.window-title__text {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.desktop-dark .window-title__code {
+  color: var(--te-orange);
+}
+
+.desktop-dark .window-title__text {
+  color: var(--te-paper);
 }
 
 .window-controls {
   display: flex;
-  gap: 2px;
+  gap: 4px;
 }
 
 .window-btn {
-  width: 24px;
-  height: 24px;
-  background: var(--color-window-bg-light);
-  border: 2px solid var(--color-accent-border);
+  width: 22px;
+  height: 22px;
+  background: var(--te-surface);
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius-sm);
   cursor: pointer;
-  font-weight: bold;
-  font-size: 10px;
+  font-weight: 600;
+  font-size: 9px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  margin-right: 5px;
-  transition: all 0.3s ease;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .window-btn.minimize:hover {
-  background: #ffff00;
-  color: black;
-  translate: -1px -1px;
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+  background: var(--te-yellow);
+  border-color: var(--te-border);
+  color: var(--te-ink);
 }
+
 .window-btn.maximize:hover {
-  background: #00ff00;
-  color: black;
-  translate: -1px -1px;
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+  background: var(--te-mint);
+  border-color: var(--te-border);
+  color: var(--te-ink);
 }
 
 .window-btn.close:hover {
-  background: #ff0000;
-  color: white;
-  translate: -1px -1px;
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+  background: var(--te-orange);
+  border-color: var(--te-orange);
+  color: #fff;
 }
 
 .window-btn:active {
-  translate: 1px 1px;
-  box-shadow: none;
+  transform: scale(0.94);
 }
 
 .window-content {
   flex: 1;
-  background: var(--color-window-bg-light);
-  color: var(--color-window-text-light);
-  padding: 0px;
+  background: var(--te-surface);
+  color: var(--te-ink);
+  padding: 0;
   overflow: auto;
-  margin: 0px;
-  font-size: 10px;
-}
-.window:hover{
-    translate: 0 0px;
+  margin: 0;
+  font-size: 12px;
 }
 
-/* Тёмная тема: инверсия светлой — чёрное/белое меняются местами */
+/* Dark */
 .desktop-dark .window {
-  border-color: var(--color-accent-border-invert);
-  box-shadow: 10px 10px 0 var(--color-accent-border);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
 }
 
 .desktop-dark .window-header {
-  background: var(--color-accent-border);
-  color: var(--color-accent-border-invert);
-  border-bottom-color: var(--color-accent-border-invert);
+  background: #323230;
+  color: var(--te-paper);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 .desktop-dark .window-btn {
-  background: var(--color-accent-border);
-  color: var(--color-accent-border-invert);
-  border-color: var(--color-accent-border-invert);
+  background: #3e3e3c;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--te-paper);
 }
 
 .desktop-dark .window-content {
@@ -182,12 +206,7 @@
   color: var(--color-window-text-dark);
 }
 
-.desktop-dark .window-btn.minimize:hover{
-  box-shadow: 2px 2px 0px rgb(255, 255, 255);
-}
-.desktop-dark .window-btn.maximize:hover{
-  box-shadow: 2px 2px 0px rgb(255, 255, 255);
-}
-.desktop-dark .window-btn.close:hover{
-  box-shadow: 2px 2px 0px rgb(255, 255, 255);
+.desktop-dark .window-btn.close:hover {
+  background: var(--te-orange);
+  border-color: var(--te-orange);
 }

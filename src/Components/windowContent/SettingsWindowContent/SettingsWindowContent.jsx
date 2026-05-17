@@ -1,15 +1,14 @@
 import './SettingsWindowContent.css'
 import { useLanguage } from '../../../contexts/LanguageContext'
-
 const WALLPAPER_COLORS = [
-  '#cdab2f',
-  '#3da6c9',
-  '#b05050',
-  '#44b744',
-  '#c37fd2',
-  '#4e4ecb',
-  '#f0f0f0',
-  '#1a1a2e',
+  '#e8e6e1',
+  '#d4e4ed',
+  '#e5ddd8',
+  '#dde8de',
+  '#e8e4dc',
+  '#c9c7c2',
+  '#f4f3ef',
+  '#2a2a28',
 ]
 
 const LANGUAGES = [
@@ -28,7 +27,6 @@ export default function SettingsWindowContent({
 
   return (
     <div className="settings-root">
-
       {/* ── Тема ─────────────────────────────────────── */}
       <div className="settings-section">
         <div className="settings-section-label">{t.settings.themeSection}</div>
@@ -40,7 +38,7 @@ export default function SettingsWindowContent({
         >
           <span className="theme-toggle__track">
             <span className="theme-toggle__thumb">
-              {isDark ? '🌙' : '☀️'}
+              {isDark ? 'D' : 'L'}
             </span>
           </span>
           <span className="theme-toggle__label">
