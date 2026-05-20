@@ -92,6 +92,15 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   background: var(--te-surface);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.app-screen__content > .skills-window--mobile {
+  flex: 1;
+  min-height: 100%;
+  overflow: hidden;
 }
 
 .app-screen__home-indicator {

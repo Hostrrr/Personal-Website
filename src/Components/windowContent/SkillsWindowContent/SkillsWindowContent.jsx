@@ -20,10 +20,19 @@ const skills = [
   { name: 'SQLite',     icon: <SiSqlite />,      emojis: ['🪨','💾','📦'] },
 ]
 
-const colors = ['#f4f3ef', '#e8e6e1', '#dde8de', '#d4e4ed', '#e8e4dc', '#e5ddd8']
+const DESKTOP_COLORS = ['#f4f3ef', '#e8e6e1', '#dde8de', '#d4e4ed', '#e8e4dc', '#e5ddd8']
 
-/** Формы: размеры DOM + Matter-тело */
-const SKILL_SHAPES = [
+/** Акцентные пары для мобилки — ярче и контрастнее */
+const MOBILE_PALETTE = [
+  { bg: '#fff0e6', accent: '#ff5500' },
+  { bg: '#e8f3fc', accent: '#4a8fd4' },
+  { bg: '#e8f8ef', accent: '#5cb88a' },
+  { bg: '#fdf6e3', accent: '#c9a227' },
+  { bg: '#f3ecfc', accent: '#9b8ec4' },
+  { bg: '#fce8ee', accent: '#e04545' },
+]
+
+const SKILL_SHAPES_BASE = [
   { id: 'circle',    w: 88,  h: 88,  r: 44 },
   { id: 'square',    w: 92,  h: 92,  r: 46 },
   { id: 'triangle',  w: 100, h: 92,  r: 48 },
@@ -34,6 +43,42 @@ const SKILL_SHAPES = [
 
 const GRID_GAP = 18
 const DRAG_THRESHOLD = 8
+const MOBILE_SHAPE_SCALE = 1.28
+
+function scaleShape(shape, factor) {
+  return {
+    ...shape,
+    w: Math.round(shape.w * factor),
+    h: Math.round(shape.h * factor),
+    r: Math.round(shape.r * factor),
+  }
+}
+
+function getSkillShapes(isMobile) {
+  const base = SKILL_SHAPES_BASE
+  if (!isMobile) return base
+  return base.map(s => scaleShape(s, MOBILE_SHAPE_SCALE))
+}
+
+function getSpawnPosition(i, skill, W, H, cols, maxShapeW, maxShapeH, isMobile) {
+  const { shape } = skill
+  if (!isMobile) {
+    const col = i % cols
+    const row = Math.floor(i / cols)
+    return {
+      x: 24 + col * (maxShapeW + GRID_GAP) + shape.w / 2,
+      y: -row * (maxShapeH + 22) - shape.h / 2 - 16,
+    }
+  }
+
+  const marginX = 20
+  const usableW = W - marginX * 2 - shape.w
+  const seed = (i * 47 + shape.w) % 1000
+  const x = marginX + shape.w / 2 + (usableW * ((seed % 97) / 97))
+  const band = Math.max(H * 0.55, 280)
+  const y = -(shape.h / 2 + 40 + ((seed % 11) / 10) * band + (i % 3) * 36)
+  return { x, y }
+}
 
 function createSkillBody(shape, x, y, common) {
   switch (shape.id) {
@@ -91,11 +136,17 @@ export default function SkillsWindowContent() {
   const touchMovedRef = useRef(false)
   const hapticsPrimedRef = useRef(false)
 
-  const styledSkills = useMemo(() => skills.map((skill, i) => ({
-    ...skill,
-    color: colors[i % colors.length],
-    shape: SKILL_SHAPES[i % SKILL_SHAPES.length],
-  })), [])
+  const skillShapes = useMemo(() => getSkillShapes(isMobile), [isMobile])
+
+  const styledSkills = useMemo(() => skills.map((skill, i) => {
+    const palette = MOBILE_PALETTE[i % MOBILE_PALETTE.length]
+    return {
+      ...skill,
+      color: isMobile ? palette.bg : DESKTOP_COLORS[i % DESKTOP_COLORS.length],
+      accent: isMobile ? palette.accent : 'var(--te-orange)',
+      shape: skillShapes[i % skillShapes.length],
+    }
+  }), [isMobile, skillShapes])
 
   const syncCardDom = useCallback((bodies) => {
     bodies.forEach((body, i) => {
@@ -129,12 +180,14 @@ export default function SkillsWindowContent() {
     let W = container.offsetWidth
     let H = container.offsetHeight
 
-    if (!H) {
-      H = Math.min(window.innerHeight * 0.55, 520)
+    if (!H || (isMobile && H < 200)) {
+      H = isMobile
+        ? Math.max(window.innerHeight - 130, 420)
+        : Math.min(window.innerHeight * 0.55, 520)
       container.style.minHeight = `${H}px`
     }
 
-    const engine = Engine.create({ gravity: { y: isMobile ? 1.1 : 1.6 } })
+    const engine = Engine.create({ gravity: { y: isMobile ? 0.95 : 1.6 } })
     const world = engine.world
 
     const walls = [
@@ -144,29 +197,44 @@ export default function SkillsWindowContent() {
     ]
     World.add(world, walls)
 
-    const maxShapeW = Math.max(...SKILL_SHAPES.map(s => s.w))
-    const maxShapeH = Math.max(...SKILL_SHAPES.map(s => s.h))
+    const maxShapeW = Math.max(...skillShapes.map(s => s.w))
+    const maxShapeH = Math.max(...skillShapes.map(s => s.h))
     const cols = Math.max(2, Math.floor(W / (maxShapeW + GRID_GAP)))
     const bodies = styledSkills.map((skill, i) => {
       const { shape } = skill
-      const col = i % cols
-      const row = Math.floor(i / cols)
-      const x = 24 + col * (maxShapeW + GRID_GAP) + shape.w / 2
-      const y = -row * (maxShapeH + 22) - shape.h / 2 - 16
+      const { x, y } = getSpawnPosition(i, skill, W, H, cols, maxShapeW, maxShapeH, isMobile)
       const common = {
-        restitution: isMobile ? 0.32 : 0.45,
-        friction: isMobile ? 0.08 : 0.06,
-        frictionAir: isMobile ? 0.028 : 0.018,
-        density: 0.003,
+        restitution: isMobile ? 0.38 : 0.45,
+        friction: isMobile ? 0.06 : 0.06,
+        frictionAir: isMobile ? 0.022 : 0.018,
+        frictionAngular: isMobile ? 1 : 0.1,
+        density: isMobile ? 0.0028 : 0.003,
         label: `skill-${i}`,
       }
 
       const body = createSkillBody(shape, x, y, common)
+      if (isMobile) {
+        Body.setInertia(body, Infinity)
+        Body.setAngle(body, 0)
+        Body.setAngularVelocity(body, 0)
+      }
       body.skillIndex = i
       return body
     })
     World.add(world, bodies)
     bodiesRef.current = bodies
+
+    let spreadTimer
+    if (isMobile) {
+      spreadTimer = window.setTimeout(() => {
+        bodies.forEach((body, i) => {
+          Body.applyForce(body, body.position, {
+            x: Math.sin(i * 1.7) * 0.012,
+            y: -0.008 - (i % 4) * 0.002,
+          })
+        })
+      }, 420)
+    }
 
     const mouse = Mouse.create(container)
     mouse.element.removeEventListener('mousewheel', mouse.mousewheel)
@@ -260,8 +328,10 @@ export default function SkillsWindowContent() {
       resizeObserver = new ResizeObserver(() => {
         const newW = container.offsetWidth
         let newH = container.offsetHeight
-        if (!newH) {
-          newH = Math.min(window.innerHeight * 0.55, 520)
+        if (!newH || (isMobile && newH < 200)) {
+          newH = isMobile
+            ? Math.max(window.innerHeight - 130, 420)
+            : Math.min(window.innerHeight * 0.55, 520)
           container.style.minHeight = `${newH}px`
         }
         if (!newW || !newH) return
@@ -289,6 +359,7 @@ export default function SkillsWindowContent() {
     setCardsReady(true)
 
     return () => {
+      if (spreadTimer) window.clearTimeout(spreadTimer)
       cancelAnimationFrame(raf)
       Runner.stop(runner)
       Engine.clear(engine)
@@ -300,7 +371,7 @@ export default function SkillsWindowContent() {
       resizeObserver?.disconnect()
       setCardsReady(false)
     }
-  }, [isMobile, styledSkills, syncCardDom, setDraggedCard])
+  }, [isMobile, styledSkills, skillShapes, syncCardDom, setDraggedCard])
 
   const handleTap = useCallback((skill, e, index) => {
     if (dragStartPos.current) {
@@ -355,6 +426,15 @@ export default function SkillsWindowContent() {
 
   return (
     <div className={`skills-window${isMobile ? ' skills-window--mobile' : ''}`}>
+      {isMobile && (
+        <p className="skills-mobile-hint" aria-hidden="true">
+          <span className="skills-mobile-hint__accent">тап</span>
+          {' · '}
+          перетащи
+          {' · '}
+          потряси
+        </p>
+      )}
       <div className="skills-physics-container" ref={containerRef}>
         {styledSkills.map((skill, i) => (
           <div
@@ -363,6 +443,7 @@ export default function SkillsWindowContent() {
             className={`skill-card physics-card physics-card--${skill.shape.id}${!cardsReady ? ' physics-card--hidden' : ''}`}
             style={{
               background: skill.color,
+              '--skill-accent': skill.accent,
               width: skill.shape.w,
               height: skill.shape.h,
             }}

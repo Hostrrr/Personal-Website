@@ -16,13 +16,90 @@
     isolation: isolate;
 }
 
-.skills-window--mobile .skills-physics-container {
-    touch-action: pan-y pinch-zoom;
-    min-height: 0;
-}
-
 .skills-physics-container:active {
     cursor: grabbing;
+}
+
+/* ── Мобилка: на весь экран, сетка, подсказка ─────────────── */
+.skills-window--mobile {
+    min-height: 100%;
+    height: 100%;
+    background: var(--te-cream);
+}
+
+.skills-mobile-hint {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 10px 14px 6px;
+    font-family: var(--mobile-font);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--te-ink-faint);
+    border-bottom: var(--te-border-width) solid var(--te-border-subtle);
+    background: var(--te-surface-raised);
+}
+
+.skills-mobile-hint__accent {
+    color: var(--te-orange);
+}
+
+.skills-window--mobile .skills-physics-container {
+    touch-action: none;
+    flex: 1;
+    min-height: calc(100dvh - 148px);
+    background-color: var(--te-cream);
+    background-image:
+        linear-gradient(var(--te-border-subtle) 1px, transparent 1px),
+        linear-gradient(90deg, var(--te-border-subtle) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.skills-window--mobile .skills-physics-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 90% 55% at 50% 0%, rgba(255, 85, 0, 0.07), transparent 70%);
+    z-index: 0;
+}
+
+.skills-window--mobile .physics-card {
+    z-index: 1;
+    border-width: 2px;
+    border-color: var(--skill-accent, var(--te-orange));
+    box-shadow:
+        3px 3px 0 rgba(26, 26, 24, 0.12),
+        0 6px 20px rgba(26, 26, 24, 0.1);
+}
+
+.skills-window--mobile .physics-card.is-dragged {
+    box-shadow:
+        4px 4px 0 rgba(26, 26, 24, 0.16),
+        0 10px 28px rgba(26, 26, 24, 0.14) !important;
+    transform-origin: center center;
+}
+
+.skills-window--mobile .physics-card .skill-icon {
+    font-size: 1.65rem;
+    color: var(--skill-accent, var(--te-ink));
+}
+
+.skills-window--mobile .physics-card .skill-name {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.skills-window--mobile .physics-card--pill {
+    padding: 0 18px;
+}
+
+.skills-window--mobile .physics-card--pill .skill-icon {
+    font-size: 1.5rem;
 }
 
 .physics-card {
@@ -92,7 +169,6 @@
     line-height: 1.15;
 }
 
-/* ── Формы карточек ───────────────────────────────────────── */
 .physics-card--circle {
     border-radius: 50%;
 }
@@ -163,7 +239,7 @@
 }
 
 .skills-window--mobile .skill-particle {
-    font-size: 1.1rem;
+    font-size: 1.35rem;
 }
 
 @keyframes skill-particle-burst {
@@ -184,9 +260,5 @@
 @media (max-width: 767px) {
     .skills-window {
         min-height: 0;
-    }
-
-    .skills-physics-container {
-        padding: 0;
     }
 }
