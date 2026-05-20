@@ -21,7 +21,7 @@ export default function AppScreen({ isOpen, app, theme, onThemeToggle, wallpaper
         </button>
         <div className="app-screen__header-title">
           <span className="app-screen__header-icon">
-            <DockIcon name={app.id} size={20} />
+            <DockIcon name={app.id} size={28} />
           </span>
           {app.moduleId && <span className="app-screen__header-code">{app.moduleId}</span>}
           <span className="app-screen__header-name">{app.title}</span>

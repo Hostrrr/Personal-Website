@@ -15,13 +15,17 @@
 }
 
 .about-photo-block {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
   flex-shrink: 0;
   overflow: visible;
+}
+
+.about-photo-wrap {
+  position: relative;
+  flex-shrink: 0;
 }
 
 .about-photo-frame {
@@ -119,6 +123,7 @@
   .about-photo-block {
     width: 100%;
     align-items: center;
+    justify-content: center;
   }
 
   .about-photo-frame {

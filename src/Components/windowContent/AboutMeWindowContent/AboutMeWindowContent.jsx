@@ -26,15 +26,17 @@ export default function AboutMeWindowContent() {
     <div className="about-window">
       <div className="about-window-body">
         <div className="about-photo-block" onClick={handleImageClick}>
-          <div className="about-photo-frame">
-            <PixelImage
-              src={currentSrc}
-              className="about-photo"
-              alt="profile"
-              {...ABOUT_PHOTO_PIXEL}
-            />
+          <div className="about-photo-wrap">
+            <div className="about-photo-frame">
+              <PixelImage
+                src={currentSrc}
+                className="about-photo"
+                alt="profile"
+                {...ABOUT_PHOTO_PIXEL}
+              />
+            </div>
+            <div className="passport-stamp">{t.about.clickPhoto}</div>
           </div>
-          <div className="passport-stamp">{t.about.clickPhoto}</div>
         </div>
 
         <div className="about-text">

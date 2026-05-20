@@ -113,7 +113,7 @@ export default function Desktop() {
                   background: isActive ? getThemedBgColor(win.bgColor, win.defaultDarkColor) : undefined,
                 }}
               >
-                <DockIcon name={win.content} />
+                <DockIcon name={win.content} size={36} />
               </div>
               <div className="dock-label">
                 {mod && <span className="dock-label__code">{mod.id}</span>}

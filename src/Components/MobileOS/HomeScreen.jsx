@@ -49,7 +49,7 @@ export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme }) {
             style={{ '--app-accent': app.accent }}
           >
             <div className="app-icon__face">
-              <DockIcon name={app.id} size={28} />
+              <DockIcon name={app.id} size={44} />
             </div>
             <span className="app-icon__label">{app.title}</span>
           </button>
@@ -67,7 +67,7 @@ export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme }) {
               style={{ '--app-accent': app.accent }}
             >
               <div className="mobile-dock-icon__face">
-                <DockIcon name={app.id} size={24} />
+                <DockIcon name={app.id} size={36} />
               </div>
             </button>
           ))}

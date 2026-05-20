@@ -63,8 +63,10 @@
   transition: border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
 }
 
+.dock-icon-img,
 .dock-icon-svg {
   display: block;
+  object-fit: contain;
 }
 
 .dock-item:hover .dock-icon {
