@@ -23,6 +23,8 @@
   flex-shrink: 0;
   gap: 10px;
   background: var(--te-surface-raised);
+  position: relative;
+  z-index: 10;
 }
 
 .app-screen__back-btn {
@@ -104,6 +106,8 @@
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   width: 100%;
+  position: relative;
+  z-index: 10;
 }
 
 .app-screen__home-bar {

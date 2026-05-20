@@ -30,6 +30,7 @@
 
 .lock-screen--hidden {
   transform: translateY(-100%);
+  pointer-events: none;
 }
 
 .lock-screen__blob {

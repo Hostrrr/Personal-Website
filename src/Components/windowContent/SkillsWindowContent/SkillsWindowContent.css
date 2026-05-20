@@ -11,86 +11,182 @@
     width: 100%;
     min-height: 0;
     overflow: hidden;
-    touch-action: none;
+    touch-action: manipulation;
     cursor: grab;
+    isolation: isolate;
+}
+
+.skills-window--mobile .skills-physics-container {
+    touch-action: pan-y pinch-zoom;
+    min-height: 0;
 }
 
 .skills-physics-container:active {
     cursor: grabbing;
 }
 
-/* Карточки теперь абсолютные — позиция из физики */
 .physics-card {
     position: absolute;
+    left: 0;
+    top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     pointer-events: auto;
     z-index: 1;
-    will-change: transform, left, top;
+    will-change: transform;
     border: var(--te-border-width) solid var(--te-border-subtle);
     box-shadow: var(--te-shadow-sm);
     background: var(--te-surface-raised);
     border-radius: var(--te-radius);
-    transform: translate3d(0, 0, 0) rotate(var(--physics-rotation, 0rad));
-    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+    transform: translate3d(0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
 }
 
-.physics-card:hover {
-    transform: translate(-2px, -2px) rotate(var(--physics-rotation, 0rad));
-    border-color: var(--te-orange);
-    box-shadow: var(--te-shadow-md);
+.physics-card--hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .physics-card {
+        transition: box-shadow 0.12s ease, border-color 0.12s ease;
+    }
+
+    .physics-card:hover {
+        border-color: var(--te-orange);
+        box-shadow: var(--te-shadow-md);
+    }
 }
 
 .physics-card.is-dragged {
     box-shadow: var(--te-shadow-md) !important;
     border-color: var(--te-orange) !important;
-    transform: translate(0, 0) scale(1.04) rotate(var(--physics-rotation, 0rad));
+    z-index: 2;
 }
 
-.physics-card:active {
-    transform: translate(1px, 1px) rotate(var(--physics-rotation, 0rad));
-    box-shadow: none;
+@media (hover: hover) and (pointer: fine) {
+    .physics-card:active {
+        box-shadow: none;
+    }
 }
 
-/* Карточки всегда со светлым фоном — текст тёмный в любой теме */
 .physics-card .skill-name,
 .physics-card .skill-icon {
     color: #1a1a18;
 }
 
-/* ── Слой частиц — поверх всего (portal в body) ─────────────── */
+.physics-card .skill-icon {
+    font-size: 1.35rem;
+    line-height: 1;
+}
+
+.physics-card .skill-name {
+    margin-top: 4px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-align: center;
+    max-width: 92%;
+    line-height: 1.15;
+}
+
+/* ── Формы карточек ───────────────────────────────────────── */
+.physics-card--circle {
+    border-radius: 50%;
+}
+
+.physics-card--square {
+    border-radius: 8px;
+}
+
+.physics-card--pill {
+    border-radius: 999px;
+    flex-direction: row;
+    gap: 8px;
+    padding: 0 14px;
+}
+
+.physics-card--pill .skill-name {
+    margin-top: 0;
+    font-size: 0.68rem;
+}
+
+.physics-card--triangle {
+    border-radius: 0;
+    clip-path: polygon(50% 6%, 94% 88%, 6% 88%);
+    padding-top: 14px;
+}
+
+.physics-card--triangle .skill-name {
+    font-size: 0.58rem;
+    margin-top: 2px;
+}
+
+.physics-card--hexagon {
+    border-radius: 0;
+    clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0% 50%);
+}
+
+.physics-card--diamond {
+    border-radius: 4px;
+    clip-path: polygon(50% 2%, 98% 50%, 50% 98%, 2% 50%);
+}
+
+.physics-card--triangle .skill-icon,
+.physics-card--hexagon .skill-icon,
+.physics-card--diamond .skill-icon {
+    font-size: 1.2rem;
+}
+
 .skill-particles-layer {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 60;
+    overflow: hidden;
+}
+
+.skills-window--mobile .skill-particles-layer {
+    position: absolute;
+    z-index: 5;
 }
 
 .skill-particle {
     position: absolute;
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     line-height: 1;
     pointer-events: none;
-    transform: translate(-50%, -50%);
-    animation: skill-particle-burst 0.75s ease-out forwards;
+    transform: translate(-50%, -50%) scale(0.35);
+    animation: skill-particle-burst 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.skills-window--mobile .skill-particle {
+    font-size: 1.1rem;
 }
 
 @keyframes skill-particle-burst {
-    0%   { opacity: 1; translate: 0 0; }
-    100% { opacity: 0; translate: var(--dx) var(--dy); }
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.35);
+    }
+    18% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.65);
+    }
 }
 
-/* На мобильном canvas тоже ловит touch */
 @media (max-width: 767px) {
-    .skills-physics-container {
-        min-height: 420px;
-        /* убираем grid-паддинг, теперь он не нужен */
-        padding: 0;
+    .skills-window {
+        min-height: 0;
     }
 
-    .physics-card:active {
-        transform: translate(2px, 2px) rotate(var(--physics-rotation, 0rad));
+    .skills-physics-container {
+        padding: 0;
     }
 }
