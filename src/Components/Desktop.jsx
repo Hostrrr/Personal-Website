@@ -13,7 +13,7 @@ import { getModule } from '../config/osModules'
 import DockIcon from './icons/DockIcon'
 import { playUiOpen } from '../utils/uiSound'
 
-export default function Desktop() {
+export default function Desktop({ bootRevealReady = false }) {
   const { t } = useLanguage()
   const {
     theme,
@@ -129,6 +129,7 @@ export default function Desktop() {
         wallpaperColor={wallpaperColor}
         showBootReveal={showBootReveal}
         onBootComplete={handleBootComplete}
+        canReveal={bootRevealReady}
         contentRef={desktopRef}
         taskBarProps={{
           onThemeToggle: toggleTheme,

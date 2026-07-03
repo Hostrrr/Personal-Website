@@ -6,7 +6,7 @@ import useIsMobile from "./hooks/useIsMobile";
 import { LanguageProvider } from "./contexts/LanguageContext";
 
 const BOOT_MS = 2000;
-const DESKTOP_PREMOUNT_MS = 1000;
+const DESKTOP_PREMOUNT_MS = 1200;
 const LOADER_FADE_MS = 400;
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
 
   return (
     <LanguageProvider>
-      {!isMobile && showDesktop && <Desktop />}
+      {!isMobile && showDesktop && <Desktop bootRevealReady={!loading} />}
       {isMobile && !loading && <MobileOS />}
       {loaderMounted && <Loader isVisible={loading} onSkip={finishBoot} />}
     </LanguageProvider>

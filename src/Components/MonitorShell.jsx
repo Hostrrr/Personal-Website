@@ -10,6 +10,7 @@ export default function MonitorShell({
   showBootReveal,
   onBootComplete,
   contentRef,
+  canReveal,
 }) {
   return (
     <div className={`monitor-shell monitor-shell--${theme}`}>
@@ -25,6 +26,7 @@ export default function MonitorShell({
             wallpaperColor={wallpaperColor}
             theme={theme}
             onComplete={onBootComplete}
+            canReveal={canReveal}
           />
         )}
       </div>

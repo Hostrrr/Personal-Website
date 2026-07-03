@@ -6,10 +6,6 @@ import './DesktopBootReveal.css'
 const FROM_PIXELS = 48
 const SPEED = 62
 
-const waitFrame = () => new Promise((resolve) => {
-  requestAnimationFrame(() => resolve())
-})
-
 function createFallbackCanvas(width, height, wallpaperColor, theme) {
   const canvas = document.createElement('canvas')
   const dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -30,31 +26,80 @@ function createFallbackCanvas(width, height, wallpaperColor, theme) {
   return canvas
 }
 
-function uploadTexture(gl, tex, sourceCanvas) {
-  gl.bindTexture(gl.TEXTURE_2D, tex)
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, sourceCanvas)
-}
-
-export default function DesktopBootReveal({ contentRef, wallpaperColor, theme, onComplete }) {
+export default function DesktopBootReveal({
+  contentRef,
+  wallpaperColor,
+  theme,
+  onComplete,
+  canReveal,
+}) {
   const canvasRef = useRef(null)
   const overlayRef = useRef(null)
   const rafRef = useRef(null)
   const onCompleteRef = useRef(onComplete)
+  const canRevealRef = useRef(canReveal)
+  const glCtxRef = useRef(null)
+  const preparedRef = useRef(false)
+  const startedRef = useRef(false)
 
   useEffect(() => {
     onCompleteRef.current = onComplete
   }, [onComplete])
 
   useEffect(() => {
+    canRevealRef.current = canReveal
+  }, [canReveal])
+
+  const startAnimation = () => {
+    if (startedRef.current || !preparedRef.current || !glCtxRef.current) return
+    if (!canRevealRef.current) return
+
+    const canvas = canvasRef.current
+    const overlay = overlayRef.current
+    const glCtx = glCtxRef.current
+    if (!canvas || !overlay) return
+
+    startedRef.current = true
+
+    const { mode, border } = PRESETS.default
+    let px = FROM_PIXELS
+
+    glRender(glCtx.gl, glCtx.prog, canvas, px, mode, border, glCtx.uniforms)
+    overlay.style.opacity = '1'
+
+    let last = null
+
+    function step(ts) {
+      if (!last) last = ts
+      const dt = (ts - last) / 1000
+      last = ts
+
+      px = Math.max(1, px - SPEED * dt)
+      glRender(glCtx.gl, glCtx.prog, canvas, px, mode, border, glCtx.uniforms)
+
+      if (px > 1) {
+        rafRef.current = requestAnimationFrame(step)
+      } else {
+        onCompleteRef.current?.()
+      }
+    }
+
+    rafRef.current = requestAnimationFrame(step)
+  }
+
+  useEffect(() => {
+    if (canReveal) startAnimation()
+  }, [canReveal])
+
+  useEffect(() => {
     const canvas = canvasRef.current
     const content = contentRef.current
-    const overlay = overlayRef.current
-    if (!canvas || !content || !overlay) return
+    if (!canvas || !content) return
 
     let cancelled = false
 
-    const run = async () => {
-      await waitFrame()
+    const prepare = async () => {
+      await new Promise((r) => requestAnimationFrame(r))
       if (cancelled) return
 
       const rect = content.getBoundingClientRect()
@@ -77,7 +122,6 @@ export default function DesktopBootReveal({ contentRef, wallpaperColor, theme, o
 
       if (cancelled) return
 
-      // WebGL context resets if canvas size changes after init — size first, then init.
       canvas.width = sourceCanvas.width
       canvas.height = sourceCanvas.height
 
@@ -87,35 +131,18 @@ export default function DesktopBootReveal({ contentRef, wallpaperColor, theme, o
         return
       }
 
-      uploadTexture(glCtx.gl, glCtx.tex, sourceCanvas)
+      glCtx.gl.bindTexture(glCtx.gl.TEXTURE_2D, glCtx.tex)
+      glCtx.gl.texImage2D(
+        glCtx.gl.TEXTURE_2D, 0, glCtx.gl.RGBA, glCtx.gl.RGBA, glCtx.gl.UNSIGNED_BYTE, sourceCanvas
+      )
 
-      const { mode, border } = PRESETS.default
-      let px = FROM_PIXELS
-      glRender(glCtx.gl, glCtx.prog, canvas, px, mode, border, glCtx.uniforms)
-      overlay.style.opacity = '1'
+      glCtxRef.current = glCtx
+      preparedRef.current = true
 
-      let last = null
-
-      function step(ts) {
-        if (cancelled) return
-        if (!last) last = ts
-        const dt = Math.min(0.05, (ts - last) / 1000)
-        last = ts
-
-        px = Math.max(1, px - SPEED * dt)
-        glRender(glCtx.gl, glCtx.prog, canvas, px, mode, border, glCtx.uniforms)
-
-        if (px > 1) {
-          rafRef.current = requestAnimationFrame(step)
-        } else {
-          onCompleteRef.current?.()
-        }
-      }
-
-      rafRef.current = requestAnimationFrame(step)
+      if (canRevealRef.current) startAnimation()
     }
 
-    run()
+    prepare()
 
     return () => {
       cancelled = true
