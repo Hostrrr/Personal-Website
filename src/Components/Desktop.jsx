@@ -120,13 +120,15 @@ export default function Desktop() {
     }
   }
 
+  const handleBootComplete = useCallback(() => setShowBootReveal(false), [])
+
   return (
     <OsActionsProvider value={osActionsValue}>
       <MonitorShell
         theme={theme}
         wallpaperColor={wallpaperColor}
         showBootReveal={showBootReveal}
-        onBootComplete={() => setShowBootReveal(false)}
+        onBootComplete={handleBootComplete}
         contentRef={desktopRef}
         taskBarProps={{
           onThemeToggle: toggleTheme,
