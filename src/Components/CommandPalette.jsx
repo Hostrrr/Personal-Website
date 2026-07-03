@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useLanguage } from '../contexts/LanguageContext'
-import { useOsActions } from '../contexts/OsActionsContext'
+import { useLanguage } from '../hooks/useLanguage'
+import { useOsActions } from '../hooks/useOsActions'
 import { buildCommandContext, getCommandList } from '../utils/osCommands'
 import { playUiClick } from '../utils/uiSound'
 import './CommandPalette.css'

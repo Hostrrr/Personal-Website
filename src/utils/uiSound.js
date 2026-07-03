@@ -1,8 +1,13 @@
 let audioCtx = null
 
+export function isSoundEnabled() {
+  if (typeof window === 'undefined') return true
+  return localStorage.getItem('portfolio_sound') !== 'false'
+}
+
 /** Короткий «тик» в духе TE — Web Audio, без файлов */
 export function playUiClick() {
-  if (typeof window === 'undefined') return
+  if (typeof window === 'undefined' || !isSoundEnabled()) return
 
   try {
     if (!audioCtx) {
@@ -37,7 +42,7 @@ export function playUiClick() {
 
 export function playUiOpen() {
   playUiClick()
-  if (!audioCtx) return
+  if (!audioCtx || !isSoundEnabled()) return
   try {
     const t0 = audioCtx.currentTime + 0.06
     const osc = audioCtx.createOscillator()

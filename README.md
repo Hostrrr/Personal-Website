@@ -71,4 +71,4 @@ The production-ready files will be generated in the `dist` folder and can be dep
 
 ## 🙋 About the Author
 
-Created by **Yegor Nazarenko** — frontend developer who loves playful UIs, desktop-style interfaces, and smooth mobile experiences.
+Created by **Georgiy Nazarenko** — frontend developer who loves playful UIs, desktop-style interfaces, and smooth mobile experiences.

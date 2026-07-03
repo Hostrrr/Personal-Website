@@ -2,7 +2,7 @@ import './ProjectsWindowContent.css'
 import img1 from '../../../assets/ProjectScreenshots/PortfolioOS.png'
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft } from 'react-icons/fa'
 import { useState } from 'react'
-import { useLanguage } from '../../../contexts/LanguageContext'
+import { useLanguage } from '../../../hooks/useLanguage'
 import { PixelImage } from '../../../pixel-engine'
 import { PROJECT_SCREENSHOT_PIXEL } from '../../../pixel-engine/pixelConfig'
 const PROJECTS_BASE = [
@@ -149,8 +149,8 @@ export default function ProjectsWindowContent() {
             <h3>{currentProject.title}</h3>
             <p>{currentProject.desc}</p>
             <div className="project-links">
-              {currentProject.github && <a href={currentProject.github}><FaGithub /> Code</a>}
-              {currentProject.live && <a href={currentProject.live}><FaExternalLinkAlt /> Live</a>}
+              {currentProject.github && <a href={currentProject.github} target="_blank" rel="noopener noreferrer"><FaGithub /> Code</a>}
+              {currentProject.live && <a href={currentProject.live} target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Live</a>}
             </div>
           </div>
         )}

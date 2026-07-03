@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './HomeScreen.css'
-import { useLanguage } from '../../contexts/LanguageContext'
+import { useLanguage } from '../../hooks/useLanguage'
 import DockIcon from '../icons/DockIcon'
 
 const DOCK_APP_IDS = ['about', 'projects', 'skills', 'contact']

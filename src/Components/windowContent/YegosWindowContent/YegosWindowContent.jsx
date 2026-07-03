@@ -1,7 +1,7 @@
 import React from 'react'
 import './YegosWindowContent.css'
 import AsciiLogoOS from "../../../assets/LogoAscii.txt?raw"
-import { useLanguage } from '../../../contexts/LanguageContext'
+import { useLanguage } from '../../../hooks/useLanguage'
 export default function YegosWindowContent(){
   const { t } = useLanguage()
   return (

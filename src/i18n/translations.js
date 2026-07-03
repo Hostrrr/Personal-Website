@@ -20,8 +20,18 @@ export const translations = {
     windowContent: {
       notFound: 'Контент не найден',
     },
+    window: {
+      minimize: 'Свернуть',
+      maximize: 'Развернуть',
+      close: 'Закрыть',
+    },
+    loader: {
+      skip: 'Пропустить',
+      skipAria: 'Пропустить загрузку',
+    },
     about: {
       clickPhoto: 'Нажми на фото',
+      photoAria: 'Следующее фото',
       name: 'Георгий Назаренко',
       nameFirst: 'Георгий',
       nameLast: 'Назаренко',
@@ -125,6 +135,10 @@ export const translations = {
       author: 'Автор',
       currentLang: 'Русский',
       themeAriaLabel: 'Переключить тему',
+      soundSection: '🔊 Звуки интерфейса',
+      soundOn: 'Включены',
+      soundOff: 'Выключены',
+      soundAriaLabel: 'Переключить звуки интерфейса',
       wallpapers: ['Жёлтый', 'Голубой', 'Красный', 'Зелёный', 'Фиолет.', 'Синий', 'Серый', 'Тёмный'],
     },
     yegos: {
@@ -205,8 +219,18 @@ export const translations = {
     windowContent: {
       notFound: 'Content not found',
     },
+    window: {
+      minimize: 'Minimize',
+      maximize: 'Maximize',
+      close: 'Close',
+    },
+    loader: {
+      skip: 'Skip',
+      skipAria: 'Skip boot sequence',
+    },
     about: {
       clickPhoto: 'Click on photo',
+      photoAria: 'Next photo',
       name: 'Georgiy Nazarenko',
       nameFirst: 'Georgiy',
       nameLast: 'Nazarenko',
@@ -310,6 +334,10 @@ export const translations = {
       author: 'Author',
       currentLang: 'English',
       themeAriaLabel: 'Toggle theme',
+      soundSection: '🔊 Interface sounds',
+      soundOn: 'On',
+      soundOff: 'Off',
+      soundAriaLabel: 'Toggle interface sounds',
       wallpapers: ['Yellow', 'Cyan', 'Red', 'Green', 'Purple', 'Blue', 'Gray', 'Dark'],
     },
     yegos: {

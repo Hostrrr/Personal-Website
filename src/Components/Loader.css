@@ -50,3 +50,25 @@
   z-index: 1;
   min-height: 1em;
 }
+
+.loader-skip-btn {
+  margin-top: 24px;
+  padding: 8px 16px;
+  border: var(--te-border-width) solid var(--te-border);
+  border-radius: var(--te-radius);
+  background: var(--te-surface);
+  color: var(--te-ink);
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.loader-skip-btn:hover {
+  background: var(--te-orange);
+  color: var(--te-paper);
+  border-color: var(--te-orange);
+}

@@ -356,9 +356,10 @@ export default function SkillsWindowContent() {
       syncCardDom(bodies)
     }
     loop()
-    setCardsReady(true)
+    const readyFrame = requestAnimationFrame(() => setCardsReady(true))
 
     return () => {
+      cancelAnimationFrame(readyFrame)
       if (spreadTimer) window.clearTimeout(spreadTimer)
       cancelAnimationFrame(raf)
       Runner.stop(runner)

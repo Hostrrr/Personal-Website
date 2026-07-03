@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useLanguage } from '../../../contexts/LanguageContext'
-import { useOsActions } from '../../../contexts/OsActionsContext'
+import { useLanguage } from '../../../hooks/useLanguage'
+import { useOsActions } from '../../../hooks/useOsActions'
 import { buildCommandContext, executeCommand } from '../../../utils/osCommands'
 import useIsMobile from '../../../hooks/useIsMobile'
 import './TerminalWindowContent.css'

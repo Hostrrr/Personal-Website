@@ -21,6 +21,12 @@
   cursor: pointer;
   flex-shrink: 0;
   overflow: visible;
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
 }
 
 .about-photo-wrap {
