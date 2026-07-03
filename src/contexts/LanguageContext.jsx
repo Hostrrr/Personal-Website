@@ -1,7 +1,6 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { translations } from '../i18n/translations'
-
-const LanguageContext = createContext(null)
+import { LanguageContext } from './languageContext'
 
 function detectLanguage() {
   const saved = localStorage.getItem('portfolio_language')
@@ -16,6 +15,7 @@ export function LanguageProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem('portfolio_language', language)
+    document.documentElement.lang = language
   }, [language])
 
   const t = translations[language]
@@ -25,8 +25,4 @@ export function LanguageProvider({ children }) {
       {children}
     </LanguageContext.Provider>
   )
-}
-
-export function useLanguage() {
-  return useContext(LanguageContext)
 }

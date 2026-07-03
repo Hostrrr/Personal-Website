@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import './LockScreen.css'
-import { useLanguage } from '../../contexts/LanguageContext'
+import { useLanguage } from '../../hooks/useLanguage'
 import { playUiOpen } from '../../utils/uiSound'
 
 export default function LockScreen({ isLocked, onUnlock }) {

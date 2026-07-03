@@ -1,25 +1,33 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import LockScreen from './LockScreen'
 import HomeScreen from './HomeScreen'
 import AppScreen from './AppScreen'
 import './MobileOS.css'
-import { useLanguage } from '../../contexts/LanguageContext'
+import { useLanguage } from '../../hooks/useLanguage'
 import { OsActionsProvider } from '../../contexts/OsActionsContext'
 import { OS_MODULES } from '../../config/osModules'
+import { useOsPreferences } from '../../hooks/useOsPreferences'
+import useHashRoute, { setHashRoute } from '../../hooks/useHashRoute'
 import { playUiOpen } from '../../utils/uiSound'
 
 const APP_IDS = ['about', 'projects', 'skills', 'contact', 'settings', 'game', 'terminal']
 
 export default function MobileOS() {
   const { t } = useLanguage()
+  const {
+    theme,
+    setTheme,
+    toggleTheme,
+    wallpaperColor,
+    setWallpaperColor,
+    soundEnabled,
+    setSoundEnabled,
+  } = useOsPreferences()
+
   const [screen, setScreen] = useState('locked')
   const [openAppId, setOpenAppId] = useState(null)
-  const [theme, setThemeMode] = useState('light')
-  const [wallpaperColor, setWallpaperColor] = useState('#e8e6e1')
 
-  const setTheme = (mode) => setThemeMode(mode)
-
-  const apps = APP_IDS.map(id => ({
+  const apps = APP_IDS.map((id) => ({
     id,
     title: t.mobile.appTitles[id],
     moduleId: OS_MODULES[id]?.id,
@@ -28,28 +36,36 @@ export default function MobileOS() {
 
   const unlock = () => setScreen('home')
 
-  const openApp = (appId) => {
+  const openApp = useCallback((appId) => {
     playUiOpen()
     setOpenAppId(appId)
     setScreen('app')
-  }
+    setHashRoute(appId)
+  }, [])
 
   const goHome = () => {
     setScreen('home')
     setTimeout(() => setOpenAppId(null), 420)
   }
 
-  const currentApp = apps.find(a => a.id === openAppId) ?? null
+  const currentApp = apps.find((a) => a.id === openAppId) ?? null
 
-  const openByContent = (content) => {
-    if (APP_IDS.includes(content)) openApp(content)
-  }
+  const openByContent = useCallback((content) => {
+    if (APP_IDS.includes(content)) {
+      if (screen === 'locked') setScreen('home')
+      openApp(content)
+    }
+  }, [openApp, screen])
+
+  useHashRoute(openByContent)
 
   const osActionsValue = {
     theme,
     setTheme,
     setWallpaperColor,
     openByContent,
+    soundEnabled,
+    setSoundEnabled,
   }
 
   return (
@@ -62,9 +78,11 @@ export default function MobileOS() {
           isOpen={screen === 'app'}
           app={currentApp}
           theme={theme}
-          onThemeToggle={() => setThemeMode(prev => prev === 'light' ? 'dark' : 'light')}
+          onThemeToggle={toggleTheme}
           wallpaperColor={wallpaperColor}
           onWallpaperChange={setWallpaperColor}
+          soundEnabled={soundEnabled}
+          onSoundToggle={() => setSoundEnabled(!soundEnabled)}
           onClose={goHome}
         />
       )}

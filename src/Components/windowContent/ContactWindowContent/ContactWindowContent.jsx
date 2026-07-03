@@ -5,7 +5,9 @@ import {
   FaTimes, FaExternalLinkAlt, FaClock, FaMapMarkerAlt,
   FaCode, FaCopy, FaCheck
 } from 'react-icons/fa'
-import { useLanguage } from '../../../contexts/LanguageContext'
+import { useLanguage } from '../../../hooks/useLanguage'
+import { copyToClipboard } from '../../../utils/clipboard'
+
 const CONTACT_BASE = [
   {
     name: 'Email',
@@ -40,25 +42,30 @@ const CONTACT_BASE = [
     button: 'Message',
     detailIcons: [<FaClock />, <FaMapMarkerAlt />],
   },
-  {
-    name: 'LinkedIn',
-    value: 'linkedin.com/in/yourprofile',
-    copyValue: 'https://linkedin.com/in/yourprofile',
-    icon: <FaLinkedin />,
-    color: '#0077b5',
-    action: 'https://linkedin.com/in/yourprofile',
-    openHref: 'https://linkedin.com/in/yourprofile',
-    button: 'Open',
-    detailIcons: [<FaCode />, <FaMapMarkerAlt />],
-  },
-]
+].filter(Boolean)
+
+const LINKEDIN_PROFILE = ''
+
+const linkedInContact = LINKEDIN_PROFILE ? {
+  name: 'LinkedIn',
+  value: LINKEDIN_PROFILE.replace('https://', ''),
+  copyValue: LINKEDIN_PROFILE.startsWith('http') ? LINKEDIN_PROFILE : `https://${LINKEDIN_PROFILE}`,
+  icon: <FaLinkedin />,
+  color: '#0077b5',
+  action: LINKEDIN_PROFILE.startsWith('http') ? LINKEDIN_PROFILE : `https://${LINKEDIN_PROFILE}`,
+  openHref: LINKEDIN_PROFILE.startsWith('http') ? LINKEDIN_PROFILE : `https://${LINKEDIN_PROFILE}`,
+  button: 'Open',
+  detailIcons: [<FaCode />, <FaMapMarkerAlt />],
+} : null
+
+const ALL_CONTACTS = linkedInContact ? [...CONTACT_BASE, linkedInContact] : CONTACT_BASE
 
 export default function ContactWindowContent() {
   const { t } = useLanguage()
   const [selected, setSelected] = useState(null)
   const [copied, setCopied] = useState(null)
 
-  const contacts = CONTACT_BASE.map((base, i) => ({
+  const contacts = ALL_CONTACTS.map((base, i) => ({
     ...base,
     description: t.contact.contacts[i].description,
     details: t.contact.contacts[i].details.map((d, j) => ({
@@ -77,11 +84,13 @@ export default function ContactWindowContent() {
     }
   }
 
-  const handleCopy = (e, contact) => {
+  const handleCopy = async (e, contact) => {
     e.stopPropagation()
-    navigator.clipboard.writeText(contact.copyValue)
-    setCopied(contact.name)
-    setTimeout(() => setCopied(null), 1800)
+    const ok = await copyToClipboard(contact.copyValue)
+    if (ok) {
+      setCopied(contact.name)
+      setTimeout(() => setCopied(null), 1800)
+    }
   }
 
   return (
@@ -93,6 +102,14 @@ export default function ContactWindowContent() {
             className={`contact-card ${selected?.name === contact.name ? 'contact-card--active' : ''}`}
             key={contact.name}
             onClick={() => handleSelect(contact)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                handleSelect(contact)
+              }
+            }}
+            role="button"
+            tabIndex={0}
             style={{ '--accent': contact.color }}
           >
             <div className="contact-icon" style={{ color: contact.color }}>{contact.icon}</div>
@@ -104,6 +121,7 @@ export default function ContactWindowContent() {
 
             <div className="contact-quick-actions" onClick={(e) => e.stopPropagation()}>
               <button
+                type="button"
                 className={`quick-btn ${copied === contact.name ? 'quick-btn--copied' : ''}`}
                 onClick={(e) => handleCopy(e, contact)}
                 title={t.contact.copyTitle}
@@ -114,7 +132,7 @@ export default function ContactWindowContent() {
                 className="quick-btn quick-btn--open"
                 href={contact.openHref}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 title={t.contact.openTitle}
                 style={{ '--accent': contact.color }}
               >
@@ -130,7 +148,7 @@ export default function ContactWindowContent() {
       <div className={`contact-detail ${selected ? 'contact-detail--open' : ''}`}>
         {selected && (
           <>
-            <button className="contact-detail-close" onClick={() => setSelected(null)}>
+            <button type="button" className="contact-detail-close" onClick={() => setSelected(null)}>
               <FaTimes />
             </button>
 
@@ -162,7 +180,7 @@ export default function ContactWindowContent() {
               className="detail-action"
               href={selected.action}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               style={{ background: selected.color }}
             >
               {selected.button} <FaExternalLinkAlt style={{ fontSize: 11 }} />

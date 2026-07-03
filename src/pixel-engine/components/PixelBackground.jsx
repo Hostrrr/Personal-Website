@@ -1,14 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { initGL, glRender, loadTexture, PRESETS } from "../hooks/glEngine";
 
 /**
  * PixelBackground — растягивает шейдер на весь контейнер, children поверх.
- * Удобно для фона окна/секции.
- *
- * Использование:
- *   <PixelBackground src="/wallpaper.jpg" preset="mosaic" fromPixels={32}>
- *     <div>контент поверх фона</div>
- *   </PixelBackground>
  */
 export function PixelBackground({
   src,
@@ -24,6 +18,26 @@ export function PixelBackground({
   const glRef     = useRef(null);
   const rafRef    = useRef(null);
   const pxRef     = useRef(fromPixels);
+
+  const startReveal = useCallback(() => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    pxRef.current = fromPixels;
+    let last = null;
+    const ctx = glRef.current;
+    const canvas = canvasRef.current;
+    if (!ctx || !canvas) return;
+    const { mode, border } = PRESETS[preset] ?? PRESETS.default;
+
+    function step(ts) {
+      if (!last) last = ts;
+      const dt = (ts - last) / 1000;
+      last = ts;
+      pxRef.current = Math.max(1, pxRef.current - speed * dt);
+      glRender(ctx.gl, ctx.prog, canvas, pxRef.current, mode, border);
+      if (pxRef.current > 1) rafRef.current = requestAnimationFrame(step);
+    }
+    rafRef.current = requestAnimationFrame(step);
+  }, [fromPixels, preset, speed]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -43,28 +57,8 @@ export function PixelBackground({
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [src, preset]);
+  }, [src, preset, fromPixels, autoPlay, startReveal]);
 
-  function startReveal() {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    pxRef.current = fromPixels;
-    let last = null;
-    const ctx = glRef.current;
-    const canvas = canvasRef.current;
-    const { mode, border } = PRESETS[preset] ?? PRESETS.default;
-
-    function step(ts) {
-      if (!last) last = ts;
-      const dt = (ts - last) / 1000;
-      last = ts;
-      pxRef.current = Math.max(1, pxRef.current - speed * dt);
-      glRender(ctx.gl, ctx.prog, canvas, pxRef.current, mode, border);
-      if (pxRef.current > 1) rafRef.current = requestAnimationFrame(step);
-    }
-    rafRef.current = requestAnimationFrame(step);
-  }
-
-  // Подгоняем размер канваса под контейнер
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from "react"
 import { useWebHaptics } from "web-haptics/react"
 import "./GameWindowContent.css"
-import { useLanguage } from "../../../contexts/LanguageContext"
+import { useLanguage } from "../../../hooks/useLanguage"
 const ROWS = 20
 const COLS = 20
 const INITIAL_SPEED = 110
@@ -48,6 +48,19 @@ export default function GameWindowContent() {
 
   const tickRef           = useRef(null)
   const lastDirectionRef  = useRef({ x: 1, y: 0 })
+  const scoreRef = useRef(0)
+
+  useEffect(() => {
+    scoreRef.current = score
+  }, [score])
+
+  const saveBestScore = useCallback((value) => {
+    setBestScore((prev) => {
+      const next = Math.max(prev, value)
+      if (typeof window !== "undefined") window.localStorage.setItem("snake_best_score", String(next))
+      return next
+    })
+  }, [])
 
   // Общая логика смены направления — используется и клавиатурой, и D-pad
   const changeDirection = useCallback((dir) => {
@@ -90,10 +103,12 @@ export default function GameWindowContent() {
         const newHead = { x: head.x + dir.x, y: head.y + dir.y }
 
         if (newHead.x < 0 || newHead.x >= COLS || newHead.y < 0 || newHead.y >= ROWS) {
+          saveBestScore(scoreRef.current)
           setStatus("gameover")
           return prevSnake
         }
         if (prevSnake.some(s => s.x === newHead.x && s.y === newHead.y)) {
+          saveBestScore(scoreRef.current)
           setStatus("gameover")
           return prevSnake
         }
@@ -110,18 +125,7 @@ export default function GameWindowContent() {
     }, speed)
 
     return () => { if (tickRef.current) { clearInterval(tickRef.current); tickRef.current = null } }
-  }, [status, nextDirection, food, speed])
-
-  // Рекорд
-  useEffect(() => {
-    if (status === "gameover") {
-      setBestScore(prev => {
-        const next = Math.max(prev, score)
-        if (typeof window !== "undefined") window.localStorage.setItem("snake_best_score", String(next))
-        return next
-      })
-    }
-  }, [status, score])
+  }, [status, nextDirection, food, speed, saveBestScore])
 
   const handleStartPause = () => {
     if (status === "ready" || status === "gameover") { handleRestart(); return }

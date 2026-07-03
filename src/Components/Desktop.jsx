@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Window from './Window'
 import TaskBar from './TaskBar'
 import CommandPalette from './CommandPalette'
 import './Desktop.css'
-import { useLanguage } from '../contexts/LanguageContext'
+import { useLanguage } from '../hooks/useLanguage'
 import { OsActionsProvider } from '../contexts/OsActionsContext'
 import { useCommandPaletteToggle } from '../hooks/useCommandPaletteToggle'
+import { useOsPreferences } from '../hooks/useOsPreferences'
+import useHashRoute, { setHashRoute } from '../hooks/useHashRoute'
 import { darkenAndSaturate } from '../utils/colorUtils'
 import { getModule } from '../config/osModules'
 import DockIcon from './icons/DockIcon'
@@ -13,6 +15,15 @@ import { playUiOpen } from '../utils/uiSound'
 
 export default function Desktop() {
   const { t } = useLanguage()
+  const {
+    theme,
+    setTheme,
+    toggleTheme,
+    wallpaperColor,
+    setWallpaperColor,
+    soundEnabled,
+    setSoundEnabled,
+  } = useOsPreferences()
 
   const [windows, setWindows] = useState([
     { id: 1, isOpen: true, isMinimized: false, isMaximized: false, content: 'about', bgColor: '#f4f3ef', zIndex: 10 },
@@ -25,103 +36,109 @@ export default function Desktop() {
     { id: 8, isOpen: false, isMinimized: false, isMaximized: false, content: 'terminal', bgColor: '#2a2a28', defaultDarkColor: '#1a1a18', width: 520, height: 380, zIndex: 10 },
   ])
 
-  // активное окно и счётчик z-index для красивого наложения
   const [activeWindowId, setActiveWindowId] = useState(1)
   const [zIndexCounter, setZIndexCounter] = useState(10)
-
-  // тема оформления: light / dark
-  const [theme, setThemeMode] = useState('light')
-  const [wallpaperColor, setWallpaperColor] = useState('#e8e6e1')
+  const windowsRef = useRef(windows)
   const palette = useCommandPaletteToggle()
 
-  const setTheme = (mode) => setThemeMode(mode)
-
-  const toggleTheme = () => {
-    setThemeMode(prev => (prev === 'light' ? 'dark' : 'light'))
-  }
+  useEffect(() => {
+    windowsRef.current = windows
+  }, [windows])
 
   const getThemedBgColor = (color, defaultDarkColor) => {
     if (!color) return color
     if (theme === 'dark' && defaultDarkColor) return defaultDarkColor
-    // в тёмной теме — более тёмный и более насыщенный оттенок
     return theme === 'dark' ? darkenAndSaturate(color) : color
   }
 
-  // Открыть окно
-  const openWindow = (id) => {
+  const openWindow = useCallback((id) => {
     playUiOpen()
-    const newZ = zIndexCounter + 1
-    setZIndexCounter(newZ)
-    setWindows(prev => prev.map(win => 
-      win.id === id ? { ...win, isOpen: true, isMinimized: false, zIndex: newZ } : win
-    ))
+    setZIndexCounter((prevZ) => {
+      const newZ = prevZ + 1
+      setWindows((prevWindows) => {
+        const target = prevWindows.find((win) => win.id === id)
+        if (target) setHashRoute(target.content)
+        return prevWindows.map((win) =>
+          win.id === id ? { ...win, isOpen: true, isMinimized: false, zIndex: newZ } : win
+        )
+      })
+      return newZ
+    })
     setActiveWindowId(id)
-  }
+  }, [])
 
-  // Закрыть окно
   const closeWindow = (id) => {
-    setWindows(prev => prev.map(win => 
-      win.id === id ? { ...win, isOpen: false } : win
-    ))
-    setActiveWindowId(prev => (prev === id ? null : prev))
+    setWindows((prev) => prev.map((win) => (win.id === id ? { ...win, isOpen: false } : win)))
+    setActiveWindowId((prev) => (prev === id ? null : prev))
   }
 
-  // Минимизировать окно
   const minimizeWindow = (id) => {
-    setWindows(prev => prev.map(win => 
-      win.id === id ? { ...win, isMinimized: true } : win
-    ))
-    setActiveWindowId(prev => (prev === id ? null : prev))
+    setWindows((prev) => prev.map((win) => (win.id === id ? { ...win, isMinimized: true } : win)))
+    setActiveWindowId((prev) => (prev === id ? null : prev))
   }
 
-  // Максимизировать/восстановить окно
   const toggleMaximize = (id) => {
-    setWindows(prev => prev.map(win => 
-      win.id === id ? { ...win, isMaximized: !win.isMaximized } : win
-    ))
+    setWindows((prev) => prev.map((win) => (win.id === id ? { ...win, isMaximized: !win.isMaximized } : win)))
     setActiveWindowId(id)
   }
 
-  // Фокус на окне (поднять z-index)
   const focusWindow = (id) => {
     setActiveWindowId(id)
-    const newZ = zIndexCounter + 1
-    setZIndexCounter(newZ)
-    setWindows(prev => prev.map(win => 
-      win.id === id ? { ...win, zIndex: newZ } : win
-    ))
-    return newZ
+    let nextZ = zIndexCounter
+    setZIndexCounter((prevZ) => {
+      nextZ = prevZ + 1
+      setWindows((prevWindows) =>
+        prevWindows.map((win) => (win.id === id ? { ...win, zIndex: nextZ } : win))
+      )
+      return nextZ
+    })
+    return nextZ
   }
 
-  const openByContent = (content) => {
-    const win = windows.find(w => w.content === content)
+  const openByContent = useCallback((content) => {
+    const win = windowsRef.current.find((w) => w.content === content)
     if (win) openWindow(win.id)
-  }
+  }, [openWindow])
+
+  useHashRoute(openByContent)
 
   const osActionsValue = {
     theme,
     setTheme,
     setWallpaperColor,
     openByContent,
+    soundEnabled,
+    setSoundEnabled,
+  }
+
+  const handleDockKeyDown = (event, id) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      openWindow(id)
+    }
   }
 
   return (
     <OsActionsProvider value={osActionsValue}>
-    <div className={`desktop desktop-${theme}`} style={{ 
+    <div className={`desktop desktop-${theme}`} style={{
       backgroundColor: wallpaperColor,
-      backgroundImage: theme === 'dark' ? 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))' : 'none'
+      backgroundImage: theme === 'dark' ? 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))' : 'none',
     }}>
-      {/* Dock (как на macOS) */}
-      <div className="dock">
-        {windows.filter(w => !w.skipDock).map(win => {
+      <div className="dock" role="toolbar" aria-label="Dock">
+        {windows.filter((w) => !w.skipDock).map((win) => {
           const isActive = activeWindowId === win.id && win.isOpen && !win.isMinimized
           const mod = getModule(win.content)
+          const label = t.windows[win.content] || win.content
 
           return (
             <div
               key={win.id}
               className="dock-item"
+              role="button"
+              tabIndex={0}
+              aria-label={label}
               onClick={() => openWindow(win.id)}
+              onKeyDown={(event) => handleDockKeyDown(event, win.id)}
               style={{
                 opacity: win.isOpen ? 1 : 0.8,
                 transform: isActive ? 'translateY(-15px) scale(1.08)' : undefined,
@@ -137,15 +154,14 @@ export default function Desktop() {
               </div>
               <div className="dock-label">
                 {mod && <span className="dock-label__code">{mod.id}</span>}
-                <span className="dock-label__text">{t.windows[win.content] || win.content}</span>
+                <span className="dock-label__text">{label}</span>
               </div>
             </div>
           )
         })}
       </div>
 
-      {/* Windows */}
-      {windows.map(win => 
+      {windows.map((win) =>
         win.isOpen && !win.isMinimized && (
           <Window
             key={win.id}
@@ -163,6 +179,8 @@ export default function Desktop() {
             onThemeToggle={toggleTheme}
             wallpaperColor={wallpaperColor}
             onWallpaperChange={setWallpaperColor}
+            soundEnabled={soundEnabled}
+            onSoundToggle={() => setSoundEnabled(!soundEnabled)}
             onClose={() => closeWindow(win.id)}
             onMinimize={() => minimizeWindow(win.id)}
             onMaximize={() => toggleMaximize(win.id)}
@@ -171,38 +189,33 @@ export default function Desktop() {
         )
       )}
 
-
       <TaskBar
         windows={windows}
         activeWindowId={activeWindowId}
         theme={theme}
         onThemeToggle={toggleTheme}
         onWindowClick={(id) => {
-          const win = windows.find(w => w.id === id)
+          const win = windows.find((w) => w.id === id)
           if (!win) return
 
-          // если окно закрыто — открыть
           if (!win.isOpen) {
             openWindow(id)
             return
           }
 
-          // если свернуто — развернуть и сделать активным
           if (win.isMinimized) {
-            setWindows(prev => prev.map(w => 
+            setWindows((prev) => prev.map((w) =>
               w.id === id ? { ...w, isMinimized: false, isOpen: true } : w
             ))
             setActiveWindowId(id)
             return
           }
 
-          // если уже активно — свернуть
           if (activeWindowId === id) {
             minimizeWindow(id)
             return
           }
 
-          // иначе просто сфокусировать
           focusWindow(id)
         }}
         onOpenWindow={openWindow}

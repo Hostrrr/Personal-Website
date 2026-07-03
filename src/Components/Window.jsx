@@ -1,9 +1,32 @@
 import { useState, useEffect } from 'react'
 import { Rnd } from 'react-rnd'
 import WindowContent from './WindowContent'
+import { useLanguage } from '../hooks/useLanguage'
 import './Window.css'
 
-export default function Window({ id, title, moduleCode, content, bgColor, isMaximized, isResizable = true, initialWidth, initialHeight, initialZIndex = 10, theme, onThemeToggle, wallpaperColor, onWallpaperChange, onClose, onMinimize, onMaximize, onFocus }) {
+export default function Window({
+  id,
+  title,
+  moduleCode,
+  content,
+  bgColor,
+  isMaximized,
+  isResizable = true,
+  initialWidth,
+  initialHeight,
+  initialZIndex = 10,
+  theme,
+  onThemeToggle,
+  wallpaperColor,
+  onWallpaperChange,
+  soundEnabled,
+  onSoundToggle,
+  onClose,
+  onMinimize,
+  onMaximize,
+  onFocus,
+}) {
+  const { t } = useLanguage()
   const titleBar = (
     <div className="window-title">
       {moduleCode && <span className="window-title__code">{moduleCode}</span>}
@@ -13,7 +36,7 @@ export default function Window({ id, title, moduleCode, content, bgColor, isMaxi
   const [zIndex, setZIndex] = useState(initialZIndex)
   const [savedPosition, setSavedPosition] = useState({ x: 100 + (id * 30), y: 60 + (id * 30) })
   const [savedSize, setSavedSize] = useState({ width: initialWidth || 500, height: initialHeight || 400 })
-  const [animation, setAnimation] = useState(null) // 'closing' | 'unmaximizing' | null
+  const [animation, setAnimation] = useState(null)
 
   useEffect(() => {
     setZIndex(initialZIndex)
@@ -25,7 +48,6 @@ export default function Window({ id, title, moduleCode, content, bgColor, isMaxi
 
   const handleClose = () => {
     setAnimation('closing')
-    // даём анимации проиграться, затем реально закрываем
     setTimeout(() => {
       onClose()
     }, 200)
@@ -39,7 +61,6 @@ export default function Window({ id, title, moduleCode, content, bgColor, isMaxi
   }
 
   const handleMaximize = () => {
-    // вход в фуллскрин
     if (!isMaximized) {
       setSavedPosition({ x: savedPosition.x, y: savedPosition.y })
       setSavedSize({ width: savedSize.width, height: savedSize.height })
@@ -47,7 +68,6 @@ export default function Window({ id, title, moduleCode, content, bgColor, isMaxi
       return
     }
 
-    // выход из фуллскрина с красивой анимацией
     setAnimation('unmaximizing')
     setTimeout(() => {
       onMaximize()
@@ -55,10 +75,31 @@ export default function Window({ id, title, moduleCode, content, bgColor, isMaxi
     }, 250)
   }
 
-  // Если максимизировано - рендерим обычный div с CSS
+  const windowControls = (
+    <div className="window-controls">
+      <button type="button" className="window-btn minimize" onClick={handleMinimize} aria-label={t.window.minimize}>_</button>
+      {isResizable && (
+        <button type="button" className="window-btn maximize" onClick={handleMaximize} aria-label={t.window.maximize}>❐</button>
+      )}
+      <button type="button" className="window-btn close" onClick={handleClose} aria-label={t.window.close}>✕</button>
+    </div>
+  )
+
+  const windowBody = (
+    <WindowContent
+      type={content}
+      theme={theme}
+      onThemeToggle={onThemeToggle}
+      wallpaperColor={wallpaperColor}
+      onWallpaperChange={onWallpaperChange}
+      soundEnabled={soundEnabled}
+      onSoundToggle={onSoundToggle}
+    />
+  )
+
   if (isMaximized) {
     return (
-      <div 
+      <div
         className={`window maximized ${
           animation === 'closing' ? 'window-closing' : ''
         } ${
@@ -69,21 +110,16 @@ export default function Window({ id, title, moduleCode, content, bgColor, isMaxi
       >
         <div className="window-header">
           {titleBar}
-          <div className="window-controls">
-            <button className="window-btn minimize" onClick={handleMinimize}>_</button>
-            {isResizable && <button className="window-btn maximize" onClick={handleMaximize}>❐</button>}
-            <button className="window-btn close" onClick={handleClose}>✕</button>
-          </div>
+          {windowControls}
         </div>
 
         <div className="window-content" style={{ background: bgColor || 'white' }}>
-          <WindowContent type={content} theme={theme} onThemeToggle={onThemeToggle} wallpaperColor={wallpaperColor} onWallpaperChange={onWallpaperChange} />
+          {windowBody}
         </div>
       </div>
     )
   }
 
-  // Обычное окно через Rnd
   return (
     <Rnd
       position={savedPosition}
@@ -118,15 +154,11 @@ export default function Window({ id, title, moduleCode, content, bgColor, isMaxi
       <div className={`window ${animation === 'closing' ? 'window-closing' : ''}`}>
         <div className="window-header">
           {titleBar}
-          <div className="window-controls">
-            <button className="window-btn minimize" onClick={handleMinimize}>_</button>
-            {isResizable && <button className="window-btn maximize" onClick={handleMaximize}>□</button>}
-            <button className="window-btn close" onClick={handleClose}>✕</button>
-          </div>
+          {windowControls}
         </div>
 
         <div className="window-content" style={{ background: bgColor || 'white' }}>
-          <WindowContent type={content} theme={theme} onThemeToggle={onThemeToggle} wallpaperColor={wallpaperColor} onWallpaperChange={onWallpaperChange} />
+          {windowBody}
         </div>
       </div>
     </Rnd>

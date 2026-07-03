@@ -76,8 +76,9 @@ export function usePixelReveal(src, options = {}) {
     readyRef.current = false;
     pendingRevealRef.current = false;
     pxRef.current = fromPixels;
-    setIsReady(false);
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
+
+    const resetFrame = requestAnimationFrame(() => setIsReady(false));
 
     const { mode, border } = PRESETS[preset] ?? PRESETS.default;
     let cancelled = false;
@@ -96,6 +97,7 @@ export function usePixelReveal(src, options = {}) {
 
     return () => {
       cancelled = true;
+      cancelAnimationFrame(resetFrame);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [src, preset, fromPixels, fitCanvasToImage, observe]);
@@ -132,7 +134,9 @@ export function usePixelReveal(src, options = {}) {
     rafRef.current = requestAnimationFrame(step);
   }, [preset, fromPixels, speed]);
 
-  startRevealRef.current = startReveal;
+  useEffect(() => {
+    startRevealRef.current = startReveal;
+  }, [startReveal]);
 
   const stopObserving = useCallback(() => {
     observerRef.current?.disconnect();

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Loader from "./Components/Loader";
 import Desktop from "./Components/Desktop";
 import MobileOS from "./Components/MobileOS/MobileOS";
@@ -10,23 +10,25 @@ function App() {
   const [showLoader, setShowLoader] = useState(true);
   const isMobile = useIsMobile();
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+  const finishBoot = useCallback(() => {
+    setLoading(false);
   }, []);
 
   useEffect(() => {
+    const timer = setTimeout(finishBoot, 2000);
+    return () => clearTimeout(timer);
+  }, [finishBoot]);
+
+  useEffect(() => {
     if (!loading) {
-      setTimeout(() => {
-        setShowLoader(false);
-      }, 500);
+      const timer = setTimeout(() => setShowLoader(false), 500);
+      return () => clearTimeout(timer);
     }
   }, [loading]);
 
   return (
     <LanguageProvider>
-      {showLoader && <Loader isVisible={loading} />}
+      {showLoader && <Loader isVisible={loading} onSkip={finishBoot} />}
       {!showLoader && (isMobile ? <MobileOS /> : <Desktop />)}
     </LanguageProvider>
   );

@@ -1,6 +1,4 @@
-import { createContext, useContext } from 'react'
-
-const OsActionsContext = createContext(null)
+import { OsActionsContext } from './osActionsContext'
 
 export function OsActionsProvider({ value, children }) {
   return (
@@ -8,12 +6,4 @@ export function OsActionsProvider({ value, children }) {
       {children}
     </OsActionsContext.Provider>
   )
-}
-
-export function useOsActions() {
-  const ctx = useContext(OsActionsContext)
-  if (!ctx) {
-    throw new Error('useOsActions must be used within OsActionsProvider')
-  }
-  return ctx
 }

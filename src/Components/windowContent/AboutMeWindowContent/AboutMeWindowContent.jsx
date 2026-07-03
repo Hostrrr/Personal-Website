@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './AboutMeWindowContent.css'
-import { useLanguage } from '../../../contexts/LanguageContext'
+import { useLanguage } from '../../../hooks/useLanguage'
 import { PixelImage } from '../../../pixel-engine'
 import { ABOUT_PHOTO_PIXEL } from '../../../pixel-engine/pixelConfig'
 import image1 from '../../../assets/MyPhotos/image12.png'
@@ -25,7 +25,7 @@ export default function AboutMeWindowContent() {
   return (
     <div className="about-window">
       <div className="about-window-body">
-        <div className="about-photo-block" onClick={handleImageClick}>
+        <button type="button" className="about-photo-block" onClick={handleImageClick} aria-label={t.about.photoAria}>
           <div className="about-photo-wrap">
             <div className="about-photo-frame">
               <PixelImage
@@ -37,7 +37,7 @@ export default function AboutMeWindowContent() {
             </div>
             <div className="passport-stamp">{t.about.clickPhoto}</div>
           </div>
-        </div>
+        </button>
 
         <div className="about-text">
           <div className="about-title">

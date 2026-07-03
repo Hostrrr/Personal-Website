@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
+import { useLanguage } from "../hooks/useLanguage";
 import "./Loader.css";
 import AsciiLogo from "../assets/LogoAscii.txt?raw";
 
-function Loader({ isVisible, onFinish }) {
+function Loader({ isVisible, onSkip }) {
+  const { t } = useLanguage();
   const [dashes, setDashes] = useState("");
 
-  const maxLength = 64; // длина полоски
+  const maxLength = 64;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDashes(prev => {
+      setDashes((prev) => {
         if (prev.length >= maxLength) {
           clearInterval(interval);
-          setTimeout(() => {
-            if (onFinish) onFinish();
-          }, 300);
           return prev;
         }
         return prev + "~";
@@ -29,6 +28,11 @@ function Loader({ isVisible, onFinish }) {
       <span className="loader-boot-label te-label te-label--accent">boot sequence</span>
       <pre className="ascii-logo">{AsciiLogo}</pre>
       <pre className="ascii-progress">{dashes}</pre>
+      {onSkip && (
+        <button type="button" className="loader-skip-btn" onClick={onSkip} aria-label={t.loader.skipAria}>
+          {t.loader.skip}
+        </button>
+      )}
     </div>
   );
 }
