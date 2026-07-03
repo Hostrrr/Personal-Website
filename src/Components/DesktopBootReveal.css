@@ -3,7 +3,8 @@
   inset: 0;
   z-index: 9000;
   pointer-events: none;
-  background: #000;
+  background: transparent;
+  will-change: opacity;
 }
 
 .desktop-boot-reveal__canvas {
@@ -11,17 +12,4 @@
   height: 100%;
   display: block;
   object-fit: cover;
-}
-
-.desktop-boot-reveal--fading {
-  animation: boot-reveal-fade 0.35s ease forwards;
-}
-
-@keyframes boot-reveal-fade {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
 }
