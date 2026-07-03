@@ -1,73 +1,40 @@
-.monitor-outer {
-  min-height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background: var(--te-cream);
-  transition: background 0.4s ease;
-}
-
-.monitor-outer--dark {
-  background: #1e1e1c;
-}
-
 .monitor-shell {
   display: flex;
   flex-direction: column;
-  width: min(1280px, calc(100vw - 40px));
-  height: min(820px, calc(100vh - 40px));
-  background: #d8d6d0;
-  border: 2px solid var(--te-border);
-  border-radius: 20px;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.35) inset,
-    0 24px 64px rgba(26, 26, 24, 0.18),
-    0 4px 12px rgba(26, 26, 24, 0.08);
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #f4f3ef;
   overflow: hidden;
-  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  border-radius: inherit;
 }
 
 .monitor-shell--dark {
-  background: #2e2e2c;
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
-    0 24px 64px rgba(0, 0, 0, 0.55),
-    0 4px 12px rgba(0, 0, 0, 0.3);
+  background: #f0efeb;
 }
 
 .monitor-top {
   flex-shrink: 0;
-  border-bottom: var(--te-border-width) solid rgba(26, 26, 24, 0.12);
-}
-
-.monitor-shell--dark .monitor-top {
-  border-bottom-color: rgba(255, 255, 255, 0.08);
+  padding: 0 4px;
 }
 
 .monitor-screen {
   flex: 1;
   position: relative;
   overflow: hidden;
-  margin: 0 10px;
-  border-radius: 10px;
-  border: 2px solid rgba(26, 26, 24, 0.2);
-  background: #000;
+  margin: 0 14px;
+  border-radius: 6px;
   min-height: 0;
-}
-
-.monitor-shell--dark .monitor-screen {
-  border-color: rgba(0, 0, 0, 0.6);
+  background: #000;
 }
 
 .monitor-chin {
   flex-shrink: 0;
-  height: 32px;
+  height: 28px;
   display: flex;
   align-items: center;
-  padding: 0 14px 6px;
+  padding: 0 18px 8px;
 }
 
 .monitor-logo {
@@ -77,7 +44,7 @@
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  opacity: 0.55;
+  opacity: 0.4;
   user-select: none;
 }
 
@@ -88,12 +55,4 @@
 .monitor-logo__os {
   color: var(--te-orange);
   font-weight: 700;
-}
-
-.monitor-shell--dark .monitor-logo__brand {
-  color: var(--te-paper);
-}
-
-.monitor-shell--dark .monitor-logo {
-  opacity: 0.45;
 }

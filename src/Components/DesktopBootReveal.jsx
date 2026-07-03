@@ -1,13 +1,18 @@
-import { useCallback, useEffect, useRef } from 'react'
-import { toCanvas } from 'html-to-image'
+import { useEffect, useRef } from 'react'
 import { initGL, glRender, loadTextureFromCanvas, PRESETS } from '../pixel-engine/hooks/glEngine'
 import './DesktopBootReveal.css'
 
-function createFallbackCanvas(width, height, wallpaperColor, theme) {
+const FROM_PIXELS = 48
+const SPEED = 38
+const FADE_START = 20
+
+function createWallpaperCanvas(width, height, wallpaperColor, theme) {
   const canvas = document.createElement('canvas')
   const dpr = Math.min(window.devicePixelRatio || 1, 2)
-  canvas.width = Math.max(1, Math.round(width * dpr))
-  canvas.height = Math.max(1, Math.round(height * dpr))
+  const w = Math.max(1, Math.round(width * dpr))
+  const h = Math.max(1, Math.round(height * dpr))
+  canvas.width = w
+  canvas.height = h
   const ctx = canvas.getContext('2d')
   if (!ctx) return canvas
 
@@ -45,46 +50,13 @@ export default function DesktopBootReveal({ screenRef, wallpaperColor, theme, on
   const overlayRef = useRef(null)
   const glRef = useRef(null)
   const rafRef = useRef(null)
-  const pxRef = useRef(48)
-  const fadingRef = useRef(false)
-
-  const startReveal = useCallback((fromPixels = 48, speed = 70) => {
-    const ctx = glRef.current
-    const canvas = canvasRef.current
-    if (!ctx || !canvas) return
-
-    if (rafRef.current) cancelAnimationFrame(rafRef.current)
-    pxRef.current = fromPixels
-    const { mode, border } = PRESETS.default
-    let last = null
-
-    function step(ts) {
-      if (!last) last = ts
-      const dt = (ts - last) / 1000
-      last = ts
-      pxRef.current = Math.max(1, pxRef.current - speed * dt)
-      glRender(ctx.gl, ctx.prog, canvas, pxRef.current, mode, border)
-
-      if (pxRef.current <= 8 && !fadingRef.current) {
-        fadingRef.current = true
-        overlayRef.current?.classList.add('desktop-boot-reveal--fading')
-      }
-
-      if (pxRef.current > 1) {
-        rafRef.current = requestAnimationFrame(step)
-      } else {
-        onComplete?.()
-      }
-    }
-
-    rafRef.current = requestAnimationFrame(step)
-  }, [onComplete])
+  const pxRef = useRef(FROM_PIXELS)
 
   useEffect(() => {
     const canvas = canvasRef.current
     const screen = screenRef.current
     const overlay = overlayRef.current
-    if (!canvas || !screen) return
+    if (!canvas || !screen || !overlay) return
 
     const ctx = initGL(canvas)
     if (!ctx) {
@@ -93,44 +65,45 @@ export default function DesktopBootReveal({ screenRef, wallpaperColor, theme, on
     }
     glRef.current = ctx
 
-    let cancelled = false
+    const rect = screen.getBoundingClientRect()
+    const sourceCanvas = createWallpaperCanvas(rect.width, rect.height, wallpaperColor, theme)
 
-    const setup = async () => {
-      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))
-      if (cancelled) return
+    canvas.width = sourceCanvas.width
+    canvas.height = sourceCanvas.height
+    loadTextureFromCanvas(ctx.gl, ctx.tex, sourceCanvas)
 
-      const rect = screen.getBoundingClientRect()
-      if (overlay) overlay.style.visibility = 'hidden'
+    const { mode, border } = PRESETS.default
+    pxRef.current = FROM_PIXELS
+    glRender(ctx.gl, ctx.prog, canvas, FROM_PIXELS, mode, border)
+    overlay.style.opacity = '1'
 
-      let sourceCanvas
-      try {
-        sourceCanvas = await toCanvas(screen, {
-          pixelRatio: Math.min(window.devicePixelRatio || 1, 2),
-          cacheBust: true,
-        })
-      } catch {
-        sourceCanvas = createFallbackCanvas(rect.width, rect.height, wallpaperColor, theme)
+    let last = null
+
+    function step(ts) {
+      if (!last) last = ts
+      const dt = (ts - last) / 1000
+      last = ts
+
+      pxRef.current = Math.max(1, pxRef.current - SPEED * dt)
+      glRender(ctx.gl, ctx.prog, canvas, pxRef.current, mode, border)
+
+      const px = pxRef.current
+      const opacity = px > FADE_START ? 1 : px <= 1 ? 0 : (px - 1) / (FADE_START - 1)
+      overlay.style.opacity = String(opacity)
+
+      if (px > 1) {
+        rafRef.current = requestAnimationFrame(step)
+      } else {
+        onComplete?.()
       }
-
-      if (overlay) overlay.style.visibility = 'visible'
-      if (cancelled) return
-
-      canvas.width = sourceCanvas.width
-      canvas.height = sourceCanvas.height
-      loadTextureFromCanvas(ctx.gl, ctx.tex, sourceCanvas)
-
-      const { mode, border } = PRESETS.default
-      glRender(ctx.gl, ctx.prog, canvas, 48, mode, border)
-      startReveal()
     }
 
-    setup()
+    rafRef.current = requestAnimationFrame(step)
 
     return () => {
-      cancelled = true
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
-  }, [screenRef, wallpaperColor, theme, onComplete, startReveal])
+  }, [screenRef, wallpaperColor, theme, onComplete])
 
   return (
     <div ref={overlayRef} className="desktop-boot-reveal">
