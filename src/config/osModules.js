@@ -7,6 +7,7 @@ export const OS_MODULES = {
   yegos:    { id: '00', slug: 'system',  accent: '#9e9c96' },
   settings: { id: '99', slug: 'config',  accent: '#e8c547' },
   game:     { id: '07', slug: 'play',    accent: '#e04545' },
+  terminal: { id: '08', slug: 'shell',   accent: '#5a7a5a' },
 }
 
 export function getModule(content) {

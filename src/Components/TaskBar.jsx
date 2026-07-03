@@ -108,6 +108,16 @@ export default function TaskBar({ windows, activeWindowId, theme, onThemeToggle,
             {t.taskbar.settings}
           </button>
           <button
+            className="menu-button"
+            onClick={() => {
+              onOpenWindow(8)
+              setIsStartOpen(false)
+            }}
+          >
+            <span className="menu-button__code">08</span>
+            {t.taskbar.terminal}
+          </button>
+          <button
             className="menu-button danger"
             onClick={() => {
               alert(t.taskbar.shutdownAlert)

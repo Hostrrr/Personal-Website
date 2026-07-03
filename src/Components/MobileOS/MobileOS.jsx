@@ -4,17 +4,20 @@ import HomeScreen from './HomeScreen'
 import AppScreen from './AppScreen'
 import './MobileOS.css'
 import { useLanguage } from '../../contexts/LanguageContext'
+import { OsActionsProvider } from '../../contexts/OsActionsContext'
 import { OS_MODULES } from '../../config/osModules'
 import { playUiOpen } from '../../utils/uiSound'
 
-const APP_IDS = ['about', 'projects', 'skills', 'contact', 'settings', 'game']
+const APP_IDS = ['about', 'projects', 'skills', 'contact', 'settings', 'game', 'terminal']
 
 export default function MobileOS() {
   const { t } = useLanguage()
   const [screen, setScreen] = useState('locked')
   const [openAppId, setOpenAppId] = useState(null)
-  const [theme, setTheme] = useState('light')
+  const [theme, setThemeMode] = useState('light')
   const [wallpaperColor, setWallpaperColor] = useState('#e8e6e1')
+
+  const setTheme = (mode) => setThemeMode(mode)
 
   const apps = APP_IDS.map(id => ({
     id,
@@ -38,7 +41,19 @@ export default function MobileOS() {
 
   const currentApp = apps.find(a => a.id === openAppId) ?? null
 
+  const openByContent = (content) => {
+    if (APP_IDS.includes(content)) openApp(content)
+  }
+
+  const osActionsValue = {
+    theme,
+    setTheme,
+    setWallpaperColor,
+    openByContent,
+  }
+
   return (
+    <OsActionsProvider value={osActionsValue}>
     <div className="mobile-os" data-theme={theme}>
       <HomeScreen apps={apps} onOpenApp={openApp} wallpaperColor={wallpaperColor} theme={theme} />
 
@@ -47,7 +62,7 @@ export default function MobileOS() {
           isOpen={screen === 'app'}
           app={currentApp}
           theme={theme}
-          onThemeToggle={() => setTheme(prev => prev === 'light' ? 'dark' : 'light')}
+          onThemeToggle={() => setThemeMode(prev => prev === 'light' ? 'dark' : 'light')}
           wallpaperColor={wallpaperColor}
           onWallpaperChange={setWallpaperColor}
           onClose={goHome}
@@ -56,5 +71,6 @@ export default function MobileOS() {
 
       <LockScreen isLocked={screen === 'locked'} onUnlock={unlock} />
     </div>
+    </OsActionsProvider>
   )
 }

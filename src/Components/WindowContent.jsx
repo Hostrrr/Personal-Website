@@ -5,6 +5,7 @@ import SkillsWindowContent from "./windowContent/SkillsWindowContent/SkillsWindo
 import SettingsWindowContent from "./windowContent/SettingsWindowContent/SettingsWindowContent"
 import YegosWindowContent from "./windowContent/YegosWindowContent/YegosWindowContent"
 import GameWindowContent from "./windowContent/GameWindowContent/GameWindowContent"
+import TerminalWindowContent from "./windowContent/TerminalWindowContent/TerminalWindowContent"
 import { useLanguage } from '../contexts/LanguageContext'
 
 export default function WindowContent({ type, theme, onThemeToggle, wallpaperColor, onWallpaperChange }) {
@@ -25,6 +26,7 @@ export default function WindowContent({ type, theme, onThemeToggle, wallpaperCol
     ),
     yegos: <YegosWindowContent />,
     game: <GameWindowContent />,
+    terminal: <TerminalWindowContent />,
   }
 
   return components[type] || <div>{t.windowContent.notFound}</div>

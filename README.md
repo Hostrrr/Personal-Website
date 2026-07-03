@@ -32,6 +32,7 @@ Built with **React** + **Vite**.
 | Skills    | Skill cards with particle effects on click   |
 | Contacts  | Email, GitHub, Telegram, LinkedIn            |
 | Settings  | Theme, language, wallpaper color             |
+| Terminal  | Shell with commands + Cmd/Ctrl+K palette     |
 | Games     | Snake game                                   |
 | About YegOS | OS info window                             |
 

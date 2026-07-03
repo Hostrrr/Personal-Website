@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import Window from './Window'
 import TaskBar from './TaskBar'
+import CommandPalette from './CommandPalette'
 import './Desktop.css'
 import { useLanguage } from '../contexts/LanguageContext'
+import { OsActionsProvider } from '../contexts/OsActionsContext'
+import { useCommandPaletteToggle } from '../hooks/useCommandPaletteToggle'
 import { darkenAndSaturate } from '../utils/colorUtils'
 import { getModule } from '../config/osModules'
 import DockIcon from './icons/DockIcon'
@@ -19,6 +22,7 @@ export default function Desktop() {
     { id: 5, isOpen: false, isMinimized: false, isMaximized: false, content: 'yegos', bgColor: '#e5ddd8', isResizable: false, width: 350, height: 300, skipDock: true, defaultDarkColor: '#3e3e3c', zIndex: 10 },
     { id: 6, isOpen: false, isMinimized: false, isMaximized: false, content: 'settings', bgColor: '#e8e4dc', isResizable: false, width: 400, height: 350, defaultDarkColor: '#3e3e3c', zIndex: 10 },
     { id: 7, isOpen: false, isMinimized: false, isMaximized: false, content: 'game', bgColor: '#e5ddd8', zIndex: 10 },
+    { id: 8, isOpen: false, isMinimized: false, isMaximized: false, content: 'terminal', bgColor: '#2a2a28', defaultDarkColor: '#1a1a18', width: 520, height: 380, zIndex: 10 },
   ])
 
   // активное окно и счётчик z-index для красивого наложения
@@ -26,11 +30,14 @@ export default function Desktop() {
   const [zIndexCounter, setZIndexCounter] = useState(10)
 
   // тема оформления: light / dark
-  const [theme, setTheme] = useState('light')
+  const [theme, setThemeMode] = useState('light')
   const [wallpaperColor, setWallpaperColor] = useState('#e8e6e1')
+  const palette = useCommandPaletteToggle()
+
+  const setTheme = (mode) => setThemeMode(mode)
 
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'light' ? 'dark' : 'light'))
+    setThemeMode(prev => (prev === 'light' ? 'dark' : 'light'))
   }
 
   const getThemedBgColor = (color, defaultDarkColor) => {
@@ -86,7 +93,20 @@ export default function Desktop() {
     return newZ
   }
 
+  const openByContent = (content) => {
+    const win = windows.find(w => w.content === content)
+    if (win) openWindow(win.id)
+  }
+
+  const osActionsValue = {
+    theme,
+    setTheme,
+    setWallpaperColor,
+    openByContent,
+  }
+
   return (
+    <OsActionsProvider value={osActionsValue}>
     <div className={`desktop desktop-${theme}`} style={{ 
       backgroundColor: wallpaperColor,
       backgroundImage: theme === 'dark' ? 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))' : 'none'
@@ -187,6 +207,9 @@ export default function Desktop() {
         }}
         onOpenWindow={openWindow}
       />
+
+      <CommandPalette key={palette.session} isOpen={palette.isOpen} onClose={palette.close} />
     </div>
+    </OsActionsProvider>
   )
 }

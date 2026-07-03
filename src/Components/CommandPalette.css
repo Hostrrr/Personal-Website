@@ -1,0 +1,106 @@
+.cmd-palette-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  padding-top: 12vh;
+  box-sizing: border-box;
+}
+
+.cmd-palette {
+  width: min(480px, calc(100vw - 32px));
+  max-height: min(420px, 70vh);
+  display: flex;
+  flex-direction: column;
+  background: var(--te-surface);
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius);
+  box-shadow: var(--te-shadow-md);
+  overflow: hidden;
+}
+
+.cmd-palette__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: var(--te-border-width) solid var(--te-border-subtle);
+  flex-shrink: 0;
+}
+
+.cmd-palette__hint {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--te-ink-muted);
+  background: var(--te-paper);
+  border: var(--te-border-width) solid var(--te-border-subtle);
+  border-radius: var(--te-radius-sm);
+  padding: 3px 6px;
+  flex-shrink: 0;
+}
+
+.cmd-palette__input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  color: var(--te-ink);
+  outline: none;
+}
+
+.cmd-palette__input::placeholder {
+  color: var(--te-ink-muted);
+}
+
+.cmd-palette__list {
+  overflow-y: auto;
+  padding: 6px;
+  flex: 1;
+  min-height: 0;
+}
+
+.cmd-palette__empty {
+  padding: 16px 12px;
+  text-align: center;
+  color: var(--te-ink-muted);
+  font-size: 13px;
+}
+
+.cmd-palette__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  border-radius: var(--te-radius-sm);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: var(--te-ink);
+  transition: background 0.1s ease;
+}
+
+.cmd-palette__item:hover,
+.cmd-palette__item--active {
+  background: var(--te-paper);
+}
+
+.cmd-palette__code {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--te-orange);
+  min-width: 22px;
+}
+
+.cmd-palette__label {
+  font-size: 13px;
+}

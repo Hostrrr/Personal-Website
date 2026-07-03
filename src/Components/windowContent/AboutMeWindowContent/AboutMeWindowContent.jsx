@@ -41,7 +41,10 @@ export default function AboutMeWindowContent() {
 
         <div className="about-text">
           <div className="about-title">
-            <h2 className="about-name">{t.about.name}</h2>
+            <h2 className="about-name">
+              <span className="about-name-first">{t.about.nameFirst}</span>{' '}
+              <span className="about-name-last">{t.about.nameLast}</span>
+            </h2>
           </div>
           <div className="about-description">
             <p dangerouslySetInnerHTML={{ __html: t.about.desc1 }} />

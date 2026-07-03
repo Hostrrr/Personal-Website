@@ -1,15 +1,6 @@
 import './SettingsWindowContent.css'
 import { useLanguage } from '../../../contexts/LanguageContext'
-const WALLPAPER_COLORS = [
-  '#e8e6e1',
-  '#d4e4ed',
-  '#e5ddd8',
-  '#dde8de',
-  '#e8e4dc',
-  '#c9c7c2',
-  '#f4f3ef',
-  '#2a2a28',
-]
+import { WALLPAPER_COLORS } from '../../../utils/osCommands'
 
 const LANGUAGES = [
   { code: 'ru', label: 'RU', full: 'Русский' },

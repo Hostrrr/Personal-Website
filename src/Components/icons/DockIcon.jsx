@@ -23,6 +23,14 @@ const YEGOS_PATHS = (
   </>
 )
 
+const TERMINAL_PATHS = (
+  <>
+    <rect x="3" y="4" width="18" height="14" rx="1.5" />
+    <polyline points="7 9 10 12 7 15" />
+    <line x1="12" y1="15" x2="17" y2="15" />
+  </>
+)
+
 export default function DockIcon({ name, size = 22, className = '' }) {
   const src = ICONS[name]
 
@@ -53,7 +61,7 @@ export default function DockIcon({ name, size = 22, className = '' }) {
       strokeLinejoin="round"
       aria-hidden
     >
-      {name === 'yegos' ? YEGOS_PATHS : (
+      {name === 'yegos' ? YEGOS_PATHS : name === 'terminal' ? TERMINAL_PATHS : (
         <>
           <circle cx="12" cy="8" r="3.5" />
           <path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" />

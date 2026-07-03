@@ -81,9 +81,20 @@
 }
 
 .about-name {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+
+.about-name-first {
+  color: var(--te-orange);
+  text-shadow: 0 1px 0 rgba(255, 85, 0, 0.15);
+}
+
+.about-name-last {
+  color: var(--te-ink);
 }
 
 .about-text p {
@@ -94,14 +105,26 @@
 }
 
 .about-title {
-  padding: 8px 12px;
-  background: var(--te-paper);
+  position: relative;
+  padding: 10px 14px;
+  background:
+    linear-gradient(135deg, rgba(255, 85, 0, 0.07) 0%, transparent 55%),
+    var(--te-paper);
   border-radius: var(--te-radius-sm);
   color: var(--te-ink);
   text-align: left;
   border: var(--te-border-width) solid var(--te-border-subtle);
   margin-bottom: 10px;
-  font-weight: 600;
+  box-shadow: 3px 3px 0 rgba(26, 26, 24, 0.07);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.about-title:hover {
+  border-color: rgba(255, 85, 0, 0.35);
+  box-shadow:
+    3px 3px 0 rgba(26, 26, 24, 0.09),
+    0 0 0 1px rgba(255, 85, 0, 0.08);
 }
 
 .about-description {
@@ -154,7 +177,7 @@
   }
 
   .about-name {
-    font-size: 15px;
+    font-size: 18px;
   }
 
   .about-text p {
