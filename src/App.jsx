@@ -6,8 +6,8 @@ import useIsMobile from "./hooks/useIsMobile";
 import { LanguageProvider } from "./contexts/LanguageContext";
 
 const BOOT_MS = 2000;
-const DESKTOP_PREMOUNT_MS = 1550;
-const LOADER_FADE_MS = 450;
+const DESKTOP_PREMOUNT_MS = 1100;
+const LOADER_FADE_MS = 400;
 
 function App() {
   const [loading, setLoading] = useState(true);
