@@ -109,15 +109,27 @@ export function initGL(canvas) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
-  return { gl, prog, tex };
+  const uniforms = {
+    u_pixels: gl.getUniformLocation(prog, "u_pixels"),
+    u_res: gl.getUniformLocation(prog, "u_res"),
+    u_mode: gl.getUniformLocation(prog, "u_mode"),
+    u_border: gl.getUniformLocation(prog, "u_border"),
+    u_tex: gl.getUniformLocation(prog, "u_tex"),
+  };
+  gl.uniform1i(uniforms.u_tex, 0);
+  prog._uniforms = uniforms;
+
+  return { gl, prog, tex, uniforms };
 }
 
-export function glRender(gl, prog, canvas, pixels, mode, border) {
+export function glRender(gl, prog, canvas, pixels, mode, border, uniforms) {
+  const u = uniforms ?? prog._uniforms;
+  if (!u) return;
   gl.viewport(0, 0, canvas.width, canvas.height);
-  gl.uniform1f(gl.getUniformLocation(prog, "u_pixels"), Math.max(1, pixels));
-  gl.uniform2f(gl.getUniformLocation(prog, "u_res"), canvas.width, canvas.height);
-  gl.uniform1i(gl.getUniformLocation(prog, "u_mode"), mode);
-  gl.uniform1f(gl.getUniformLocation(prog, "u_border"), border);
+  gl.uniform1f(u.u_pixels, Math.max(1, pixels));
+  gl.uniform2f(u.u_res, canvas.width, canvas.height);
+  gl.uniform1i(u.u_mode, mode);
+  gl.uniform1f(u.u_border, border);
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 }
 
