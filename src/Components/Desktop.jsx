@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Window from './Window'
-import TaskBar from './TaskBar'
+import MonitorShell from './MonitorShell'
 import CommandPalette from './CommandPalette'
 import './Desktop.css'
 import { useLanguage } from '../hooks/useLanguage'
@@ -38,6 +38,7 @@ export default function Desktop() {
 
   const [activeWindowId, setActiveWindowId] = useState(1)
   const [zIndexCounter, setZIndexCounter] = useState(10)
+  const [showBootReveal, setShowBootReveal] = useState(true)
   const windowsRef = useRef(windows)
   const palette = useCommandPaletteToggle()
 
@@ -120,109 +121,91 @@ export default function Desktop() {
 
   return (
     <OsActionsProvider value={osActionsValue}>
-    <div className={`desktop desktop-${theme}`} style={{
-      backgroundColor: wallpaperColor,
-      backgroundImage: theme === 'dark' ? 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))' : 'none',
-    }}>
-      <div className="dock" role="toolbar" aria-label="Dock">
-        {windows.filter((w) => !w.skipDock).map((win) => {
-          const isActive = activeWindowId === win.id && win.isOpen && !win.isMinimized
-          const mod = getModule(win.content)
-          const label = t.windows[win.content] || win.content
-
-          return (
-            <div
-              key={win.id}
-              className="dock-item"
-              role="button"
-              tabIndex={0}
-              aria-label={label}
-              onClick={() => openWindow(win.id)}
-              onKeyDown={(event) => handleDockKeyDown(event, win.id)}
-              style={{
-                opacity: win.isOpen ? 1 : 0.8,
-                transform: isActive ? 'translateY(-15px) scale(1.08)' : undefined,
-              }}
-            >
-              <div
-                className="dock-icon"
-                style={{
-                  background: isActive ? getThemedBgColor(win.bgColor, win.defaultDarkColor) : undefined,
-                }}
-              >
-                <DockIcon name={win.content} size={36} />
-              </div>
-              <div className="dock-label">
-                {mod && <span className="dock-label__code">{mod.id}</span>}
-                <span className="dock-label__text">{label}</span>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-
-      {windows.map((win) =>
-        win.isOpen && !win.isMinimized && (
-          <Window
-            key={win.id}
-            id={win.id}
-            title={t.windows[win.content] || win.content}
-            moduleCode={getModule(win.content)?.id}
-            content={win.content}
-            bgColor={getThemedBgColor(win.bgColor, win.defaultDarkColor)}
-            isMaximized={win.isMaximized}
-            isResizable={win.isResizable !== false}
-            initialWidth={win.width}
-            initialHeight={win.height}
-            initialZIndex={win.zIndex}
-            theme={theme}
-            onThemeToggle={toggleTheme}
-            wallpaperColor={wallpaperColor}
-            onWallpaperChange={setWallpaperColor}
-            soundEnabled={soundEnabled}
-            onSoundToggle={() => setSoundEnabled(!soundEnabled)}
-            onClose={() => closeWindow(win.id)}
-            onMinimize={() => minimizeWindow(win.id)}
-            onMaximize={() => toggleMaximize(win.id)}
-            onFocus={() => focusWindow(win.id)}
-          />
-        )
-      )}
-
-      <TaskBar
-        windows={windows}
-        activeWindowId={activeWindowId}
+      <MonitorShell
         theme={theme}
-        onThemeToggle={toggleTheme}
-        onWindowClick={(id) => {
-          const win = windows.find((w) => w.id === id)
-          if (!win) return
-
-          if (!win.isOpen) {
-            openWindow(id)
-            return
-          }
-
-          if (win.isMinimized) {
-            setWindows((prev) => prev.map((w) =>
-              w.id === id ? { ...w, isMinimized: false, isOpen: true } : w
-            ))
-            setActiveWindowId(id)
-            return
-          }
-
-          if (activeWindowId === id) {
-            minimizeWindow(id)
-            return
-          }
-
-          focusWindow(id)
+        wallpaperColor={wallpaperColor}
+        showBootReveal={showBootReveal}
+        onBootComplete={() => setShowBootReveal(false)}
+        taskBarProps={{
+          onThemeToggle: toggleTheme,
+          onOpenWindow: openWindow,
         }}
-        onOpenWindow={openWindow}
-      />
+      >
+        <div
+          className={`desktop desktop-${theme}`}
+          style={{
+            backgroundColor: wallpaperColor,
+            backgroundImage: theme === 'dark' ? 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))' : 'none',
+          }}
+        >
+          <div className="dock" role="toolbar" aria-label="Dock">
+            {windows.filter((w) => !w.skipDock).map((win) => {
+              const isActive = activeWindowId === win.id && win.isOpen && !win.isMinimized
+              const mod = getModule(win.content)
+              const label = t.windows[win.content] || win.content
 
-      <CommandPalette key={palette.session} isOpen={palette.isOpen} onClose={palette.close} />
-    </div>
+              return (
+                <div
+                  key={win.id}
+                  className="dock-item"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={label}
+                  onClick={() => openWindow(win.id)}
+                  onKeyDown={(event) => handleDockKeyDown(event, win.id)}
+                  style={{
+                    opacity: win.isOpen ? 1 : 0.8,
+                    transform: isActive ? 'translateY(-15px) scale(1.08)' : undefined,
+                  }}
+                >
+                  <div
+                    className="dock-icon"
+                    style={{
+                      background: isActive ? getThemedBgColor(win.bgColor, win.defaultDarkColor) : undefined,
+                    }}
+                  >
+                    <DockIcon name={win.content} size={36} />
+                  </div>
+                  <div className="dock-label">
+                    {mod && <span className="dock-label__code">{mod.id}</span>}
+                    <span className="dock-label__text">{label}</span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {windows.map((win) =>
+            win.isOpen && !win.isMinimized && (
+              <Window
+                key={win.id}
+                id={win.id}
+                title={t.windows[win.content] || win.content}
+                moduleCode={getModule(win.content)?.id}
+                content={win.content}
+                bgColor={getThemedBgColor(win.bgColor, win.defaultDarkColor)}
+                isMaximized={win.isMaximized}
+                isResizable={win.isResizable !== false}
+                initialWidth={win.width}
+                initialHeight={win.height}
+                initialZIndex={win.zIndex}
+                theme={theme}
+                onThemeToggle={toggleTheme}
+                wallpaperColor={wallpaperColor}
+                onWallpaperChange={setWallpaperColor}
+                soundEnabled={soundEnabled}
+                onSoundToggle={() => setSoundEnabled(!soundEnabled)}
+                onClose={() => closeWindow(win.id)}
+                onMinimize={() => minimizeWindow(win.id)}
+                onMaximize={() => toggleMaximize(win.id)}
+                onFocus={() => focusWindow(win.id)}
+              />
+            )
+          )}
+
+          <CommandPalette key={palette.session} isOpen={palette.isOpen} onClose={palette.close} />
+        </div>
+      </MonitorShell>
     </OsActionsProvider>
   )
 }
