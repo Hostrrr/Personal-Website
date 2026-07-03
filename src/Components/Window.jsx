@@ -77,11 +77,17 @@ export default function Window({
 
   const windowControls = (
     <div className="window-controls">
-      <button type="button" className="window-btn minimize" onClick={handleMinimize} aria-label={t.window.minimize}>_</button>
+      <button type="button" className="window-btn minimize" onClick={handleMinimize} aria-label={t.window.minimize}>
+        <span className="window-btn__icon window-btn__icon--min">−</span>
+      </button>
       {isResizable && (
-        <button type="button" className="window-btn maximize" onClick={handleMaximize} aria-label={t.window.maximize}>❐</button>
+        <button type="button" className="window-btn maximize" onClick={handleMaximize} aria-label={t.window.maximize}>
+          <span className="window-btn__icon window-btn__icon--max" />
+        </button>
       )}
-      <button type="button" className="window-btn close" onClick={handleClose} aria-label={t.window.close}>✕</button>
+      <button type="button" className="window-btn close" onClick={handleClose} aria-label={t.window.close}>
+        <span className="window-btn__icon window-btn__icon--close">×</span>
+      </button>
     </div>
   )
 

@@ -1,12 +1,9 @@
 import './TaskBar.css'
 import { useState, useRef, useEffect } from 'react'
 import { useLanguage } from '../hooks/useLanguage'
-import { darkenAndSaturate } from '../utils/colorUtils'
-import { getModule } from '../config/osModules'
 
-export default function TaskBar({ windows, activeWindowId, theme, onThemeToggle, onWindowClick, onOpenWindow }) {
+export default function TaskBar({ theme, onThemeToggle, onOpenWindow }) {
   const { t, language } = useLanguage()
-  const openWindows = windows.filter(w => w.isOpen)
 
   const [isStartOpen, setIsStartOpen] = useState(false)
   const [clockMode, setClockMode] = useState('plain')
@@ -34,11 +31,6 @@ export default function TaskBar({ windows, activeWindowId, theme, onThemeToggle,
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
-
-  const getThemedItemColor = (color) => {
-    if (!color) return color
-    return theme === 'dark' ? darkenAndSaturate(color, 0.45) : color
-  }
 
   const renderAnalogClock = () => {
     const hours = time.getHours() % 12
@@ -130,24 +122,7 @@ export default function TaskBar({ windows, activeWindowId, theme, onThemeToggle,
         </div>
       )}
 
-      <div className="taskbar-items">
-        {openWindows.map(win => {
-          const mod = getModule(win.content)
-          const isActive = activeWindowId === win.id && !win.isMinimized
-          return (
-            <button
-              key={win.id}
-              type="button"
-              className={`taskbar-item ${isActive ? 'active' : ''} ${win.isMinimized ? 'minimized' : ''}`}
-              style={{ '--item-color': getThemedItemColor(win.bgColor) }}
-              onClick={() => onWindowClick(win.id)}
-            >
-              {mod && <span className="taskbar-item__code">{mod.id}</span>}
-              <span className="taskbar-item__name">{t.windows[win.content] || win.content}</span>
-            </button>
-          )
-        })}
-      </div>
+      <div className="taskbar-spacer" />
 
       <div className="taskbar-clock" onClick={cycleClock} title="clock mode">
         {clockMode === 'plain' ? (
