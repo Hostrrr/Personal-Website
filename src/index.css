@@ -75,8 +75,9 @@
   color: var(--te-orange);
 }
 
-html {
-  background: #1a1a18;
+html,
+body {
+  background: #f4f3ef;
 }
 
 body {
@@ -85,7 +86,6 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
-  background: #f4f3ef;
   color: var(--te-ink);
   height: 100vh;
   height: 100dvh;

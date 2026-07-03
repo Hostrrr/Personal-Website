@@ -1,4 +1,8 @@
 .monitor-shell {
+  --monitor-bezel-x: 21px;
+  --monitor-bezel-top: 12px;
+  --monitor-bezel-chin: 42px;
+
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -16,25 +20,30 @@
 
 .monitor-top {
   flex-shrink: 0;
-  padding: 0 4px;
+  padding: var(--monitor-bezel-top) var(--monitor-bezel-x) 10px;
 }
 
 .monitor-screen {
   flex: 1;
   position: relative;
   overflow: hidden;
-  margin: 0 14px;
-  border-radius: 6px;
+  margin: 0 var(--monitor-bezel-x);
+  border-radius: 8px;
   min-height: 0;
   background: #000;
+  box-shadow: inset 0 0 0 1px rgba(26, 26, 24, 0.12);
+}
+
+.monitor-shell--dark .monitor-screen {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
 }
 
 .monitor-chin {
   flex-shrink: 0;
-  height: 28px;
+  height: var(--monitor-bezel-chin);
   display: flex;
   align-items: center;
-  padding: 0 18px 8px;
+  padding: 0 calc(var(--monitor-bezel-x) + 4px) 10px;
 }
 
 .monitor-logo {

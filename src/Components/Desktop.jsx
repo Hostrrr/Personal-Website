@@ -40,6 +40,7 @@ export default function Desktop() {
   const [zIndexCounter, setZIndexCounter] = useState(10)
   const [showBootReveal, setShowBootReveal] = useState(true)
   const windowsRef = useRef(windows)
+  const desktopRef = useRef(null)
   const palette = useCommandPaletteToggle()
 
   useEffect(() => {
@@ -126,12 +127,14 @@ export default function Desktop() {
         wallpaperColor={wallpaperColor}
         showBootReveal={showBootReveal}
         onBootComplete={() => setShowBootReveal(false)}
+        contentRef={desktopRef}
         taskBarProps={{
           onThemeToggle: toggleTheme,
           onOpenWindow: openWindow,
         }}
       >
         <div
+          ref={desktopRef}
           className={`desktop desktop-${theme}`}
           style={{
             backgroundColor: wallpaperColor,

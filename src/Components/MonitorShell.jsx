@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import TaskBar from './TaskBar'
 import DesktopBootReveal from './DesktopBootReveal'
 import './MonitorShell.css'
@@ -10,20 +9,19 @@ export default function MonitorShell({
   wallpaperColor,
   showBootReveal,
   onBootComplete,
+  contentRef,
 }) {
-  const screenRef = useRef(null)
-
   return (
     <div className={`monitor-shell monitor-shell--${theme}`}>
       <div className="monitor-top">
         <TaskBar theme={theme} {...taskBarProps} />
       </div>
 
-      <div className="monitor-screen" ref={screenRef}>
+      <div className="monitor-screen">
         {children}
-        {showBootReveal && (
+        {showBootReveal && contentRef && (
           <DesktopBootReveal
-            screenRef={screenRef}
+            contentRef={contentRef}
             wallpaperColor={wallpaperColor}
             theme={theme}
             onComplete={onBootComplete}
