@@ -5,6 +5,7 @@ import contactIcon from '../../assets/Icons/Contacts.svg'
 import settingsIcon from '../../assets/Icons/Settings.svg'
 import gameIcon from '../../assets/Icons/Snake.svg'
 import paintIcon from '../../assets/Icons/Paint.svg'
+import resumeIcon from '../../assets/Icons/Resume.svg'
 
 const ICONS = {
   about: aboutIcon,
@@ -14,6 +15,7 @@ const ICONS = {
   settings: settingsIcon,
   game: gameIcon,
   paint: paintIcon,
+  resume: resumeIcon,
 }
 
 const YEGOS_PATHS = (

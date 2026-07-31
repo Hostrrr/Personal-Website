@@ -8,6 +8,7 @@ export const OS_MODULES = {
   settings: { id: '99', slug: 'config',  accent: '#e8c547' },
   game:     { id: '07', slug: 'play',    accent: '#e04545' },
   paint:    { id: '08', slug: 'paint',   accent: '#e07840' },
+  resume:   { id: '05', slug: 'cv',      accent: '#5b7c99' },
 }
 
 export function getModule(content) {

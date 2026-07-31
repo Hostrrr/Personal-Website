@@ -9,11 +9,13 @@ export const translations = {
       settings: 'Настройки',
       game: 'Игры',
       paint: 'Paint',
+      resume: 'Резюме',
     },
     taskbar: {
       aboutYegos: 'Об YegOS',
       settings: 'Настройки',
       paint: 'Paint',
+      resume: 'Резюме',
       shutdown: 'Выключить',
       shutdownAlert: 'Выключение YegOS...',
     },
@@ -160,6 +162,57 @@ export const translations = {
       clear: 'Очистить',
       save: 'Сохранить',
     },
+    resume: {
+      toolbarAria: 'Действия с резюме',
+      print: 'Печать',
+      downloadPng: 'Скачать PNG',
+      downloadHtml: 'Скачать HTML',
+      downloading: 'Сохранение…',
+      name: 'Георгий Назаренко',
+      role: 'Frontend & Cross-Platform Developer',
+      summaryTitle: 'О себе',
+      summary:
+        'Разрабатываю современные веб- и мобильные приложения с упором на чистую архитектуру, производительность и аккуратный UI. Открыт к фрилансу и удалённой работе.',
+      skillGroups: [
+        {
+          title: 'Frontend',
+          items: ['React', 'React Hooks', 'React Router', 'TypeScript', 'REST API', 'Responsive UI'],
+        },
+        {
+          title: 'Mobile',
+          items: ['React Native', 'Expo', 'Swift / SwiftUI', 'iOS / Android'],
+        },
+        {
+          title: 'Backend & Data',
+          items: ['Ruby', 'Ruby on Rails', 'PostgreSQL', 'SQLite', 'SQL', 'REST'],
+        },
+      ],
+      projectsTitle: 'Проекты',
+      projects: [
+        {
+          name: 'Portfolio OS (YegOS)',
+          stack: 'React / Vite',
+          desc: 'Интерактивное портфолио в виде ОС: окна, док, мобильный режим, темы.',
+        },
+        {
+          name: 'Study Organizer',
+          stack: 'React Native / Expo / SQLite',
+          desc: 'Кроссплатформенный органайзер для студентов с локальным хранением.',
+        },
+        {
+          name: 'Focus Page',
+          stack: 'Rails 8 / Hotwire',
+          desc: 'Минималистичный дашборд продуктивности: фокус, привычки, Pomodoro.',
+        },
+        {
+          name: 'Kinopoisk App',
+          stack: 'React / TypeScript',
+          desc: 'SPA для просмотра фильмов с фильтрами, скроллом и избранным.',
+        },
+      ],
+      languagesTitle: 'Языки',
+      languages: ['Русский — родной', 'English — B2 / рабочий'],
+    },
     commands: {
       notFound: 'command not found: {cmd}',
       opened: 'Открыто: {app}',
@@ -197,6 +250,7 @@ export const translations = {
         settings: 'Настройки',
         game: 'Игры',
         paint: 'Paint',
+        resume: 'Резюме',
       },
       greeting: 'Добро пожаловать 👋',
       swipeHint: 'Свайп вверх для разблокировки',
@@ -216,11 +270,13 @@ export const translations = {
       settings: 'Settings',
       game: 'Games',
       paint: 'Paint',
+      resume: 'Resume',
     },
     taskbar: {
       aboutYegos: 'About YegOS',
       settings: 'Settings',
       paint: 'Paint',
+      resume: 'Resume',
       shutdown: 'Shutdown',
       shutdownAlert: 'Shutting down YegOS...',
     },
@@ -367,6 +423,57 @@ export const translations = {
       clear: 'Clear',
       save: 'Save',
     },
+    resume: {
+      toolbarAria: 'Resume actions',
+      print: 'Print',
+      downloadPng: 'Download PNG',
+      downloadHtml: 'Download HTML',
+      downloading: 'Saving…',
+      name: 'Georgiy Nazarenko',
+      role: 'Frontend & Cross-Platform Developer',
+      summaryTitle: 'Summary',
+      summary:
+        'I build modern web and mobile applications with a focus on clean architecture, performance, and polished UI. Open to freelance and remote collaboration.',
+      skillGroups: [
+        {
+          title: 'Frontend',
+          items: ['React', 'React Hooks', 'React Router', 'TypeScript', 'REST API', 'Responsive UI'],
+        },
+        {
+          title: 'Mobile',
+          items: ['React Native', 'Expo', 'Swift / SwiftUI', 'iOS / Android'],
+        },
+        {
+          title: 'Backend & Data',
+          items: ['Ruby', 'Ruby on Rails', 'PostgreSQL', 'SQLite', 'SQL', 'REST'],
+        },
+      ],
+      projectsTitle: 'Projects',
+      projects: [
+        {
+          name: 'Portfolio OS (YegOS)',
+          stack: 'React / Vite',
+          desc: 'Interactive developer portfolio that feels like a real OS — windows, dock, mobile mode, themes.',
+        },
+        {
+          name: 'Study Organizer',
+          stack: 'React Native / Expo / SQLite',
+          desc: 'Cross-platform student organizer with local SQLite storage.',
+        },
+        {
+          name: 'Focus Page',
+          stack: 'Rails 8 / Hotwire',
+          desc: 'Minimal productivity dashboard: focus, habits, and Pomodoro.',
+        },
+        {
+          name: 'Kinopoisk App',
+          stack: 'React / TypeScript',
+          desc: 'Movie browsing SPA with filters, infinite scroll, and favorites.',
+        },
+      ],
+      languagesTitle: 'Languages',
+      languages: ['Russian — native', 'English — B2 / professional working'],
+    },
     commands: {
       notFound: 'command not found: {cmd}',
       opened: 'Opened {app}',
@@ -404,6 +511,7 @@ export const translations = {
         settings: 'Settings',
         game: 'Games',
         paint: 'Paint',
+        resume: 'Resume',
       },
       greeting: 'Welcome 👋',
       swipeHint: 'Swipe up to unlock',

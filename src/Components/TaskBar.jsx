@@ -110,6 +110,16 @@ export default function TaskBar({ theme, onThemeToggle, onOpenWindow }) {
             {t.taskbar.paint}
           </button>
           <button
+            className="menu-button"
+            onClick={() => {
+              onOpenWindow(9)
+              setIsStartOpen(false)
+            }}
+          >
+            <span className="menu-button__code">05</span>
+            {t.taskbar.resume}
+          </button>
+          <button
             className="menu-button danger"
             onClick={() => {
               alert(t.taskbar.shutdownAlert)

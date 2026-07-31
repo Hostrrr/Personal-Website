@@ -9,6 +9,7 @@ const SettingsWindowContent = lazy(() => import('./windowContent/SettingsWindowC
 const YegosWindowContent = lazy(() => import('./windowContent/YegosWindowContent/YegosWindowContent'))
 const GameWindowContent = lazy(() => import('./windowContent/GameWindowContent/GameWindowContent'))
 const PaintWindowContent = lazy(() => import('./windowContent/PaintWindowContent/PaintWindowContent'))
+const ResumeWindowContent = lazy(() => import('./windowContent/ResumeWindowContent/ResumeWindowContent'))
 
 function WindowContentFallback() {
   return <div className="window-content-loading">…</div>
@@ -43,6 +44,7 @@ export default function WindowContent({
     yegos: <YegosWindowContent />,
     game: <GameWindowContent />,
     paint: <PaintWindowContent />,
+    resume: <ResumeWindowContent />,
   }
 
   return (

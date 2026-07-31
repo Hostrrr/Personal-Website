@@ -34,6 +34,7 @@ export default function Desktop({ bootRevealReady = false }) {
     { id: 6, isOpen: false, isMinimized: false, isMaximized: false, content: 'settings', bgColor: '#e8e4dc', isResizable: false, width: 400, height: 350, defaultDarkColor: '#3e3e3c', zIndex: 10 },
     { id: 7, isOpen: false, isMinimized: false, isMaximized: false, content: 'game', bgColor: '#e5ddd8', zIndex: 10 },
     { id: 8, isOpen: false, isMinimized: false, isMaximized: false, content: 'paint', bgColor: '#f4f3ef', defaultDarkColor: '#3e3e3c', width: 640, height: 480, zIndex: 10 },
+    { id: 9, isOpen: false, isMinimized: false, isMaximized: false, content: 'resume', bgColor: '#eef1f4', defaultDarkColor: '#3e3e3c', width: 580, height: 640, zIndex: 10 },
   ])
 
   const [activeWindowId, setActiveWindowId] = useState(1)

@@ -36,6 +36,7 @@ Built with **React** + **Vite**.
 | Settings  | Theme, language, wallpaper color             |
 | Games     | Snake game                                   |
 | Paint     | Drawing canvas — brush, eraser, colors, PNG  |
+| Resume    | CV preview with print and download           |
 | About YegOS | OS info window                             |
 
 ---

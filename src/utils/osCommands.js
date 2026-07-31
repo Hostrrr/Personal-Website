@@ -21,6 +21,7 @@ export const OPENABLE_CONTENT = [
   'settings',
   'game',
   'paint',
+  'resume',
 ]
 
 /** Map alias → content key */
@@ -38,6 +39,9 @@ export const CONTENT_ALIASES = (() => {
   map.games = 'game'
   map.snake = 'game'
   map.draw = 'paint'
+  map.cv = 'resume'
+  map.resume = 'resume'
+  map['05'] = 'resume'
   map['08'] = 'paint'
   return map
 })()
