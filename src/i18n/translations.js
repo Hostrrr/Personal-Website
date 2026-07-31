@@ -35,8 +35,8 @@ export const translations = {
       name: 'Георгий Назаренко',
       nameFirst: 'Георгий',
       nameLast: 'Назаренко',
-      desc1: 'IT специалист с фокусом на веб-разработку и сетевые технологии.',
-      desc2: 'Работаю с <b>Ruby</b>, <b>JavaScript</b>, <b>React</b> и базами данных.',
+      desc1: 'Frontend &amp; Cross-Platform разработчик: веб и мобильные приложения.',
+      desc2: 'Работаю с <b>React</b>, <b>React Native</b>, <b>Expo</b>, <b>Swift</b>, <b>Ruby</b> и базами данных.',
     },
     contact: {
       linkLabel: 'Ссылка',
@@ -54,7 +54,7 @@ export const translations = {
         {
           description: 'Здесь хранятся мои проекты — от учебных работ до реальных приложений.',
           details: [
-            { label: 'Основной стек', value: 'React, JavaScript' },
+            { label: 'Основной стек', value: 'React, React Native, Expo, Swift, Ruby' },
             { label: 'Активность', value: 'Регулярные коммиты' },
           ],
           hint: 'Смотри закреплённые репозитории — там самое интересное.',
@@ -70,7 +70,7 @@ export const translations = {
         {
           description: 'Профессиональный профиль с опытом работы, навыками и рекомендациями.',
           details: [
-            { label: 'Позиция', value: 'Frontend Developer' },
+            { label: 'Позиция', value: 'Frontend & Cross-Platform Developer' },
             { label: 'Статус', value: 'Открыт к предложениям' },
           ],
           hint: 'Отправь запрос в друзья — отвечаю всем.',
@@ -91,7 +91,7 @@ export const translations = {
         },
         {
           desc:
-            'Кроссплатформенный органайзер для студентов: расписание, календарь и база знаний с локальным хранением в SQLite.',
+            'Кроссплатформенный органайзер на React Native & Expo: расписание, календарь и база знаний с локальным SQLite.',
         },
         {
           desc:
@@ -234,8 +234,8 @@ export const translations = {
       name: 'Georgiy Nazarenko',
       nameFirst: 'Georgiy',
       nameLast: 'Nazarenko',
-      desc1: 'IT specialist focused on web development and networking.',
-      desc2: 'Working with <b>Ruby</b>, <b>JavaScript</b>, <b>React</b> and databases.',
+      desc1: 'Frontend &amp; Cross-Platform developer: web and mobile applications.',
+      desc2: 'Working with <b>React</b>, <b>React Native</b>, <b>Expo</b>, <b>Swift</b>, <b>Ruby</b> and databases.',
     },
     contact: {
       linkLabel: 'Link',
@@ -253,7 +253,7 @@ export const translations = {
         {
           description: 'My projects live here — from study works to real applications.',
           details: [
-            { label: 'Main stack', value: 'React, JavaScript' },
+            { label: 'Main stack', value: 'React, React Native, Expo, Swift, Ruby' },
             { label: 'Activity', value: 'Regular commits' },
           ],
           hint: "Check pinned repositories — that's the best stuff.",
@@ -269,7 +269,7 @@ export const translations = {
         {
           description: 'Professional profile with work experience, skills and recommendations.',
           details: [
-            { label: 'Position', value: 'Frontend Developer' },
+            { label: 'Position', value: 'Frontend & Cross-Platform Developer' },
             { label: 'Status', value: 'Open to offers' },
           ],
           hint: 'Send a connection request — I accept everyone.',
@@ -290,7 +290,7 @@ export const translations = {
         },
         {
           desc:
-            'Cross-platform student organizer — schedule, calendar, and knowledge base with local SQLite storage.',
+            'Cross-platform student organizer with React Native & Expo — schedule, calendar, and knowledge base with local SQLite.',
         },
         {
           desc:

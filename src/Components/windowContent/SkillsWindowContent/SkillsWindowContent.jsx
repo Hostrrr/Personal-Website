@@ -1,5 +1,6 @@
 import { FaReact, FaHtml5, FaCss3Alt } from 'react-icons/fa'
-import { SiExpo, SiPostgresql, SiMysql, SiSqlite, SiRuby, SiDotnet } from 'react-icons/si'
+import { SiExpo, SiPostgresql, SiMysql, SiSqlite, SiRuby, SiDotnet, SiSwift } from 'react-icons/si'
+import { TbBrandReactNative } from 'react-icons/tb'
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { useWebHaptics } from 'web-haptics/react'
@@ -9,15 +10,17 @@ import './SkillsWindowContent.css'
 const { Engine, Runner, Bodies, Body, World, Mouse, MouseConstraint, Events } = Matter
 
 const skills = [
-  { name: 'React',      icon: <FaReact />,      emojis: ['⚛️','💙','✨'] },
-  { name: 'Expo',       icon: <SiExpo />,        emojis: ['📱','🚀','⚡'] },
-  { name: 'HTML',       icon: <FaHtml5 />,       emojis: ['🌐','📄','🔴'] },
-  { name: 'CSS',        icon: <FaCss3Alt />,     emojis: ['🎨','💅','🌈'] },
-  { name: 'C#',         icon: <SiDotnet />,      emojis: ['🎮','🔷','💜'] },
-  { name: 'Ruby',       icon: <SiRuby />,        emojis: ['💎','🔴','❤️'] },
-  { name: 'PostgreSQL', icon: <SiPostgresql />,  emojis: ['🐘','💾','🗄️'] },
-  { name: 'MySQL',      icon: <SiMysql />,       emojis: ['🐬','💾','📊'] },
-  { name: 'SQLite',     icon: <SiSqlite />,      emojis: ['🪨','💾','📦'] },
+  { name: 'React',         icon: <FaReact />,            emojis: ['⚛️','💙','✨'] },
+  { name: 'React Native',  icon: <TbBrandReactNative />, emojis: ['📱','💙','✨'] },
+  { name: 'Expo',          icon: <SiExpo />,             emojis: ['📱','🚀','⚡'] },
+  { name: 'Swift',         icon: <SiSwift />,            emojis: ['🍎','📱','🧡'] },
+  { name: 'HTML',          icon: <FaHtml5 />,            emojis: ['🌐','📄','🔴'] },
+  { name: 'CSS',           icon: <FaCss3Alt />,          emojis: ['🎨','💅','🌈'] },
+  { name: 'C#',            icon: <SiDotnet />,           emojis: ['🎮','🔷','💜'] },
+  { name: 'Ruby',          icon: <SiRuby />,             emojis: ['💎','🔴','❤️'] },
+  { name: 'PostgreSQL',    icon: <SiPostgresql />,       emojis: ['🐘','💾','🗄️'] },
+  { name: 'MySQL',         icon: <SiMysql />,            emojis: ['🐬','💾','📊'] },
+  { name: 'SQLite',        icon: <SiSqlite />,           emojis: ['🪨','💾','📦'] },
 ]
 
 const DESKTOP_COLORS = ['#f4f3ef', '#e8e6e1', '#dde8de', '#d4e4ed', '#e8e4dc', '#e5ddd8']
