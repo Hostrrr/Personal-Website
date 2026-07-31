@@ -10,7 +10,7 @@ import { useOsPreferences } from '../../hooks/useOsPreferences'
 import useHashRoute, { setHashRoute } from '../../hooks/useHashRoute'
 import { playUiOpen } from '../../utils/uiSound'
 
-const APP_IDS = ['about', 'projects', 'skills', 'contact', 'settings', 'game', 'terminal']
+const APP_IDS = ['about', 'projects', 'skills', 'contact', 'settings', 'game', 'paint']
 
 export default function MobileOS() {
   const { t } = useLanguage()

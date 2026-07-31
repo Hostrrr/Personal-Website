@@ -98,7 +98,7 @@ export default function CommandPalette({ isOpen, onClose }) {
         onMouseDown={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-label={t.terminal.paletteTitle}
+        aria-label={t.commands.paletteTitle}
       >
         <form className="cmd-palette__search" onSubmit={handleSubmit}>
           <span className="cmd-palette__hint">⌘K</span>
@@ -108,7 +108,7 @@ export default function CommandPalette({ isOpen, onClose }) {
             type="text"
             value={query}
             onChange={handleQueryChange}
-            placeholder={t.terminal.palettePlaceholder}
+            placeholder={t.commands.palettePlaceholder}
             spellCheck={false}
             autoComplete="off"
           />
@@ -116,7 +116,7 @@ export default function CommandPalette({ isOpen, onClose }) {
 
         <div className="cmd-palette__list" ref={listRef}>
           {filtered.length === 0 ? (
-            <div className="cmd-palette__empty">{t.terminal.paletteEmpty}</div>
+            <div className="cmd-palette__empty">{t.commands.paletteEmpty}</div>
           ) : (
             filtered.map((item, i) => (
               <button

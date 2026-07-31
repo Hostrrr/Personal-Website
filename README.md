@@ -20,6 +20,8 @@ Built with **React** + **Vite**.
 - 🌍 **RU / EN** interface with auto-detection via `navigator.language`
 - 🎨 **Wallpaper colors** — 8 color options configurable from Settings
 - 🐍 **Snake game** — keyboard (arrows / WASD) + touch D-pad, personal best saved in `localStorage`
+- 🎨 **Paint** — brush, eraser, colors, undo/redo, export PNG
+- ⌨️ **Cmd/Ctrl+K** — command palette to open apps and switch theme/language
 
 ---
 
@@ -32,8 +34,8 @@ Built with **React** + **Vite**.
 | Skills    | Skill cards with particle effects on click   |
 | Contacts  | Email, GitHub, Telegram, LinkedIn            |
 | Settings  | Theme, language, wallpaper color             |
-| Terminal  | Shell with commands + Cmd/Ctrl+K palette     |
 | Games     | Snake game                                   |
+| Paint     | Drawing canvas — brush, eraser, colors, PNG  |
 | About YegOS | OS info window                             |
 
 ---

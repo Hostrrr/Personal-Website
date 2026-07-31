@@ -20,7 +20,7 @@ export const OPENABLE_CONTENT = [
   'yegos',
   'settings',
   'game',
-  'terminal',
+  'paint',
 ]
 
 /** Map alias → content key */
@@ -37,8 +37,8 @@ export const CONTENT_ALIASES = (() => {
   map.contacts = 'contact'
   map.games = 'game'
   map.snake = 'game'
-  map.shell = 'terminal'
-  map['08'] = 'terminal'
+  map.draw = 'paint'
+  map['08'] = 'paint'
   return map
 })()
 
@@ -51,7 +51,7 @@ export function resolveContent(target) {
 function openContent(ctx, content) {
   const label = ctx.t.windows[content] || content
   ctx.openByContent(content)
-  return { lines: [ctx.t.terminal.opened.replace('{app}', label)], ok: true }
+  return { lines: [ctx.t.commands.opened.replace('{app}', label)], ok: true }
 }
 
 function setTheme(ctx, mode) {
@@ -63,7 +63,7 @@ function setTheme(ctx, mode) {
   }
 
   if (next !== 'light' && next !== 'dark') {
-    return { lines: [ctx.t.terminal.themeUsage], ok: false }
+    return { lines: [ctx.t.commands.themeUsage], ok: false }
   }
 
   if (next !== current) {
@@ -71,29 +71,29 @@ function setTheme(ctx, mode) {
   }
 
   const label = next === 'dark' ? ctx.t.settings.themeDark : ctx.t.settings.themeLight
-  return { lines: [ctx.t.terminal.themeSet.replace('{theme}', label)], ok: true }
+  return { lines: [ctx.t.commands.themeSet.replace('{theme}', label)], ok: true }
 }
 
 function setLang(ctx, code) {
   if (code !== 'ru' && code !== 'en') {
-    return { lines: [ctx.t.terminal.langUsage], ok: false }
+    return { lines: [ctx.t.commands.langUsage], ok: false }
   }
 
   ctx.setLanguage(code)
   const label = code === 'ru' ? 'Русский' : 'English'
-  return { lines: [ctx.t.terminal.langSet.replace('{lang}', label)], ok: true }
+  return { lines: [ctx.t.commands.langSet.replace('{lang}', label)], ok: true }
 }
 
 function setWallpaper(ctx, indexStr) {
   const index = Number(indexStr)
   if (!indexStr || Number.isNaN(index) || index < 1 || index > WALLPAPER_COLORS.length) {
-    return { lines: [ctx.t.terminal.wallpaperUsage], ok: false }
+    return { lines: [ctx.t.commands.wallpaperUsage], ok: false }
   }
 
   const color = WALLPAPER_COLORS[index - 1]
   const label = ctx.t.settings.wallpapers[index - 1]
   ctx.setWallpaperColor(color)
-  return { lines: [ctx.t.terminal.wallpaperSet.replace('{name}', label)], ok: true }
+  return { lines: [ctx.t.commands.wallpaperSet.replace('{name}', label)], ok: true }
 }
 
 export function executeCommand(input, ctx) {
@@ -105,7 +105,7 @@ export function executeCommand(input, ctx) {
   const arg = parts.slice(1).join(' ')
 
   if (cmd === 'help') {
-    return { lines: ctx.t.terminal.helpLines, ok: true }
+    return { lines: ctx.t.commands.helpLines, ok: true }
   }
 
   if (cmd === 'clear') {
@@ -114,7 +114,7 @@ export function executeCommand(input, ctx) {
 
   if (cmd === 'open') {
     const content = resolveContent(arg)
-    if (!content) return { lines: [ctx.t.terminal.notFound.replace('{cmd}', arg || '?')], ok: false }
+    if (!content) return { lines: [ctx.t.commands.notFound.replace('{cmd}', arg || '?')], ok: false }
     return openContent(ctx, content)
   }
 
@@ -143,7 +143,7 @@ export function executeCommand(input, ctx) {
     return openContent(ctx, shortcut)
   }
 
-  return { lines: [ctx.t.terminal.notFound.replace('{cmd}', cmd)], ok: false }
+  return { lines: [ctx.t.commands.notFound.replace('{cmd}', cmd)], ok: false }
 }
 
 export function getCommandList(ctx) {
@@ -163,21 +163,21 @@ export function getCommandList(ctx) {
 
   items.push({
     id: 'theme-toggle',
-    label: ctx.t.terminal.paletteTheme,
+    label: ctx.t.commands.paletteTheme,
     keywords: 'theme dark light toggle',
     run: () => executeCommand('theme toggle', ctx),
   })
 
   items.push({
     id: 'lang-ru',
-    label: ctx.t.terminal.paletteLangRu,
+    label: ctx.t.commands.paletteLangRu,
     keywords: 'lang ru russian русский',
     run: () => executeCommand('lang ru', ctx),
   })
 
   items.push({
     id: 'lang-en',
-    label: ctx.t.terminal.paletteLangEn,
+    label: ctx.t.commands.paletteLangEn,
     keywords: 'lang en english',
     run: () => executeCommand('lang en', ctx),
   })

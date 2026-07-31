@@ -107,7 +107,7 @@ export default function TaskBar({ theme, onThemeToggle, onOpenWindow }) {
             }}
           >
             <span className="menu-button__code">08</span>
-            {t.taskbar.terminal}
+            {t.taskbar.paint}
           </button>
           <button
             className="menu-button danger"
