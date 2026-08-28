@@ -108,6 +108,14 @@
   max-width: 100%;
 }
 
+.dock-indicator {
+  display: none;
+}
+
+.dock-icon-reflect {
+  display: none;
+}
+
 .desktop-dark .dock-label {
   color: var(--te-ink-faint);
 }

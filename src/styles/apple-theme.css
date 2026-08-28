@@ -1,111 +1,304 @@
-/* Apple design system overrides — active when data-design-system="apple" */
+/* Apple / Liquid Glass — active when data-design-system="apple" */
 
 [data-design-system='apple'] body {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.011em;
 }
 
 [data-design-system='apple'] .te-label,
 [data-design-system='apple'] .dock-label__code,
 [data-design-system='apple'] .window-title__code,
-[data-design-system='apple'] .app-screen__header-code {
+[data-design-system='apple'] .app-screen__header-code,
+[data-design-system='apple'] .menu-button__code,
+[data-design-system='apple'] .start-menu__label {
   display: none !important;
 }
 
-/* Desktop wallpaper — no TE grid */
+.dock-icon-img--apple {
+  display: block;
+  object-fit: cover;
+  border-radius: 22.5%;
+  flex-shrink: 0;
+}
+
+/* ── Liquid glass material (simple-liquid-glass / WebTricks) ── */
+[data-design-system='apple'] .apple-glass {
+  --lg-blur: 22px;
+  --lg-sat: 180%;
+  position: relative;
+  isolation: isolate;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-sat)) brightness(1.08);
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-sat)) brightness(1.08);
+  border: 0.5px solid rgba(255, 255, 255, 0.42);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 1px 0 0 rgba(255, 255, 255, 0.18),
+    inset -1px 0 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+[data-design-system='apple'] .apple-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 255, 255, 0.08) 36%,
+    transparent 58%
+  );
+  mix-blend-mode: overlay;
+}
+
+[data-design-system='apple'] .apple-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+@supports (backdrop-filter: url(#lg-refract)) {
+  [data-design-system='apple'] .apple-glass {
+    backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-sat)) brightness(1.08) url(#lg-refract);
+    -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-sat)) brightness(1.08) url(#lg-refract);
+  }
+}
+
+[data-design-system='apple'] .desktop-dark .apple-glass,
+[data-design-system='apple'] .mobile-os[data-theme='dark'] .apple-glass {
+  background: rgba(28, 28, 30, 0.38);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+/* ── macOS wallpaper ── */
 [data-design-system='apple'] .desktop::before {
   display: none;
 }
 
-[data-design-system='apple'] .desktop-light {
-  background: linear-gradient(160deg, #e8edf5 0%, #d4dce8 45%, #c8d4e4 100%);
+[data-design-system='apple'] .desktop--apple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 12% 18%, rgba(120, 190, 255, 0.72), transparent 58%),
+    radial-gradient(ellipse 65% 50% at 88% 22%, rgba(255, 150, 196, 0.55), transparent 52%),
+    radial-gradient(ellipse 80% 60% at 48% 92%, rgba(90, 210, 190, 0.42), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 70% 60%, rgba(180, 140, 255, 0.28), transparent 50%),
+    linear-gradient(165deg, #8ec5f2 0%, #d5e4f2 42%, #f0d9c8 100%);
 }
 
+[data-design-system='apple'] .desktop-dark.desktop--apple::after {
+  background:
+    radial-gradient(ellipse 70% 55% at 12% 18%, rgba(40, 90, 160, 0.7), transparent 58%),
+    radial-gradient(ellipse 65% 50% at 88% 22%, rgba(120, 50, 90, 0.55), transparent 52%),
+    radial-gradient(ellipse 80% 60% at 48% 92%, rgba(20, 90, 80, 0.45), transparent 55%),
+    linear-gradient(165deg, #1a2030 0%, #2c2c2e 50%, #1c1c1e 100%);
+}
+
+[data-design-system='apple'] .desktop-light,
 [data-design-system='apple'] .desktop-dark {
-  background: linear-gradient(160deg, #1c1c1e 0%, #2c2c2e 50%, #1a1a1c 100%);
+  background: transparent;
 }
 
-/* Dock */
-[data-design-system='apple'] .dock {
-  gap: 6px;
-  padding: 10px 14px;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.55);
+/* ── macOS menu bar ── */
+[data-design-system='apple'] .monitor-shell {
+  background: #e8e8ed;
+}
+
+[data-design-system='apple'] .monitor-shell--dark {
+  background: #1c1c1e;
+}
+
+[data-design-system='apple'] .monitor-top {
+  padding: 10px 21px 0;
+}
+
+[data-design-system='apple'] .taskbar {
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 8px 8px 0 0;
+  background: rgba(255, 255, 255, 0.42);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
-  box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  border: 0.5px solid rgba(255, 255, 255, 0.35);
+  border-bottom: none;
 }
 
-[data-design-system='apple'] .desktop-dark .dock {
-  background: rgba(40, 40, 42, 0.72);
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+[data-design-system='apple'] .monitor-shell--dark .taskbar {
+  background: rgba(30, 30, 32, 0.55);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-design-system='apple'] .monitor-screen {
+  border-radius: 0 0 10px 10px;
+}
+
+[data-design-system='apple'] .start-button,
+[data-design-system='apple'] .taskbar-theme-toggle,
+[data-design-system='apple'] .taskbar-clock-plain {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+[data-design-system='apple'] .start-button:hover,
+[data-design-system='apple'] .taskbar-theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: inherit;
+  border: none;
+}
+
+[data-design-system='apple'] .start-button__os {
+  color: inherit;
+}
+
+[data-design-system='apple'] .start-menu {
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 6px;
+}
+
+[data-design-system='apple'] .menu-button {
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+/* ── macOS Dock ── */
+[data-design-system='apple'] .dock {
+  --lg-blur: 28px;
+  bottom: 10px;
+  gap: 8px;
+  padding: 8px 12px 22px;
+  border-radius: 24px;
+  align-items: flex-end;
+  overflow: visible;
+}
+
+[data-design-system='apple'] .dock-item {
+  position: relative;
+  gap: 0;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [data-design-system='apple'] .dock-item:hover {
-  transform: translateY(-10px) scale(1.12);
+  transform: translateY(-14px) scale(1.22);
+  z-index: 2;
+}
+
+[data-design-system='apple'] .dock-item--active {
+  transform: translateY(-6px) scale(1.06);
 }
 
 [data-design-system='apple'] .dock-icon {
   width: 52px;
   height: 52px;
   border: none;
-  background: transparent;
-  border-radius: 22%;
-  box-shadow: none;
+  background: transparent !important;
+  border-radius: 22.5%;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
   overflow: hidden;
 }
 
 [data-design-system='apple'] .dock-item:hover .dock-icon {
   border: none;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
 }
 
-[data-design-system='apple'] .dock-icon-img--apple {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 22%;
+[data-design-system='apple'] .dock .dock-icon-img--apple {
+  width: 52px;
+  height: 52px;
+  max-width: 52px;
+  max-height: 52px;
 }
 
 [data-design-system='apple'] .dock-label {
   display: none;
 }
 
-/* Windows */
+[data-design-system='apple'] .dock-icon-reflect {
+  display: block;
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  width: 52px;
+  height: 22px;
+  overflow: hidden;
+  pointer-events: none;
+  transform: scaleY(-1);
+  opacity: 0.38;
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent);
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent);
+  filter: blur(0.3px);
+}
+
+[data-design-system='apple'] .dock-icon-reflect .dock-icon-img--apple {
+  width: 52px;
+  height: 52px;
+}
+
+[data-design-system='apple'] .dock-indicator {
+  display: block;
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+}
+
+[data-design-system='apple'] .dock-indicator--on {
+  opacity: 0.55;
+}
+
+[data-design-system='apple'] .desktop-dark .dock-indicator {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+/* ── Windows ── */
 [data-design-system='apple'] .window {
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 10px;
+  border: 0.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
   box-shadow:
-    0 22px 70px rgba(0, 0, 0, 0.18),
-    0 0 0 0.5px rgba(0, 0, 0, 0.06);
+    0 24px 80px rgba(0, 0, 0, 0.22),
+    0 0 0 0.5px rgba(0, 0, 0, 0.08);
 }
 
 [data-design-system='apple'] .desktop-dark .window {
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow:
-    0 22px 70px rgba(0, 0, 0, 0.55),
-    0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
 }
 
 [data-design-system='apple'] .window-header {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 8px 12px;
-  background: rgba(246, 246, 246, 0.96);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 10px 14px 8px;
+  background: rgba(246, 246, 246, 0.72);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
   text-transform: none;
   letter-spacing: -0.02em;
 }
 
 [data-design-system='apple'] .desktop-dark .window-header {
-  background: rgba(50, 50, 52, 0.96);
+  background: rgba(50, 50, 52, 0.78);
   border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
@@ -134,7 +327,7 @@
   height: 12px;
   border-radius: 50%;
   border: none;
-  opacity: 0.92;
+  opacity: 0.95;
 }
 
 [data-design-system='apple'] .window-btn__icon {
@@ -154,12 +347,7 @@
 }
 
 [data-design-system='apple'] .window-btn:hover {
-  opacity: 1;
   filter: brightness(0.95);
-}
-
-[data-design-system='apple'] .window-btn:active {
-  transform: scale(0.9);
 }
 
 [data-design-system='apple'] .window-content {
@@ -167,32 +355,143 @@
 }
 
 [data-design-system='apple'] .desktop-dark .window-content {
-  background: #2c2c2e;
+  background: #1c1c1e;
 }
 
-/* Mobile home */
+/* ── iPhone home ── */
 [data-design-system='apple'] .home-screen {
   background-image: none;
+  background-color: #1a2744;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
 }
 
-[data-design-system='apple'] .home-screen__widget {
-  border: none;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+[data-design-system='apple'] .home-screen__wallpaper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 70% at 20% 10%, rgba(90, 170, 255, 0.85), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 90% 20%, rgba(255, 120, 180, 0.7), transparent 50%),
+    radial-gradient(ellipse 70% 50% at 40% 80%, rgba(80, 220, 190, 0.45), transparent 55%),
+    linear-gradient(180deg, #3a6ea5 0%, #7aa8d4 40%, #c9b8d4 100%);
 }
 
-[data-design-system='apple'] .home-screen__widget-greeting {
-  background: rgba(0, 122, 255, 0.12);
-  color: #007aff;
-  border-radius: 999px;
-  text-transform: none;
-  letter-spacing: -0.01em;
+[data-design-system='apple'] .mobile-os[data-theme='dark'] .home-screen__wallpaper {
+  background:
+    radial-gradient(ellipse 90% 70% at 20% 10%, rgba(40, 80, 150, 0.9), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 90% 20%, rgba(90, 40, 80, 0.7), transparent 50%),
+    linear-gradient(180deg, #0d1424 0%, #1c1c1e 100%);
+}
+
+[data-design-system='apple'] .home-screen__status-bar {
+  position: relative;
+  z-index: 2;
+  padding: 14px 28px 4px;
+  color: #fff;
+}
+
+[data-design-system='apple'] .home-screen__status-time {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.ios-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: currentColor;
+}
+
+.ios-status-icons svg {
+  display: block;
+}
+
+[data-design-system='apple'] .home-screen__widgets {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 12px;
+  margin: 10px 20px 18px;
+  flex-shrink: 0;
+}
+
+[data-design-system='apple'] .ios-widget {
+  --lg-blur: 26px;
+  border-radius: 24px;
+  padding: 16px 18px;
+  color: #1d1d1f;
+  overflow: hidden;
+  min-height: 118px;
+}
+
+[data-design-system='apple'] .mobile-os[data-theme='dark'] .ios-widget {
+  color: #fff;
+}
+
+[data-design-system='apple'] .ios-widget__time {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-design-system='apple'] .ios-widget__date {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.88;
+  text-transform: capitalize;
+}
+
+[data-design-system='apple'] .ios-widget__greeting {
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+[data-design-system='apple'] .ios-widget--cal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+[data-design-system='apple'] .ios-widget__weekday {
   font-size: 13px;
   font-weight: 600;
+  color: #ff453a;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+[data-design-system='apple'] .ios-widget__day {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+[data-design-system='apple'] .ios-widget__month {
+  font-size: 13px;
+  opacity: 0.75;
+  text-transform: capitalize;
+}
+
+[data-design-system='apple'] .home-screen__grid {
+  position: relative;
+  z-index: 2;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px 10px;
+  padding: 4px 22px 8px;
+}
+
+[data-design-system='apple'] .app-icon {
+  gap: 6px;
 }
 
 [data-design-system='apple'] .app-icon__face {
@@ -200,14 +499,20 @@
   height: 60px;
   border: none;
   background: transparent;
-  border-radius: 22%;
-  box-shadow: none;
+  border-radius: 22.5%;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
   overflow: hidden;
 }
 
+[data-design-system='apple'] .app-icon__face::after {
+  display: none;
+}
+
 [data-design-system='apple'] .app-icon__face .dock-icon-img--apple {
-  width: 100%;
-  height: 100%;
+  width: 60px;
+  height: 60px;
+  max-width: 60px;
+  max-height: 60px;
 }
 
 [data-design-system='apple'] .app-icon__label {
@@ -215,74 +520,230 @@
   font-weight: 500;
   letter-spacing: -0.01em;
   text-transform: none;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  max-width: 72px;
+}
+
+[data-design-system='apple'] .home-screen__dock-wrap {
+  position: relative;
+  z-index: 2;
+  padding: 8px 16px 18px;
 }
 
 [data-design-system='apple'] .home-screen__dock {
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  --lg-blur: 30px;
+  justify-content: space-evenly;
+  padding: 10px 14px;
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.16);
 }
 
 [data-design-system='apple'] .mobile-dock-icon__face {
+  width: 58px;
+  height: 58px;
   border: none;
   background: transparent;
-  border-radius: 22%;
+  border-radius: 22.5%;
   overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
 }
 
 [data-design-system='apple'] .mobile-dock-icon__face .dock-icon-img--apple {
-  width: 100%;
-  height: 100%;
+  width: 58px;
+  height: 58px;
+  max-width: 58px;
+  max-height: 58px;
+}
+
+/* ── iPhone app chrome ── */
+[data-design-system='apple'] .app-screen--apple {
+  background: #f2f2f7;
 }
 
 [data-design-system='apple'] .app-screen__header {
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  padding: 8px 8px 10px 4px;
+  background: rgba(242, 242, 247, 0.78);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-design-system='apple'] .app-screen__back-btn {
+  width: auto;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 8px;
+  background: transparent;
+  border: none;
+  color: #007aff;
+  justify-content: flex-start;
+}
+
+[data-design-system='apple'] .app-screen__back-chevron {
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 400;
+  margin-top: -2px;
+}
+
+[data-design-system='apple'] .app-screen__header-title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  justify-content: center;
 }
 
 [data-design-system='apple'] .app-screen__header-icon {
-  border: none;
+  display: none;
+}
+
+[data-design-system='apple'] .app-screen__header-spacer {
+  width: 44px;
+}
+
+[data-design-system='apple'] .app-screen__content {
+  background: #f2f2f7;
+}
+
+[data-design-system='apple'] .app-screen__home-indicator {
   background: transparent;
-  border-radius: 22%;
-  overflow: hidden;
+  border: none;
+  padding: 8px 0 12px;
 }
 
-[data-design-system='apple'] .app-screen__header-icon .dock-icon-img--apple {
-  width: 100%;
-  height: 100%;
+[data-design-system='apple'] .app-screen__home-bar {
+  width: 134px;
+  height: 5px;
+  border-radius: 100px;
+  background: #000;
+  opacity: 0.9;
 }
 
-/* Settings */
+[data-design-system='apple'] .mobile-os[data-theme='dark'] .app-screen--apple,
+[data-design-system='apple'] .mobile-os[data-theme='dark'] .app-screen__content {
+  background: #000;
+}
+
+[data-design-system='apple'] .mobile-os[data-theme='dark'] .app-screen__header {
+  background: rgba(0, 0, 0, 0.72);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-design-system='apple'] .mobile-os[data-theme='dark'] .app-screen__home-bar {
+  background: #fff;
+}
+
+/* ── Lock screen ── */
+[data-design-system='apple'] .lock-screen--apple {
+  background: #1a2744;
+}
+
+[data-design-system='apple'] .lock-screen--apple::before {
+  display: none;
+}
+
+[data-design-system='apple'] .lock-screen--apple .lock-screen__blob {
+  border: none;
+  filter: blur(40px);
+  opacity: 0.85;
+}
+
+[data-design-system='apple'] .lock-screen--apple .lock-screen__blob--1 {
+  background: #5aaaff;
+  width: 280px;
+  height: 280px;
+}
+
+[data-design-system='apple'] .lock-screen--apple .lock-screen__blob--2 {
+  background: #ff78b4;
+  width: 220px;
+  height: 220px;
+}
+
+[data-design-system='apple'] .lock-screen--apple .lock-screen__blob--3 {
+  background: #50dcc0;
+}
+
+[data-design-system='apple'] .lock-screen--apple .lock-screen__status-bar {
+  color: #fff;
+  padding: 16px 28px;
+  font-weight: 600;
+}
+
+[data-design-system='apple'] .lock-screen--apple .lock-screen__brand {
+  display: none;
+}
+
+[data-design-system='apple'] .lock-screen--apple .lock-screen__time {
+  font-size: 84px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  color: #fff;
+}
+
+[data-design-system='apple'] .lock-screen--apple .lock-screen__date {
+  font-size: 20px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+[data-design-system='apple'] .lock-screen--apple .lock-screen__swipe-hint {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+[data-design-system='apple'] .lock-screen--apple .lock-screen__hint {
+  color: rgba(255, 255, 255, 0.78);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+[data-design-system='apple'] .lock-screen--apple .lock-screen__arrow {
+  width: 140px;
+  height: 5px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.85);
+  color: transparent;
+  font-size: 0;
+}
+
+/* ── Settings ── */
 [data-design-system='apple'] .settings-section-label {
   text-transform: none;
   letter-spacing: -0.01em;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   color: #8e8e93;
 }
 
-[data-design-system='apple'] .design-switcher__btn {
-  border-radius: 8px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+[data-design-system='apple'] .design-switcher__btn,
+[data-design-system='apple'] .lang-btn {
+  border-radius: 10px;
   text-transform: none;
+  letter-spacing: -0.01em;
 }
 
-[data-design-system='apple'] .design-switcher__btn--active {
-  background: #007aff;
-  border-color: #007aff;
-  color: #fff;
-}
-
+[data-design-system='apple'] .design-switcher__btn--active,
 [data-design-system='apple'] .lang-btn--active {
   background: #007aff;
   border-color: #007aff;
   color: #fff;
 }
 
+[data-design-system='apple'] .wallpaper-swatch {
+  border-radius: 10px;
+}
+
 [data-design-system='apple'] .wallpaper-swatch--active {
   border: 2px solid #007aff !important;
   box-shadow: 0 0 0 1px #007aff !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-design-system='apple'] .dock-item:hover {
+    transform: none;
+  }
 }

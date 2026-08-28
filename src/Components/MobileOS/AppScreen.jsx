@@ -26,15 +26,21 @@ export default function AppScreen({
   }
 
   return (
-    <div className={`app-screen${isOpen ? ' app-screen--open' : ''}`}>
+    <div className={`app-screen${isOpen ? ' app-screen--open' : ''}${designSystem === 'apple' ? ' app-screen--apple' : ''}`}>
       <div className="app-screen__header">
         <button type="button" className="app-screen__back-btn" onClick={handleClose} aria-label={t.mobile.backAriaLabel}>
-          ←
+          {designSystem === 'apple' ? (
+            <span className="app-screen__back-chevron" aria-hidden>‹</span>
+          ) : (
+            '←'
+          )}
         </button>
         <div className="app-screen__header-title">
-          <span className="app-screen__header-icon">
-            <DockIcon name={app.id} size={28} designSystem={designSystem} />
-          </span>
+          {designSystem !== 'apple' && (
+            <span className="app-screen__header-icon">
+              <DockIcon name={app.id} size={22} designSystem={designSystem} />
+            </span>
+          )}
           {app.moduleId && <span className="app-screen__header-code">{app.moduleId}</span>}
           <span className="app-screen__header-name">{app.title}</span>
         </div>

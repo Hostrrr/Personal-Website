@@ -58,6 +58,7 @@ export default function DockIcon({ name, size = 22, className = '', designSystem
         alt=""
         width={size}
         height={size}
+        style={{ width: size, height: size, maxWidth: size, maxHeight: size }}
         className={`dock-icon-img ${designSystem === 'apple' ? 'dock-icon-img--apple' : ''} ${className}`.trim()}
         draggable={false}
         aria-hidden

@@ -77,7 +77,7 @@ export default function TaskBar({ theme, onThemeToggle, onOpenWindow }) {
       </div>
 
       {isStartOpen && (
-        <div className="start-menu" ref={menuRef}>
+        <div className="start-menu apple-glass" ref={menuRef}>
           <span className="start-menu__label te-label">system</span>
           <button
             className="menu-button"

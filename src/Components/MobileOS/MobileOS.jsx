@@ -96,7 +96,7 @@ export default function MobileOS() {
         />
       )}
 
-      <LockScreen isLocked={screen === 'locked'} onUnlock={unlock} />
+      <LockScreen isLocked={screen === 'locked'} onUnlock={unlock} designSystem={designSystem} />
     </div>
     </OsActionsProvider>
   )

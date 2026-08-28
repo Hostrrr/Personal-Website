@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import './LockScreen.css'
 import { useLanguage } from '../../hooks/useLanguage'
 import { playUiOpen } from '../../utils/uiSound'
+import IosStatusIcons from './IosStatusIcons'
 
-export default function LockScreen({ isLocked, onUnlock }) {
+export default function LockScreen({ isLocked, onUnlock, designSystem = 'te' }) {
   const { t } = useLanguage()
   const [time, setTime] = useState(new Date())
   const touchStartY = useRef(null)
@@ -38,10 +39,15 @@ export default function LockScreen({ isLocked, onUnlock }) {
 
   return (
     <div
-      className={`lock-screen${isLocked ? '' : ' lock-screen--hidden'}`}
+      className={`lock-screen${isLocked ? '' : ' lock-screen--hidden'}${designSystem === 'apple' ? ' lock-screen--apple' : ''}`}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
     >
+      <div className="lock-screen__status-bar">
+        <span>{hours}:{minutes}</span>
+        {designSystem === 'apple' && <IosStatusIcons />}
+      </div>
+
       <div className="lock-screen__blob lock-screen__blob--1" />
       <div className="lock-screen__blob lock-screen__blob--2" />
       <div className="lock-screen__blob lock-screen__blob--3" />

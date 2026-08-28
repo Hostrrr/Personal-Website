@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react'
 import './HomeScreen.css'
 import { useLanguage } from '../../hooks/useLanguage'
 import DockIcon from '../icons/DockIcon'
+import IosStatusIcons from './IosStatusIcons'
 
 const DOCK_APP_IDS = ['about', 'projects', 'skills', 'contact']
 
 export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme, designSystem = 'te' }) {
   const { t } = useLanguage()
   const [time, setTime] = useState(new Date())
+  const isApple = designSystem === 'apple'
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000)
@@ -21,26 +23,48 @@ export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme, des
     day: 'numeric',
     month: 'long',
   })
+  const weekdayShort = time.toLocaleDateString(t.mobile.dateLocale, { weekday: 'short' })
+  const monthShort = time.toLocaleDateString(t.mobile.dateLocale, { month: 'short' })
+  const dayNum = time.getDate()
 
   const dockApps = apps.filter(a => DOCK_APP_IDS.includes(a.id))
+  const gridApps = isApple ? apps.filter(a => !DOCK_APP_IDS.includes(a.id)) : apps
 
   return (
     <div
-      className="home-screen"
-      style={wallpaperColor && theme !== 'dark' ? { backgroundColor: wallpaperColor } : undefined}
+      className={`home-screen${isApple ? ' home-screen--apple' : ''}`}
+      style={wallpaperColor && theme !== 'dark' && !isApple ? { backgroundColor: wallpaperColor } : undefined}
     >
+      {isApple && <div className="home-screen__wallpaper" aria-hidden />}
+
       <div className="home-screen__status-bar">
         <span className="home-screen__status-time">{hours}:{minutes}</span>
+        {isApple && <IosStatusIcons />}
       </div>
 
-      <div className="home-screen__widget">
-        <div className="home-screen__widget-time">{hours}:{minutes}</div>
-        <div className="home-screen__widget-date">{dateStr}</div>
-        <div className="home-screen__widget-greeting">{t.mobile.greeting}</div>
-      </div>
+      {isApple ? (
+        <div className="home-screen__widgets">
+          <div className="ios-widget ios-widget--clock apple-glass">
+            <div className="ios-widget__time">{hours}:{minutes}</div>
+            <div className="ios-widget__date">{dateStr}</div>
+            <div className="ios-widget__greeting">{t.mobile.greeting}</div>
+          </div>
+          <div className="ios-widget ios-widget--cal apple-glass">
+            <div className="ios-widget__weekday">{weekdayShort}</div>
+            <div className="ios-widget__day">{dayNum}</div>
+            <div className="ios-widget__month">{monthShort}</div>
+          </div>
+        </div>
+      ) : (
+        <div className="home-screen__widget">
+          <div className="home-screen__widget-time">{hours}:{minutes}</div>
+          <div className="home-screen__widget-date">{dateStr}</div>
+          <div className="home-screen__widget-greeting">{t.mobile.greeting}</div>
+        </div>
+      )}
 
       <div className="home-screen__grid">
-        {apps.map(app => (
+        {gridApps.map(app => (
           <button
             key={app.id}
             type="button"
@@ -49,7 +73,7 @@ export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme, des
             style={{ '--app-accent': app.accent }}
           >
             <div className="app-icon__face">
-              <DockIcon name={app.id} size={44} designSystem={designSystem} />
+              <DockIcon name={app.id} size={isApple ? 60 : 44} designSystem={designSystem} />
             </div>
             <span className="app-icon__label">{app.title}</span>
           </button>
@@ -57,7 +81,7 @@ export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme, des
       </div>
 
       <div className="home-screen__dock-wrap">
-        <div className="home-screen__dock">
+        <div className={`home-screen__dock${isApple ? ' apple-glass' : ''}`}>
           {dockApps.map(app => (
             <button
               key={app.id}
@@ -67,7 +91,7 @@ export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme, des
               style={{ '--app-accent': app.accent }}
             >
               <div className="mobile-dock-icon__face">
-                <DockIcon name={app.id} size={36} designSystem={designSystem} />
+                <DockIcon name={app.id} size={isApple ? 58 : 36} designSystem={designSystem} />
               </div>
             </button>
           ))}

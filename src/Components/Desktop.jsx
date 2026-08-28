@@ -146,13 +146,17 @@ export default function Desktop({ bootRevealReady = false }) {
       >
         <div
           ref={desktopRef}
-          className={`desktop desktop-${theme}`}
-          style={{
-            backgroundColor: wallpaperColor,
-            backgroundImage: theme === 'dark' ? 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))' : 'none',
-          }}
+          className={`desktop desktop-${theme}${designSystem === 'apple' ? ' desktop--apple' : ''}`}
+          style={
+            designSystem === 'apple'
+              ? { '--wallpaper-tint': wallpaperColor }
+              : {
+                  backgroundColor: wallpaperColor,
+                  backgroundImage: theme === 'dark' ? 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))' : 'none',
+                }
+          }
         >
-          <div className="dock" role="toolbar" aria-label="Dock">
+          <div className={`dock${designSystem === 'apple' ? ' apple-glass' : ''}`} role="toolbar" aria-label="Dock">
             {windows.filter((w) => !w.skipDock).map((win) => {
               const isActive = activeWindowId === win.id && win.isOpen && !win.isMinimized
               const mod = getModule(win.content)
@@ -161,25 +165,39 @@ export default function Desktop({ bootRevealReady = false }) {
               return (
                 <div
                   key={win.id}
-                  className="dock-item"
+                  className={`dock-item${win.isOpen ? ' dock-item--open' : ''}${isActive ? ' dock-item--active' : ''}`}
                   role="button"
                   tabIndex={0}
                   aria-label={label}
                   onClick={() => openWindow(win.id)}
                   onKeyDown={(event) => handleDockKeyDown(event, win.id)}
-                  style={{
-                    opacity: win.isOpen ? 1 : 0.8,
-                    transform: isActive ? 'translateY(-15px) scale(1.08)' : undefined,
-                  }}
+                  style={
+                    designSystem === 'apple'
+                      ? undefined
+                      : {
+                          opacity: win.isOpen ? 1 : 0.8,
+                          transform: isActive ? 'translateY(-15px) scale(1.08)' : undefined,
+                        }
+                  }
                 >
                   <div
                     className="dock-icon"
-                    style={{
-                      background: isActive ? getThemedBgColor(win.bgColor, win.defaultDarkColor) : undefined,
-                    }}
+                    style={
+                      designSystem === 'apple'
+                        ? undefined
+                        : {
+                            background: isActive ? getThemedBgColor(win.bgColor, win.defaultDarkColor) : undefined,
+                          }
+                    }
                   >
-                    <DockIcon name={win.content} size={36} designSystem={designSystem} />
+                    <DockIcon name={win.content} size={designSystem === 'apple' ? 52 : 36} designSystem={designSystem} />
                   </div>
+                  {designSystem === 'apple' && (
+                    <span className="dock-icon-reflect" aria-hidden>
+                      <DockIcon name={win.content} size={52} designSystem={designSystem} />
+                    </span>
+                  )}
+                  <span className={`dock-indicator${win.isOpen && !win.isMinimized ? ' dock-indicator--on' : ''}`} />
                   <div className="dock-label">
                     {mod && <span className="dock-label__code">{mod.id}</span>}
                     <span className="dock-label__text">{label}</span>

@@ -4,6 +4,7 @@ import Desktop from "./Components/Desktop";
 import MobileOS from "./Components/MobileOS/MobileOS";
 import useIsMobile from "./hooks/useIsMobile";
 import { LanguageProvider } from "./contexts/LanguageContext";
+import LiquidGlassFilters from "./Components/LiquidGlassFilters";
 
 const BOOT_MS = 2000;
 const DESKTOP_PREMOUNT_MS = 1200;
@@ -38,6 +39,7 @@ function App() {
 
   return (
     <LanguageProvider>
+      <LiquidGlassFilters />
       {!isMobile && showDesktop && <Desktop bootRevealReady={!loading} />}
       {isMobile && !loading && <MobileOS />}
       {loaderMounted && <Loader isVisible={loading} onSkip={finishBoot} />}
