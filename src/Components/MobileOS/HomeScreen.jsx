@@ -3,8 +3,9 @@ import './HomeScreen.css'
 import { useLanguage } from '../../hooks/useLanguage'
 import DockIcon from '../icons/DockIcon'
 import IosStatusIcons from './IosStatusIcons'
+import IosHomeWidgets from './IosHomeWidgets'
 
-const DOCK_APP_IDS = ['about', 'projects', 'skills', 'contact']
+const DOCK_APP_IDS = ['about', 'projects', 'contact', 'settings']
 
 export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme, designSystem = 'te' }) {
   const { t } = useLanguage()
@@ -23,12 +24,8 @@ export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme, des
     day: 'numeric',
     month: 'long',
   })
-  const weekdayShort = time.toLocaleDateString(t.mobile.dateLocale, { weekday: 'short' })
-  const monthShort = time.toLocaleDateString(t.mobile.dateLocale, { month: 'short' })
-  const dayNum = time.getDate()
 
   const dockApps = apps.filter(a => DOCK_APP_IDS.includes(a.id))
-  const gridApps = isApple ? apps.filter(a => !DOCK_APP_IDS.includes(a.id)) : apps
 
   return (
     <div
@@ -43,18 +40,7 @@ export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme, des
       </div>
 
       {isApple ? (
-        <div className="home-screen__widgets">
-          <div className="ios-widget ios-widget--clock apple-glass">
-            <div className="ios-widget__time">{hours}:{minutes}</div>
-            <div className="ios-widget__date">{dateStr}</div>
-            <div className="ios-widget__greeting">{t.mobile.greeting}</div>
-          </div>
-          <div className="ios-widget ios-widget--cal apple-glass">
-            <div className="ios-widget__weekday">{weekdayShort}</div>
-            <div className="ios-widget__day">{dayNum}</div>
-            <div className="ios-widget__month">{monthShort}</div>
-          </div>
-        </div>
+        <IosHomeWidgets time={time} locale={t.mobile.dateLocale} t={t} />
       ) : (
         <div className="home-screen__widget">
           <div className="home-screen__widget-time">{hours}:{minutes}</div>
@@ -64,7 +50,7 @@ export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme, des
       )}
 
       <div className="home-screen__grid">
-        {gridApps.map(app => (
+        {apps.map(app => (
           <button
             key={app.id}
             type="button"
