@@ -57,21 +57,25 @@ export default function IosHomeWidgets({ time, locale, t }) {
   return (
     <div className="home-screen__widgets">
       <div className="ios-widget ios-widget--calendar">
-        <div className="ios-cal__weekday">{weekday}</div>
-        <div className="ios-cal__day">{dayNum}</div>
-        <div className="ios-cal__events">
-          <div className="ios-cal__event">
-            <span className="ios-cal__bar" />
-            <span className="ios-cal__event-body">
-              <span className="ios-cal__event-title">{t.windows.about}</span>
-              <span className="ios-cal__event-time">{eventTime}</span>
-            </span>
+        <div className="ios-widget__inner">
+          <div className="ios-cal__weekday">{weekday}</div>
+          <div className="ios-cal__day">{dayNum}</div>
+          <div className="ios-cal__events">
+            <div className="ios-cal__event">
+              <span className="ios-cal__bar" />
+              <span className="ios-cal__event-body">
+                <span className="ios-cal__event-title">{t.windows.about}</span>
+                <span className="ios-cal__event-time">{eventTime}</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="ios-widget ios-widget--clock">
-        <ClockFace time={time} />
+        <div className="ios-widget__inner ios-widget__inner--clock">
+          <ClockFace time={time} />
+        </div>
       </div>
     </div>
   )
