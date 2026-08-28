@@ -16,6 +16,8 @@ export default function Window({
   initialHeight,
   initialZIndex = 10,
   theme,
+  designSystem,
+  onDesignSystemChange,
   onThemeToggle,
   wallpaperColor,
   onWallpaperChange,
@@ -95,6 +97,8 @@ export default function Window({
     <WindowContent
       type={content}
       theme={theme}
+      designSystem={designSystem}
+      onDesignSystemChange={onDesignSystemChange}
       onThemeToggle={onThemeToggle}
       wallpaperColor={wallpaperColor}
       onWallpaperChange={onWallpaperChange}

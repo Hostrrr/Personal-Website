@@ -18,6 +18,8 @@ function WindowContentFallback() {
 export default function WindowContent({
   type,
   theme,
+  designSystem,
+  onDesignSystemChange,
   onThemeToggle,
   wallpaperColor,
   onWallpaperChange,
@@ -34,6 +36,8 @@ export default function WindowContent({
     settings: (
       <SettingsWindowContent
         theme={theme}
+        designSystem={designSystem}
+        onDesignSystemChange={onDesignSystemChange}
         onThemeToggle={onThemeToggle}
         wallpaperColor={wallpaperColor}
         onWallpaperChange={onWallpaperChange}

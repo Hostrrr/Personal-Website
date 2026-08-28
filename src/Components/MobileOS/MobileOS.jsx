@@ -7,6 +7,7 @@ import { useLanguage } from '../../hooks/useLanguage'
 import { OsActionsProvider } from '../../contexts/OsActionsContext'
 import { OS_MODULES } from '../../config/osModules'
 import { useOsPreferences } from '../../hooks/useOsPreferences'
+import { useDesignSystemDocument } from '../../hooks/useDesignSystemDocument'
 import useHashRoute, { setHashRoute } from '../../hooks/useHashRoute'
 import { playUiOpen } from '../../utils/uiSound'
 
@@ -22,7 +23,11 @@ export default function MobileOS() {
     setWallpaperColor,
     soundEnabled,
     setSoundEnabled,
+    designSystem,
+    setDesignSystem,
   } = useOsPreferences()
+
+  useDesignSystemDocument(designSystem)
 
   const [screen, setScreen] = useState('locked')
   const [openAppId, setOpenAppId] = useState(null)
@@ -66,18 +71,22 @@ export default function MobileOS() {
     openByContent,
     soundEnabled,
     setSoundEnabled,
+    designSystem,
+    setDesignSystem,
   }
 
   return (
     <OsActionsProvider value={osActionsValue}>
     <div className="mobile-os" data-theme={theme}>
-      <HomeScreen apps={apps} onOpenApp={openApp} wallpaperColor={wallpaperColor} theme={theme} />
+      <HomeScreen apps={apps} onOpenApp={openApp} wallpaperColor={wallpaperColor} theme={theme} designSystem={designSystem} />
 
       {openAppId && (
         <AppScreen
           isOpen={screen === 'app'}
           app={currentApp}
           theme={theme}
+          designSystem={designSystem}
+          onDesignSystemChange={setDesignSystem}
           onThemeToggle={toggleTheme}
           wallpaperColor={wallpaperColor}
           onWallpaperChange={setWallpaperColor}

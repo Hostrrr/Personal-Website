@@ -7,6 +7,7 @@ import { useLanguage } from '../hooks/useLanguage'
 import { OsActionsProvider } from '../contexts/OsActionsContext'
 import { useCommandPaletteToggle } from '../hooks/useCommandPaletteToggle'
 import { useOsPreferences } from '../hooks/useOsPreferences'
+import { useDesignSystemDocument } from '../hooks/useDesignSystemDocument'
 import useHashRoute, { setHashRoute } from '../hooks/useHashRoute'
 import { darkenAndSaturate } from '../utils/colorUtils'
 import { getModule } from '../config/osModules'
@@ -23,7 +24,11 @@ export default function Desktop({ bootRevealReady = false }) {
     setWallpaperColor,
     soundEnabled,
     setSoundEnabled,
+    designSystem,
+    setDesignSystem,
   } = useOsPreferences()
+
+  useDesignSystemDocument(designSystem)
 
   const [windows, setWindows] = useState([
     { id: 1, isOpen: true, isMinimized: false, isMaximized: false, content: 'about', bgColor: '#f4f3ef', zIndex: 10 },
@@ -112,6 +117,8 @@ export default function Desktop({ bootRevealReady = false }) {
     openByContent,
     soundEnabled,
     setSoundEnabled,
+    designSystem,
+    setDesignSystem,
   }
 
   const handleDockKeyDown = (event, id) => {
@@ -171,7 +178,7 @@ export default function Desktop({ bootRevealReady = false }) {
                       background: isActive ? getThemedBgColor(win.bgColor, win.defaultDarkColor) : undefined,
                     }}
                   >
-                    <DockIcon name={win.content} size={36} />
+                    <DockIcon name={win.content} size={36} designSystem={designSystem} />
                   </div>
                   <div className="dock-label">
                     {mod && <span className="dock-label__code">{mod.id}</span>}
@@ -197,6 +204,8 @@ export default function Desktop({ bootRevealReady = false }) {
                 initialHeight={win.height}
                 initialZIndex={win.zIndex}
                 theme={theme}
+                designSystem={designSystem}
+                onDesignSystemChange={setDesignSystem}
                 onThemeToggle={toggleTheme}
                 wallpaperColor={wallpaperColor}
                 onWallpaperChange={setWallpaperColor}

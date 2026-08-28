@@ -8,6 +8,8 @@ export default function AppScreen({
   isOpen,
   app,
   theme,
+  designSystem,
+  onDesignSystemChange,
   onThemeToggle,
   wallpaperColor,
   onWallpaperChange,
@@ -31,7 +33,7 @@ export default function AppScreen({
         </button>
         <div className="app-screen__header-title">
           <span className="app-screen__header-icon">
-            <DockIcon name={app.id} size={28} />
+            <DockIcon name={app.id} size={28} designSystem={designSystem} />
           </span>
           {app.moduleId && <span className="app-screen__header-code">{app.moduleId}</span>}
           <span className="app-screen__header-name">{app.title}</span>
@@ -43,6 +45,8 @@ export default function AppScreen({
         <WindowContent
           type={app.id}
           theme={theme}
+          designSystem={designSystem}
+          onDesignSystemChange={onDesignSystemChange}
           onThemeToggle={onThemeToggle}
           wallpaperColor={wallpaperColor}
           onWallpaperChange={onWallpaperChange}

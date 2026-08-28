@@ -127,6 +127,10 @@ export const translations = {
     },
     settings: {
       themeSection: '🎨 Тема оформления',
+      designSection: '🍎 Стиль интерфейса',
+      designTe: 'Teenage Engineering',
+      designApple: 'Apple',
+      designAriaLabel: 'Выбор стиля интерфейса',
       themeDark: 'Тёмная',
       themeLight: 'Светлая',
       langSection: '🌐 Язык интерфейса',
@@ -388,6 +392,10 @@ export const translations = {
     },
     settings: {
       themeSection: '🎨 Appearance',
+      designSection: '🍎 Interface style',
+      designTe: 'Teenage Engineering',
+      designApple: 'Apple',
+      designAriaLabel: 'Choose interface style',
       themeDark: 'Dark',
       themeLight: 'Light',
       langSection: '🌐 Interface Language',

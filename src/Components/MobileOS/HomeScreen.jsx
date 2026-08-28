@@ -5,7 +5,7 @@ import DockIcon from '../icons/DockIcon'
 
 const DOCK_APP_IDS = ['about', 'projects', 'skills', 'contact']
 
-export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme }) {
+export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme, designSystem = 'te' }) {
   const { t } = useLanguage()
   const [time, setTime] = useState(new Date())
 
@@ -49,7 +49,7 @@ export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme }) {
             style={{ '--app-accent': app.accent }}
           >
             <div className="app-icon__face">
-              <DockIcon name={app.id} size={44} />
+              <DockIcon name={app.id} size={44} designSystem={designSystem} />
             </div>
             <span className="app-icon__label">{app.title}</span>
           </button>
@@ -67,7 +67,7 @@ export default function HomeScreen({ apps, onOpenApp, wallpaperColor, theme }) {
               style={{ '--app-accent': app.accent }}
             >
               <div className="mobile-dock-icon__face">
-                <DockIcon name={app.id} size={36} />
+                <DockIcon name={app.id} size={36} designSystem={designSystem} />
               </div>
             </button>
           ))}

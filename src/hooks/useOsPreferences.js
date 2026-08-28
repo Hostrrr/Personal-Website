@@ -4,6 +4,9 @@ import { WALLPAPER_COLORS } from '../utils/osCommands'
 const THEME_KEY = 'portfolio_theme'
 const WALLPAPER_KEY = 'portfolio_wallpaper'
 const SOUND_KEY = 'portfolio_sound'
+const DESIGN_SYSTEM_KEY = 'portfolio_design_system'
+
+export const DESIGN_SYSTEMS = ['te', 'apple']
 
 function readTheme() {
   const saved = localStorage.getItem(THEME_KEY)
@@ -19,10 +22,16 @@ function readSoundEnabled() {
   return localStorage.getItem(SOUND_KEY) !== 'false'
 }
 
+function readDesignSystem() {
+  const saved = localStorage.getItem(DESIGN_SYSTEM_KEY)
+  return saved === 'apple' || saved === 'te' ? saved : 'te'
+}
+
 export function useOsPreferences() {
   const [theme, setThemeState] = useState(readTheme)
   const [wallpaperColor, setWallpaperState] = useState(readWallpaper)
   const [soundEnabled, setSoundEnabledState] = useState(readSoundEnabled)
+  const [designSystem, setDesignSystemState] = useState(readDesignSystem)
 
   const setTheme = useCallback((mode) => {
     if (mode !== 'light' && mode !== 'dark') return
@@ -48,6 +57,12 @@ export function useOsPreferences() {
     localStorage.setItem(SOUND_KEY, enabled ? 'true' : 'false')
   }, [])
 
+  const setDesignSystem = useCallback((system) => {
+    if (system !== 'te' && system !== 'apple') return
+    setDesignSystemState(system)
+    localStorage.setItem(DESIGN_SYSTEM_KEY, system)
+  }, [])
+
   return {
     theme,
     setTheme,
@@ -56,5 +71,7 @@ export function useOsPreferences() {
     setWallpaperColor,
     soundEnabled,
     setSoundEnabled,
+    designSystem,
+    setDesignSystem,
   }
 }

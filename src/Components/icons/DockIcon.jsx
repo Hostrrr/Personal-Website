@@ -7,6 +7,15 @@ import gameIcon from '../../assets/Icons/Snake.svg'
 import paintIcon from '../../assets/Icons/Paint.svg'
 import resumeIcon from '../../assets/Icons/Resume.svg'
 
+import aboutApple from '../../assets/Icons/apple/about.png'
+import projectsApple from '../../assets/Icons/apple/projects.png'
+import skillsApple from '../../assets/Icons/apple/skills.png'
+import contactApple from '../../assets/Icons/apple/contact.png'
+import settingsApple from '../../assets/Icons/apple/settings.png'
+import gameApple from '../../assets/Icons/apple/game.png'
+import paintApple from '../../assets/Icons/apple/paint.png'
+import resumeApple from '../../assets/Icons/apple/resume.png'
+
 const ICONS = {
   about: aboutIcon,
   projects: projectsIcon,
@@ -18,6 +27,17 @@ const ICONS = {
   resume: resumeIcon,
 }
 
+const APPLE_ICONS = {
+  about: aboutApple,
+  projects: projectsApple,
+  skills: skillsApple,
+  contact: contactApple,
+  settings: settingsApple,
+  game: gameApple,
+  paint: paintApple,
+  resume: resumeApple,
+}
+
 const YEGOS_PATHS = (
   <>
     <rect x="3" y="5" width="18" height="12" rx="1" />
@@ -27,8 +47,9 @@ const YEGOS_PATHS = (
   </>
 )
 
-export default function DockIcon({ name, size = 22, className = '' }) {
-  const src = ICONS[name]
+export default function DockIcon({ name, size = 22, className = '', designSystem = 'te' }) {
+  const iconSet = designSystem === 'apple' ? APPLE_ICONS : ICONS
+  const src = iconSet[name]
 
   if (src) {
     return (
@@ -37,7 +58,7 @@ export default function DockIcon({ name, size = 22, className = '' }) {
         alt=""
         width={size}
         height={size}
-        className={`dock-icon-img ${className}`.trim()}
+        className={`dock-icon-img ${designSystem === 'apple' ? 'dock-icon-img--apple' : ''} ${className}`.trim()}
         draggable={false}
         aria-hidden
       />

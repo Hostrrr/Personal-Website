@@ -14,12 +14,34 @@ export default function SettingsWindowContent({
   onWallpaperChange,
   soundEnabled = true,
   onSoundToggle,
+  designSystem = 'te',
+  onDesignSystemChange,
 }) {
   const { language, setLanguage, t } = useLanguage()
   const isDark = theme === 'dark'
 
   return (
     <div className="settings-root">
+      <div className="settings-section">
+        <div className="settings-section-label">{t.settings.designSection}</div>
+        <div className="design-switcher" role="group" aria-label={t.settings.designAriaLabel}>
+          <button
+            type="button"
+            className={`design-switcher__btn ${designSystem === 'te' ? 'design-switcher__btn--active' : ''}`}
+            onClick={() => onDesignSystemChange?.('te')}
+          >
+            {t.settings.designTe}
+          </button>
+          <button
+            type="button"
+            className={`design-switcher__btn ${designSystem === 'apple' ? 'design-switcher__btn--active' : ''}`}
+            onClick={() => onDesignSystemChange?.('apple')}
+          >
+            {t.settings.designApple}
+          </button>
+        </div>
+      </div>
+
       <div className="settings-section">
         <div className="settings-section-label">{t.settings.themeSection}</div>
 
