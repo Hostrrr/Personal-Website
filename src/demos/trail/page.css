@@ -13,8 +13,8 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
-  max-width: 980px;
-  margin-left: auto;
+  max-width: 860px;
+  margin: 0 auto;
   padding-bottom: 12px;
 }
 
@@ -29,7 +29,7 @@
   margin: 8px 0 0;
   color: #e7ffc8;
   font-family: 'Russo One', sans-serif;
-  font-size: clamp(72px, 14vw, 132px);
+  font-size: clamp(64px, 11vw, 108px);
   font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 0.8;
@@ -81,7 +81,7 @@
   display: grid;
   grid-template-columns: 72px 28px minmax(0, 1fr);
   gap: 8px 12px;
-  min-height: 132px;
+  min-height: 210px;
   align-items: start;
 }
 
@@ -171,7 +171,7 @@
 
   .tr-stop {
     grid-template-columns: 52px 16px minmax(0, 1fr);
-    min-height: 118px;
+    min-height: 148px;
   }
 
   .tr-seg {

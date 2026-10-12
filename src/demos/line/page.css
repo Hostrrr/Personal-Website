@@ -86,7 +86,7 @@
 }
 
 .ln-draw { stroke-width: 1.6; }
-.ln-dim { stroke-width: 0.6; animation-delay: 1.5s; }
+.ln-dim { stroke-width: 0.6; animation-delay: 0.7s; }
 .ln-draw--red { stroke: #c23b22; }
 
 .ln-tick {
@@ -153,13 +153,27 @@
   to { stroke-dashoffset: 0; }
 }
 
+.ln-draw,
+.ln-dim {
+  animation-duration: 0.9s;
+}
+
 @media (max-width: 800px) {
   .ln {
     padding: 68px 16px 24px;
   }
 
+  .ln-head {
+    align-items: flex-end;
+  }
+
   .ln-head h1 {
-    font-size: 28vw;
+    font-size: clamp(52px, 16vw, 76px);
+    transform: rotate(-4deg);
+  }
+
+  .ln-sheet-no {
+    font-size: 18px;
   }
 
   .ln-figs {

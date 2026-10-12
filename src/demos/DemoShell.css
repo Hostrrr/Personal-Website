@@ -1,6 +1,7 @@
 html:has(.demo-shell),
 html:has(.demo-shell) body {
-  overflow: auto;
+  overflow-x: clip;
+  overflow-y: auto;
   height: auto;
   border-radius: 0;
 }
@@ -10,7 +11,8 @@ html:has(.demo-shell) body {
 }
 
 html:has(.demo-shell) #root {
-  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
   height: auto;
   min-height: 100%;
   border-radius: 0;

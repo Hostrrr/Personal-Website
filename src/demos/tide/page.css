@@ -102,8 +102,8 @@
 
 .td-wave {
   position: absolute;
-  inset: 8% 0 6%;
-  width: 100%;
+  inset: 8% 12px 6%;
+  width: auto;
   height: 78%;
   overflow: visible;
   transform: translateY(var(--tide-shift));
@@ -175,22 +175,30 @@
 
 .td-column {
   display: none;
-  list-style: none;
   position: relative;
   margin: 28px 0 0;
-  padding: 0 0 0 28px;
+  padding: 0 0 0 36px;
 }
 
-.td-column::before {
-  content: '';
+.td-column ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.td-vsine {
   position: absolute;
-  left: 6px;
-  top: 4px;
-  bottom: 4px;
-  width: 2px;
-  background:
-    radial-gradient(circle at 1px 12%, #e2ff55 1.5px, transparent 2px) 0 0 / 2px 72px repeat-y,
-    #2a4552;
+  left: 0;
+  top: 8px;
+  width: 32px;
+  height: calc(100% - 16px);
+}
+
+.td-vsine path {
+  fill: none;
+  stroke: #8fb4c4;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
 }
 
 .td-column li {

@@ -79,7 +79,11 @@ export default function TidePage() {
         ))}
       </section>
 
-      <ol className="td-column">
+      <div className="td-column">
+        <svg className="td-vsine" viewBox="0 0 40 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M22 0 C 36 10, 6 22, 22 34 S 38 52, 16 66 S 8 84, 24 100" />
+        </svg>
+        <ol>
         {MARKS.map((mark) => (
           <li key={mark.time} className={mark.next ? 'is-next' : ''}>
             <span>{mark.time}</span>
@@ -87,7 +91,8 @@ export default function TidePage() {
             <small>{mark.level}</small>
           </li>
         ))}
-      </ol>
+        </ol>
+      </div>
 
       <footer className="td-foot">
         <p>зал у воды · Кадетская линия, 5</p>
