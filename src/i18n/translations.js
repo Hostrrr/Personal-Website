@@ -107,6 +107,26 @@ export const translations = {
           desc:
             'Пасьянс «Косынка» в терминале на Python и curses. Без зависимостей — только стандартная библиотека.',
         },
+        {
+          desc:
+            'Демо простого лендинга для вымышленной пекарни «Утро»: страница как кассовый чек, который печатается с 04:12.',
+        },
+        {
+          desc:
+            'Демо среднего лендинга для барбершопа «Север»: ближайшее окно и услуги, длина зарубки равна минутам стрижки.',
+        },
+        {
+          desc:
+            'Демо лендинга студии «Прилив»: день занятий построен как график уровня воды, а не как сетка карточек.',
+        },
+        {
+          desc:
+            'Премиум-демо бюро «Линия»: сайт как чертёжный лист A-01 со штампом, размерами и пометкой правки.',
+        },
+        {
+          desc:
+            'Showcase для снаряжения «Тропа»: каталог ведётся как ночной маршрут, вещи стоят на километраже.',
+        },
       ],
     },
     game: {
@@ -371,6 +391,26 @@ export const translations = {
         {
           desc:
             'Klondike Solitaire in your terminal with Python and curses. No dependencies — standard library only.',
+        },
+        {
+          desc:
+            'A simple landing for the fictional bakery Utro: the page is a till receipt that prints itself from 04:12.',
+        },
+        {
+          desc:
+            'A mid-level landing for Sever barbershop: the next chair and services, where the cut mark is as long as the haircut.',
+        },
+        {
+          desc:
+            'A landing for Priliv studio: the day of classes is a tide chart, not a grid of cards.',
+        },
+        {
+          desc:
+            'A premium landing for Liniya bureau: the site is drawing sheet A-01, with a title block, dimensions and a revision note.',
+        },
+        {
+          desc:
+            'A showcase for Tropa gear: the catalogue is a night route, and each piece sits on a kilometre mark.',
         },
       ],
     },

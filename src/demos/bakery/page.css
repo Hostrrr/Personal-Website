@@ -1,0 +1,139 @@
+.bk {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 72px 16px 48px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 244, 220, 0.05), transparent 36%),
+    #141210;
+  color: #1a1814;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 14px;
+}
+
+.bk-slip {
+  position: relative;
+  width: min(440px, 100%);
+  padding: 28px 22px 86px;
+  background:
+    linear-gradient(#efece4, #efece4) top / 100% 12px no-repeat,
+    linear-gradient(#efece4, #efece4) bottom / 100% 12px no-repeat,
+    radial-gradient(circle at 10px 0, transparent 7px, #efece4 7.5px) 0 0 / 20px 14px repeat-x,
+    radial-gradient(circle at 10px 100%, transparent 7px, #efece4 7.5px) 0 100% / 20px 14px repeat-x,
+    repeating-linear-gradient(
+      #f7f4ee,
+      #f7f4ee 27px,
+      rgba(20, 18, 16, 0.045) 28px
+    );
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+}
+
+.bk-kicker {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.bk-name {
+  margin: 8px 0 0;
+  font-family: Unbounded, sans-serif;
+  font-size: clamp(56px, 16vw, 84px);
+  font-weight: 700;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+}
+
+.bk-clock {
+  margin: 10px 0 18px;
+  font-family: Unbounded, sans-serif;
+  font-size: clamp(42px, 12vw, 64px);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.bk-tape {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bk-meta {
+  margin-top: 6px;
+  color: #3a342c;
+  font-size: 12px;
+}
+
+.bk-rule {
+  height: 0;
+  margin: 12px 0;
+  border-top: 1px dashed #1a1814;
+}
+
+.bk-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: baseline;
+  margin-top: 8px;
+}
+
+.bk-dots {
+  border-bottom: 1px dotted rgba(26, 24, 20, 0.55);
+  transform: translateY(-3px);
+}
+
+.bk-price {
+  font-variant-numeric: tabular-nums;
+}
+
+.bk-row.is-sum {
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.bk-stamp {
+  position: absolute;
+  right: 18px;
+  bottom: 28px;
+  width: 92px;
+  margin: 0;
+  padding: 8px 6px;
+  border: 2px solid #9d2b2b;
+  color: #9d2b2b;
+  font-family: Unbounded, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+}
+
+.bk-line {
+  animation: bk-print 0.32s steps(4, end) both;
+  animation-delay: calc(var(--i) * 70ms);
+}
+
+@keyframes bk-print {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (max-width: 480px) {
+  .bk-slip {
+    padding: 24px 14px 96px;
+  }
+
+  .bk-row {
+    font-size: 13px;
+  }
+}

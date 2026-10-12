@@ -1,0 +1,256 @@
+.td {
+  min-height: 100dvh;
+  padding: 76px 28px 36px;
+  background:
+    linear-gradient(#163244, transparent 28%),
+    #102028;
+  color: #e4d5c3;
+  font-family: Geologica, sans-serif;
+}
+
+.td-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.td-kicker,
+.td-foot,
+.td-gauge-label,
+.td-mark small,
+.td-column small {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.td-kicker {
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+.td-hero h1 {
+  margin: 0;
+  font-size: clamp(72px, 13vw, 148px);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.78;
+}
+
+.td-gauge {
+  display: grid;
+  grid-template-columns: auto 18px;
+  gap: 0 12px;
+  align-items: center;
+  min-width: 180px;
+}
+
+.td-gauge-label,
+.td-gauge em,
+.td-gauge span:last-child {
+  grid-column: 1;
+}
+
+.td-gauge strong {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+}
+
+.td-gauge em {
+  color: #e2ff55;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.td-gauge span:last-child {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-style: italic;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.td-gauge i {
+  grid-column: 2;
+  grid-row: 1 / span 4;
+  display: block;
+  width: 10px;
+  height: 112px;
+  border: 1px solid rgba(228, 213, 195, 0.45);
+  background:
+    repeating-linear-gradient(
+      transparent 0 14px,
+      rgba(228, 213, 195, 0.45) 14px 15px
+    );
+}
+
+.td-gauge b {
+  display: block;
+  height: 46%;
+  margin-top: 54%;
+  background: #e2ff55;
+}
+
+.td-board {
+  position: relative;
+  height: min(58vh, 520px);
+  min-height: 340px;
+  margin-top: 18px;
+  --tide-shift: 0px;
+}
+
+.td-wave {
+  position: absolute;
+  inset: 8% 0 6%;
+  width: 100%;
+  height: 78%;
+  overflow: visible;
+  transform: translateY(var(--tide-shift));
+}
+
+.td-fill {
+  fill: #183646;
+  stroke: none;
+  animation: td-breathe 7.5s ease-in-out infinite;
+}
+
+.td-line {
+  fill: none;
+  stroke: #e4d5c3;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: td-draw 2.4s ease forwards, td-breathe 7.5s ease-in-out 2.4s infinite;
+}
+
+.td-under {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transform: translateY(var(--tide-shift));
+}
+
+.td-mark {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: max-content;
+  max-width: 140px;
+  margin: 0;
+  transform: translate(-40%, -70%);
+}
+
+.td-mark span {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.td-mark em {
+  display: block;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 18px;
+  font-weight: 480;
+  line-height: 1.05;
+}
+
+.td-mark small {
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+  opacity: 0.72;
+}
+
+.td-mark.is-next,
+.td-column .is-next strong {
+  color: #e2ff55;
+}
+
+.td-column {
+  display: none;
+  list-style: none;
+  position: relative;
+  margin: 28px 0 0;
+  padding: 0 0 0 28px;
+}
+
+.td-column::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background:
+    radial-gradient(circle at 1px 12%, #e2ff55 1.5px, transparent 2px) 0 0 / 2px 72px repeat-y,
+    #2a4552;
+}
+
+.td-column li {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 10px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(228, 213, 195, 0.12);
+}
+
+.td-column strong {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.td-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 18px;
+  font-size: 12px;
+}
+
+.td-foot p {
+  margin: 0;
+}
+
+@keyframes td-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes td-breathe {
+  50% { transform: translateY(7px); }
+}
+
+@media (max-width: 760px) {
+  .td {
+    padding: 72px 18px 28px;
+  }
+
+  .td-hero {
+    display: block;
+  }
+
+  .td-gauge {
+    margin-top: 22px;
+    width: min(100%, 280px);
+  }
+
+  .td-board {
+    display: none;
+  }
+
+  .td-column {
+    display: block;
+  }
+
+  .td-foot {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,244 @@
+.br {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) 18px minmax(280px, 1.08fr);
+  background: #d5d2cb;
+  color: #1c1e1d;
+  font-family: Literata, Georgia, serif;
+}
+
+.br-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 88px 36px 40px;
+  background: #d5d2cb;
+}
+
+.br-kicker,
+.br-head p,
+.br-ticket label,
+.br-chosen {
+  margin: 0;
+  font-family: Oswald, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.br-time h1 {
+  margin: 8px 0 0;
+  font-family: Oswald, sans-serif;
+  font-size: clamp(96px, 14vw, 188px);
+  font-weight: 500;
+  line-height: 0.78;
+  letter-spacing: -0.04em;
+}
+
+.br-chair {
+  margin: 16px 0 0;
+  max-width: 16ch;
+  font-size: 22px;
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.br-place {
+  margin: 28px 0 0;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.br-pole {
+  background:
+    linear-gradient(#1c1e1d, #1c1e1d) 0 0 / 100% 100%,
+    #8fa58a;
+  box-shadow: inset 6px 0 0 #8fa58a;
+}
+
+.br-board {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 88px 36px 40px 32px;
+  background: #1c1e1d;
+  color: #d7d4cc;
+}
+
+.br-head h2 {
+  margin: 4px 0 0;
+  font-family: Oswald, sans-serif;
+  font-size: clamp(48px, 6vw, 72px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.br-ruler {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 22px,
+    rgba(215, 212, 204, 0.16) 22px 23px
+  );
+}
+
+.br-ruler button {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'blade mins'
+    'name mins'
+    'note mins';
+  width: 100%;
+  padding: 10px 0 14px;
+  border: 0;
+  border-bottom: 1px solid rgba(215, 212, 204, 0.16);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.br-blade {
+  grid-area: blade;
+  width: 10px;
+  height: 2px;
+  margin-bottom: 8px;
+  background: #8fa58a;
+  transform-origin: left center;
+  transition: width 0.45s ease;
+}
+
+.br-ruler button:hover .br-blade,
+.br-ruler button:focus-visible .br-blade,
+.br-ruler button.is-on .br-blade {
+  width: calc(var(--len) * 100%);
+}
+
+.br-cut-name {
+  grid-area: name;
+  font-family: Oswald, sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.br-cut-note {
+  grid-area: note;
+  margin-top: 4px;
+  color: rgba(215, 212, 204, 0.62);
+  font-size: 14px;
+  font-style: italic;
+}
+
+.br-mins {
+  grid-area: mins;
+  align-self: center;
+  font-family: Oswald, sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+}
+
+.br-ruler button:focus-visible {
+  outline: 1px solid #8fa58a;
+  outline-offset: 4px;
+}
+
+.br-ticket,
+.br-held {
+  margin-top: auto;
+  max-width: 360px;
+}
+
+.br-ticket label {
+  display: grid;
+  gap: 8px;
+}
+
+.br-ticket input {
+  border: 0;
+  border-bottom: 1px solid rgba(215, 212, 204, 0.45);
+  background: transparent;
+  color: #f3f0e8;
+  font-family: Literata, Georgia, serif;
+  font-size: 18px;
+  padding: 8px 0;
+}
+
+.br-ticket input:focus-visible {
+  outline: none;
+  border-bottom-color: #8fa58a;
+}
+
+.br-chosen {
+  margin-top: 16px;
+  color: #8fa58a;
+}
+
+.br-ticket button {
+  margin-top: 18px;
+  width: 100%;
+  padding: 14px 12px;
+  border: 0;
+  background: #8fa58a;
+  color: #1c1e1d;
+  font-family: Oswald, sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.br-ticket button:focus-visible {
+  outline: 2px solid #f3f0e8;
+  outline-offset: 3px;
+}
+
+.br-held {
+  padding-top: 8px;
+  font-size: 22px;
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.br-held span {
+  display: block;
+  margin-top: 10px;
+  font-family: Oswald, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8fa58a;
+}
+
+@media (max-width: 800px) {
+  .br {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 12px auto;
+  }
+
+  .br-time,
+  .br-board {
+    padding: 72px 20px 28px;
+  }
+
+  .br-time h1 {
+    font-size: 34vw;
+  }
+
+  .br-pole {
+    box-shadow: inset 0 5px 0 #8fa58a;
+  }
+
+  .br-cut-name {
+    font-size: 24px;
+  }
+}

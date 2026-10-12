@@ -1,0 +1,61 @@
+html:has(.demo-shell),
+html:has(.demo-shell) body {
+  overflow: auto;
+  height: auto;
+  border-radius: 0;
+}
+
+html:has(.demo-shell) body {
+  min-height: 100%;
+}
+
+html:has(.demo-shell) #root {
+  overflow: visible;
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
+}
+
+.demo-shell {
+  min-height: 100dvh;
+  color: #f4f1ea;
+}
+
+.demo-shell[data-demo='bakery'] { background: #141210; }
+.demo-shell[data-demo='barber'] { background: #d5d2cb; }
+.demo-shell[data-demo='tide'] { background: #102028; }
+.demo-shell[data-demo='line'] { background: #d9d3c6; }
+.demo-shell[data-demo='trail'] { background: #070907; }
+.demo-shell[data-demo='missing'] { background: #141210; }
+
+.demo-stamp {
+  position: fixed;
+  z-index: 30;
+  top: 14px;
+  left: 14px;
+  padding: 6px 8px;
+  border: 1px dashed #1a1a18;
+  background: #f4f1ea;
+  color: #1a1a18;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transform: rotate(-2deg);
+  box-shadow: 3px 3px 0 #1a1a18;
+}
+
+.demo-stamp:focus-visible {
+  outline: 2px solid #1a1a18;
+  outline-offset: 3px;
+}
+
+.demo-wait,
+.demo-missing {
+  margin: 0;
+  padding: 28vh 24px 24px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}

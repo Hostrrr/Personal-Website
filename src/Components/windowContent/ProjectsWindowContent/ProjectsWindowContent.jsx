@@ -50,6 +50,46 @@ const PROJECTS_BASE = [
     imgpath: "",
     emoji: "🃏"
   },
+  {
+    title: "Utro Bakery",
+    stack: "React / CSS",
+    github: "https://github.com/Hostrrr/Personal-Website",
+    live: "/demos/bakery",
+    imgpath: "",
+    emoji: "🥖"
+  },
+  {
+    title: "Sever Barbershop",
+    stack: "React / CSS",
+    github: "https://github.com/Hostrrr/Personal-Website",
+    live: "/demos/barber",
+    imgpath: "",
+    emoji: "✂️"
+  },
+  {
+    title: "Priliv Studio",
+    stack: "React / SVG",
+    github: "https://github.com/Hostrrr/Personal-Website",
+    live: "/demos/tide",
+    imgpath: "",
+    emoji: "🌊"
+  },
+  {
+    title: "Liniya Bureau",
+    stack: "React / SVG",
+    github: "https://github.com/Hostrrr/Personal-Website",
+    live: "/demos/line",
+    imgpath: "",
+    emoji: "📐"
+  },
+  {
+    title: "Tropa Route",
+    stack: "React / SVG",
+    github: "https://github.com/Hostrrr/Personal-Website",
+    live: "/demos/trail",
+    imgpath: "",
+    emoji: "🧭"
+  },
 ]
 
 export default function ProjectsWindowContent() {

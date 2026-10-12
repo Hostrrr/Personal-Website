@@ -1,0 +1,185 @@
+.tr {
+  min-height: 100dvh;
+  padding: 72px 28px 64px 20px;
+  background:
+    radial-gradient(circle at 80% 0%, rgba(182, 242, 122, 0.08), transparent 28%),
+    #070907;
+  color: #c6f59a;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+.tr-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 980px;
+  margin-left: auto;
+  padding-bottom: 12px;
+}
+
+.tr-hero p {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.tr-hero h1 {
+  margin: 8px 0 0;
+  color: #e7ffc8;
+  font-family: 'Russo One', sans-serif;
+  font-size: clamp(72px, 14vw, 132px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.8;
+}
+
+.tr-length {
+  margin-top: 12px;
+  color: #ff5a1f;
+  font-family: 'Russo One', sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  letter-spacing: 0.04em;
+}
+
+.tr-compass {
+  width: 84px;
+  height: 84px;
+  margin-top: 8px;
+  flex: none;
+  transition: transform 0.25s ease-out;
+}
+
+.tr-compass circle,
+.tr-compass path {
+  fill: none;
+  stroke: #c6f59a;
+  stroke-width: 1.4;
+}
+
+.tr-compass path:first-of-type {
+  fill: #ff5a1f;
+  stroke: none;
+}
+
+.tr-compass text {
+  fill: #c6f59a;
+  font-size: 10px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+.tr-stops {
+  list-style: none;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.tr-stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: 72px 28px minmax(0, 1fr);
+  gap: 8px 12px;
+  min-height: 132px;
+  align-items: start;
+}
+
+.tr-seg {
+  position: absolute;
+  left: 78px;
+  top: 14px;
+  width: 64px;
+  height: calc(100% - 8px);
+  overflow: visible;
+}
+
+.tr-seg path {
+  fill: none;
+  stroke: #ff5a1f;
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 160;
+  stroke-dashoffset: 160;
+}
+
+.tr-stop.is-drawn .tr-seg path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.7s linear;
+}
+
+.tr-km {
+  position: sticky;
+  top: 18px;
+  padding-top: 8px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.tr-node {
+  width: 9px;
+  height: 9px;
+  margin-top: 12px;
+  border: 1px solid #c6f59a;
+  background: #070907;
+  justify-self: center;
+}
+
+.tr-stop.is-drawn .tr-node {
+  background: #ff5a1f;
+  border-color: #ff5a1f;
+}
+
+.tr-body h2 {
+  margin: 6px 0 0;
+  color: #e7ffc8;
+  font-family: 'Russo One', sans-serif;
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.tr-body p {
+  max-width: 36ch;
+  margin: 8px 0 0;
+  color: rgba(198, 245, 154, 0.78);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.tr-body b {
+  display: inline-block;
+  margin-top: 8px;
+  color: #ff5a1f;
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .tr {
+    padding: 68px 14px 48px 10px;
+  }
+
+  .tr-hero {
+    margin-left: 0;
+  }
+
+  .tr-compass {
+    width: 64px;
+    height: 64px;
+  }
+
+  .tr-stop {
+    grid-template-columns: 52px 16px minmax(0, 1fr);
+    min-height: 118px;
+  }
+
+  .tr-seg {
+    left: 54px;
+    width: 42px;
+  }
+
+  .tr-km {
+    font-size: 12px;
+  }
+}
