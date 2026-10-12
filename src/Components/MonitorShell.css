@@ -18,12 +18,24 @@
   background: #f0efeb;
 }
 
-.monitor-top {
-  flex-shrink: 0;
-  padding: var(--monitor-bezel-top) var(--monitor-bezel-x) 10px;
+.monitor-display {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 0;
+  margin: var(--monitor-bezel-top) var(--monitor-bezel-x) 0;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.monitor-shell--off .monitor-top {
+.monitor-top {
+  flex-shrink: 0;
+  padding: 0 0 10px;
+}
+
+.monitor-shell--off .monitor-top,
+.monitor-shell--off .monitor-screen__live {
   visibility: hidden;
   pointer-events: none;
 }
@@ -32,11 +44,10 @@
   flex: 1;
   position: relative;
   overflow: hidden;
-  margin: 0 var(--monitor-bezel-x);
-  border-radius: 8px;
   min-height: 0;
   background: #000;
   box-shadow: inset 0 0 0 1px rgba(26, 26, 24, 0.12);
+  border-radius: 0 0 8px 8px;
 }
 
 .monitor-shell--dark .monitor-screen {
@@ -47,11 +58,6 @@
   width: 100%;
   height: 100%;
   position: relative;
-}
-
-.monitor-shell--off .monitor-screen__live {
-  visibility: hidden;
-  pointer-events: none;
 }
 
 .monitor-chin {

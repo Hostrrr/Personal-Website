@@ -117,8 +117,12 @@
   background: #1c1c1e;
 }
 
+[data-design-system='apple'] .monitor-display {
+  border-radius: 10px;
+}
+
 [data-design-system='apple'] .monitor-top {
-  padding: 10px 21px 0;
+  padding: 0;
 }
 
 [data-design-system='apple'] .taskbar {

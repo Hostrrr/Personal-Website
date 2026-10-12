@@ -33,23 +33,26 @@ export default function MonitorShell({
     <div
       className={`monitor-shell monitor-shell--${theme}${isPoweredOn ? '' : ' monitor-shell--off'}`}
     >
-      <div className="monitor-top">
-        <TaskBar theme={theme} {...taskBarProps} onShutdown={powerOff} />
-      </div>
-
-      <div className="monitor-screen">
-        <div className="monitor-screen__live" aria-hidden={!isPoweredOn}>
-          {children}
-          {showBootReveal && contentRef && (
-            <DesktopBootReveal
-              contentRef={contentRef}
-              wallpaperColor={wallpaperColor}
-              theme={theme}
-              onComplete={onBootComplete}
-              canReveal={canReveal}
-            />
-          )}
+      <div className="monitor-display">
+        <div className="monitor-top">
+          <TaskBar theme={theme} {...taskBarProps} onShutdown={powerOff} />
         </div>
+
+        <div className="monitor-screen">
+          <div className="monitor-screen__live" aria-hidden={!isPoweredOn}>
+            {children}
+            {showBootReveal && contentRef && (
+              <DesktopBootReveal
+                contentRef={contentRef}
+                wallpaperColor={wallpaperColor}
+                theme={theme}
+                onComplete={onBootComplete}
+                canReveal={canReveal}
+              />
+            )}
+          </div>
+        </div>
+
         {!isPoweredOn && <ScreenOffReflection />}
       </div>
 
