@@ -19,6 +19,10 @@ export const translations = {
       shutdown: 'Выключить',
       shutdownAlert: 'Выключение YegOS...',
     },
+    monitor: {
+      powerOff: 'Выключить монитор',
+      powerOn: 'Включить монитор',
+    },
     windowContent: {
       notFound: 'Контент не найден',
     },
@@ -303,6 +307,10 @@ export const translations = {
       resume: 'Resume',
       shutdown: 'Shutdown',
       shutdownAlert: 'Shutting down YegOS...',
+    },
+    monitor: {
+      powerOff: 'Turn monitor off',
+      powerOn: 'Turn monitor on',
     },
     windowContent: {
       notFound: 'Content not found',

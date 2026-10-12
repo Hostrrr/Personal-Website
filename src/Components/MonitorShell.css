@@ -18,24 +18,46 @@
   background: #f0efeb;
 }
 
+.monitor-display {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 0;
+  margin: var(--monitor-bezel-top) var(--monitor-bezel-x) 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 .monitor-top {
   flex-shrink: 0;
-  padding: var(--monitor-bezel-top) var(--monitor-bezel-x) 10px;
+  padding: 0 0 10px;
+}
+
+.monitor-shell--off .monitor-top,
+.monitor-shell--off .monitor-screen__live {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .monitor-screen {
   flex: 1;
   position: relative;
   overflow: hidden;
-  margin: 0 var(--monitor-bezel-x);
-  border-radius: 8px;
   min-height: 0;
   background: #000;
   box-shadow: inset 0 0 0 1px rgba(26, 26, 24, 0.12);
+  border-radius: 0 0 8px 8px;
 }
 
 .monitor-shell--dark .monitor-screen {
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.monitor-screen__live {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .monitor-chin {
@@ -43,6 +65,7 @@
   height: var(--monitor-bezel-chin);
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 calc(var(--monitor-bezel-x) + 4px) 10px;
 }
 
@@ -64,4 +87,54 @@
 .monitor-logo__os {
   color: var(--te-orange);
   font-weight: 700;
+}
+
+.monitor-power-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid rgba(26, 26, 24, 0.18);
+  border-radius: 50%;
+  background: linear-gradient(160deg, #ebeae6 0%, #d8d6d0 100%);
+  color: rgba(26, 26, 24, 0.45);
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 1px 2px rgba(0, 0, 0, 0.12);
+  transition:
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.12s ease;
+}
+
+.monitor-power-btn:hover {
+  color: rgba(26, 26, 24, 0.7);
+}
+
+.monitor-power-btn:active {
+  transform: scale(0.94);
+}
+
+.monitor-power-btn--on {
+  color: #ff5500;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 0 0 1px rgba(255, 85, 0, 0.18),
+    0 0 10px rgba(255, 85, 0, 0.35);
+}
+
+.monitor-shell--dark .monitor-power-btn {
+  border-color: rgba(0, 0, 0, 0.28);
+  background: linear-gradient(160deg, #e8e7e3 0%, #d2d0ca 100%);
+}
+
+.monitor-shell--dark .monitor-power-btn--on {
+  color: #ff6a1a;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 0 0 1px rgba(255, 106, 26, 0.22),
+    0 0 12px rgba(255, 85, 0, 0.4);
 }
