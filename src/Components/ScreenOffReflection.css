@@ -1,0 +1,53 @@
+.screen-off {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  overflow: hidden;
+  background: #000;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.screen-off__glass {
+  position: absolute;
+  inset: 0;
+  background: #050505;
+}
+
+.screen-off__camera {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  opacity: 0;
+  filter: brightness(0.35) contrast(1.05) saturate(0.55);
+  transition: opacity 0.45s ease;
+}
+
+.screen-off__camera--visible {
+  opacity: 0.42;
+}
+
+.screen-off__tint {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, rgba(0, 0, 0, 0.55) 70%, rgba(0, 0, 0, 0.85) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.screen-off__sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.02) 28%,
+    transparent 45%,
+    transparent 70%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  mix-blend-mode: screen;
+}

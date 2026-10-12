@@ -141,6 +141,16 @@
   border-radius: 0 0 10px 10px;
 }
 
+[data-design-system='apple'] .monitor-shell--dark .monitor-power-btn {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: linear-gradient(160deg, #3a3a3c 0%, #2c2c2e 100%);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+[data-design-system='apple'] .monitor-shell--dark .monitor-power-btn--on {
+  color: #ff6a1a;
+}
+
 [data-design-system='apple'] .start-button,
 [data-design-system='apple'] .taskbar-theme-toggle,
 [data-design-system='apple'] .taskbar-clock-plain {

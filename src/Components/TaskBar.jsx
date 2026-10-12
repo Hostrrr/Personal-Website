@@ -2,7 +2,7 @@ import './TaskBar.css'
 import { useState, useRef, useEffect } from 'react'
 import { useLanguage } from '../hooks/useLanguage'
 
-export default function TaskBar({ theme, onThemeToggle, onOpenWindow }) {
+export default function TaskBar({ theme, onThemeToggle, onOpenWindow, onShutdown }) {
   const { t, language } = useLanguage()
 
   const [isStartOpen, setIsStartOpen] = useState(false)
@@ -122,8 +122,9 @@ export default function TaskBar({ theme, onThemeToggle, onOpenWindow }) {
           <button
             className="menu-button danger"
             onClick={() => {
-              alert(t.taskbar.shutdownAlert)
               setIsStartOpen(false)
+              if (onShutdown) onShutdown()
+              else alert(t.taskbar.shutdownAlert)
             }}
           >
             <span className="menu-button__code">—</span>
