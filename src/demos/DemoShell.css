@@ -6,6 +6,11 @@ html:has(.demo-shell) body {
   border-radius: 0;
 }
 
+html:has(.demo-shell) {
+  scroll-behavior: smooth;
+  scroll-padding-top: 64px;
+}
+
 html:has(.demo-shell) body {
   min-height: 100%;
 }
@@ -18,7 +23,14 @@ html:has(.demo-shell) #root {
   border-radius: 0;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html:has(.demo-shell) {
+    scroll-behavior: auto;
+  }
+}
+
 .demo-shell {
+  position: relative;
   min-height: 100dvh;
   color: #f4f1ea;
 }
@@ -31,8 +43,8 @@ html:has(.demo-shell) #root {
 .demo-shell[data-demo='missing'] { background: #141210; }
 
 .demo-stamp {
-  position: fixed;
-  z-index: 30;
+  position: absolute;
+  z-index: 40;
   top: 14px;
   left: 14px;
   padding: 6px 8px;
