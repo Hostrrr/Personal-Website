@@ -66,6 +66,8 @@ export default function ScreenOffReflection() {
       />
       <div className="screen-off__tint" />
       <div className="screen-off__sheen" />
+      <div className="screen-off__grain" />
+      <div className="screen-off__scan" />
     </div>
   )
 }
